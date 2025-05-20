@@ -4,7 +4,6 @@ globs: ["src/**/*.ts", "src/**/*.tsx"]
 alwaysApply: true
 ---
 # コード規約
-
 ## ディレクトリ構造
 ```
 src/

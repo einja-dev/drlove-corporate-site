@@ -4,7 +4,6 @@ globs:
 alwaysApply: true
 ---
 # リファクタリング方針
-
 ## DRY原則（Don't Repeat Yourself）
 
 ### 基本方針
