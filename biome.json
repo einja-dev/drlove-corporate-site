@@ -1,0 +1,98 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "organizeImports": {
+    "enabled": true,
+    "ignore": ["node_modules/**"]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedVariables": "error"
+      },
+      "suspicious": {
+        "noExplicitAny": "error"
+      },
+      "style": {
+        "noNonNullAssertion": "error",
+        "useConst": "error"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100,
+    "ignore": []
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "es5",
+      "semicolons": "always"
+    }
+  },
+  "json": {
+    "parser": {
+      "allowComments": true,
+      "allowTrailingCommas": true
+    },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineWidth": 80
+    }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "maxSize": 2000000,
+    "ignoreUnknown": true,
+    "ignore": [
+      "**/node_modules/**",
+      "**/.next/**",
+      "**/.git/**",
+      "**/.history/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/coverage/**",
+      "**/.vercel/**",
+      "**/.yarn/**",
+      "**/.pnp.*",
+      "**/out/**",
+      "next-env.d.ts",
+      "package-lock.json",
+      "yarn.lock",
+      "pnpm-lock.yaml",
+      "**/*.md",
+      "**/*.mdc",
+      "**/*.svg",
+      "**/*.yml",
+      "**/*.yaml",
+      "**/*.sh",
+      "**/*.xml",
+      "**/*.ico",
+      "**/*.css",
+      "**/*.gitignore"
+    ]
+  },
+  "overrides": [
+    {
+      "include": ["**/*.test.ts", "**/tests/**/*.ts", "vitest.setup.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": "off"
+          }
+        }
+      }
+    }
+  ]
+}
