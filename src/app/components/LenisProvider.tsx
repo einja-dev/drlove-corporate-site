@@ -56,7 +56,7 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       }
       if (target && target.tagName === 'A') {
         const href = (target as HTMLAnchorElement).getAttribute('href');
-        if (href && href.startsWith('#')) {
+        if (href?.startsWith('#')) {
           const el = document.getElementById(href.slice(1));
           if (el && lenis.current) {
             e.preventDefault();
