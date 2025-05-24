@@ -25,9 +25,7 @@ const message = {
 
 const sectionStyle = css({
   width: '100%',
-  maxWidth: '1120px',
   margin: '0 auto',
-  padding: '96px 0',
   background: 'background',
   display: 'flex',
   flexDirection: 'column',
@@ -175,82 +173,91 @@ export default function MemberSection() {
   return (
     <section className={sectionStyle} id="member">
       <SectionTitle en="MEMBER" jp="メンバー紹介" />
-      <div className={mainCardStyle}>
-        <Image src="/figma-assets/bg_maincard.png" alt="bg" fill className={mainBgStyle} />
-        <div className={mainImgWrap}>
-          <Image src="/figma-assets/main_face.png" alt="水池愛香" fill className={mainImgStyle} />
+      <div
+        className={css({
+          width: '100%',
+          maxWidth: '1120px',
+          margin: '0 auto',
+          padding: '96px 0',
+        })}
+      >
+        <div className={mainCardStyle}>
+          <Image src="/figma-assets/bg_maincard.png" alt="bg" fill className={mainBgStyle} />
+          <div className={mainImgWrap}>
+            <Image src="/figma-assets/main_face.png" alt="水池愛香" fill className={mainImgStyle} />
+          </div>
+          <div className={mainTextWrap}>
+            <div>
+              <span className={mainNameStyle}>水池 愛香</span>
+              <span className={mainNameEnStyle}>- Aika Mizuike -</span>
+            </div>
+            <div className={mainDescStyle}>
+              愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。
+              <br />
+              <br />
+              愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。
+              <br />
+              <br />
+              愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。
+            </div>
+          </div>
         </div>
-        <div className={mainTextWrap}>
-          <div>
-            <span className={mainNameStyle}>水池 愛香</span>
-            <span className={mainNameEnStyle}>- Aika Mizuike -</span>
+        <div className={subCardsWrap}>
+          <div className={subCardStyle}>
+            <Image src="/figma-assets/bg_leftcard.png" alt="bg" fill className={subBgStyle} />
+            <div style={{ zIndex: 2, position: 'relative', width: '100%' }}>
+              <span className={subNameStyle('#3B5B9B')}>長谷川 エミ</span>
+              <span className={subNameEnStyle('#3B5B9B')}>- Emi Hasegawa -</span>
+            </div>
+            <div className={subDescStyle}>
+              私は過去の経験から、見た目に強く悩み、美容整形に出会ったことで初めて「笑顔になれる自分」に出会えた。
+              <br />
+              <br />
+              自分を幸せにする「ミッション」は衝撃でした。そこからDr.Loveに出会えて、「世の中の人を幸せにする」ミッションに共感できた。
+              <br />
+              <br />
+              私が感じた「新しい自分に出会える喜び」を他の中の人たちにも感じてほしいし、Dr.Loveを通して感じてほしい。
+              <br />
+              <br />
+              日本の未来をもっと明るく幸せが溢れる世の中にするために。心も身体も元気になるために。
+              <br />
+              <br />
+              Dr.Loveを通してもっと世界を幸せにします。
+            </div>
+            <Image
+              src="/figma-assets/left_face.png"
+              alt="長谷川エミ"
+              width={180}
+              height={180}
+              className={subImgStyle}
+            />
           </div>
-          <div className={mainDescStyle}>
-            愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。
-            <br />
-            <br />
-            愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。
-            <br />
-            <br />
-            愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。
+          <div className={subCardStyle}>
+            <Image src="/figma-assets/bg_rightcard.png" alt="bg" fill className={subBgStyle} />
+            <div style={{ zIndex: 2, position: 'relative', width: '100%' }}>
+              <span className={subNameStyle('#3CB48A')}>松崎 星哉</span>
+              <span className={subNameEnStyle('#3CB48A')}>- Seiya Matsuzaki -</span>
+            </div>
+            <div className={subDescStyle}>
+              自信がある日もある。でも、将来が不安で眠れない夜もある。そんな自分に、そっと寄り添ってくれる存在がいたら…そう思ったことが、何度もありました。
+              <br />
+              <br />
+              心の病に向き合えない。誰にも話せずに苦しんでいる人たち。そして、それに気づきながらも、何もできなかった自分。
+              <br />
+              <br />
+              このままじゃダメだと思った。本気で向き合って、変えていきたい。誰もが、ひとりじゃないと思える社会をつくりたい。
+              <br />
+              <br />
+              Dr.Loveは、その第一歩です。
+            </div>
+            <Image
+              src="/figma-assets/right_face.png"
+              alt="松崎星哉"
+              width={180}
+              height={180}
+              className={subImgStyle}
+            />
           </div>
-        </div>
-      </div>
-      <div className={subCardsWrap}>
-        <div className={subCardStyle}>
-          <Image src="/figma-assets/bg_leftcard.png" alt="bg" fill className={subBgStyle} />
-          <div style={{ zIndex: 2, position: 'relative', width: '100%' }}>
-            <span className={subNameStyle('#3B5B9B')}>長谷川 エミ</span>
-            <span className={subNameEnStyle('#3B5B9B')}>- Emi Hasegawa -</span>
-          </div>
-          <div className={subDescStyle}>
-            私は過去の経験から、見た目に強く悩み、美容整形に出会ったことで初めて「笑顔になれる自分」に出会えた。
-            <br />
-            <br />
-            自分を幸せにする「ミッション」は衝撃でした。そこからDr.Loveに出会えて、「世の中の人を幸せにする」ミッションに共感できた。
-            <br />
-            <br />
-            私が感じた「新しい自分に出会える喜び」を他の中の人たちにも感じてほしいし、Dr.Loveを通して感じてほしい。
-            <br />
-            <br />
-            日本の未来をもっと明るく幸せが溢れる世の中にするために。心も身体も元気になるために。
-            <br />
-            <br />
-            Dr.Loveを通してもっと世界を幸せにします。
-          </div>
-          <Image
-            src="/figma-assets/left_face.png"
-            alt="長谷川エミ"
-            width={180}
-            height={180}
-            className={subImgStyle}
-          />
-        </div>
-        <div className={subCardStyle}>
-          <Image src="/figma-assets/bg_rightcard.png" alt="bg" fill className={subBgStyle} />
-          <div style={{ zIndex: 2, position: 'relative', width: '100%' }}>
-            <span className={subNameStyle('#3CB48A')}>松崎 星哉</span>
-            <span className={subNameEnStyle('#3CB48A')}>- Seiya Matsuzaki -</span>
-          </div>
-          <div className={subDescStyle}>
-            自信がある日もある。でも、将来が不安で眠れない夜もある。そんな自分に、そっと寄り添ってくれる存在がいたら…そう思ったことが、何度もありました。
-            <br />
-            <br />
-            心の病に向き合えない。誰にも話せずに苦しんでいる人たち。そして、それに気づきながらも、何もできなかった自分。
-            <br />
-            <br />
-            このままじゃダメだと思った。本気で向き合って、変えていきたい。誰もが、ひとりじゃないと思える社会をつくりたい。
-            <br />
-            <br />
-            Dr.Loveは、その第一歩です。
-          </div>
-          <Image
-            src="/figma-assets/right_face.png"
-            alt="松崎星哉"
-            width={180}
-            height={180}
-            className={subImgStyle}
-          />
         </div>
       </div>
     </section>
