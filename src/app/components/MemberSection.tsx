@@ -168,9 +168,6 @@ const subImgStyle = css({
   height: '180px',
   objectFit: 'cover',
   zIndex: 3,
-  boxShadow: '0 8px 32px rgba(0,0,0,0.10)',
-  background: '#fff',
-  border: '4px solid #fff',
 });
 
 export default function MemberSection() {
