@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { css } from '../../../styled-system/css';
 
+const messageCatch = 'Bloom from pain. 痛みから咲く。';
+
 const messageLead = `人生はいつも思い通りじゃない、傷つくことも泣きたい夜もある。
 でもあなたの物語はあなたが主役。
 笑えない日々を超えて笑顔で立ち上がったその瞬間にこそ、本当の愛と幸せがあなたを抱きしめに来る。
@@ -24,8 +26,6 @@ Dr.Loveは、「相談することが当たり前」になる文化をつくり�
 心に小さな光を灯すように、自信を取り戻すきっかけを届け続けること。
 それこそが、Dr.Loveの存在意義です。`;
 
-const messageCatch = 'Bloom from pain. 痛みから咲く。';
-
 export default function MessageSection() {
   return (
     <section
@@ -43,9 +43,8 @@ export default function MessageSection() {
         className={css({
           background: 'background',
           width: '100%',
-          height: 'calc(100svh - 32px)',
           margin: '0 auto',
-          padding: '40px 32px',
+          padding: '64px 24px',
           display: 'flex',
           flexDirection: 'column',
           gap: '32px',
@@ -54,7 +53,6 @@ export default function MessageSection() {
           overflow: 'hidden',
           borderRadius: '40px',
           md: {
-            height: 'calc(100svh - 80px)',
             padding: '80px',
             gap: '48px',
           },
@@ -167,9 +165,6 @@ export default function MessageSection() {
                 color: '#444',
                 textAlign: 'left',
                 fontSize: 'clamp(0.9rem, 1.2vw, 2rem)',
-                md: {
-                  maxWidth: '68%',
-                },
               })}
             >
               {messageLead}

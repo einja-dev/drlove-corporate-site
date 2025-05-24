@@ -45,5 +45,31 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
     };
   }, []);
 
+  useEffect(() => {
+    if (!LENIS_ENABLED) return;
+
+    function handleClick(e: MouseEvent) {
+      let target = e.target as HTMLElement | null;
+      // aタグでなくても親にaがある場合を考慮
+      while (target && target.tagName !== 'A') {
+        target = target?.parentElement;
+      }
+      if (target && target.tagName === 'A') {
+        const href = (target as HTMLAnchorElement).getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const el = document.getElementById(href.slice(1));
+          if (el && lenis.current) {
+            e.preventDefault();
+            lenis.current.scrollTo(el, { offset: -80 }); // ヘッダー分オフセット
+          }
+        }
+      }
+    }
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
+
   return <>{children}</>;
 }
