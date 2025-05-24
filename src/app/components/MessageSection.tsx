@@ -44,13 +44,13 @@ export default function MessageSection() {
             display: 'inline-block',
             fontFamily: 'Noto Serif JP, serif',
             fontWeight: 600,
-            fontSize: 'clamp(1rem, 4.5vw, 4rem)',
+            fontSize: 'clamp(1rem, 4vw, 4rem)',
             lineHeight: 1.8,
             color: '#444',
             textAlign: 'left',
             marginBottom: '16px',
             md: {
-              fontSize: 'clamp(1.4rem, 3.5vw, 4rem)',
+              fontSize: 'clamp(1.4rem, 3vw, 4rem)',
               marginBottom: '24px',
             },
           })}
@@ -130,7 +130,7 @@ export default function MessageSection() {
               lineHeight: 2.4,
               color: '#444',
               textAlign: 'left',
-              fontSize: 'clamp(0.9rem, 1.6vw, 3rem)',
+              fontSize: 'clamp(0.9rem, 1.2vw, 2rem)',
               md: {
                 maxWidth: '68%',
               },

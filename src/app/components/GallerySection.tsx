@@ -148,7 +148,7 @@ const decorations = [
 
 export default function GallerySection() {
   return (
-    <section className={sectionStyle}>
+    <section className={sectionStyle} id="gallery">
       <div className={galleryWrap}>
         {/* 装飾（もやもや） */}
         {decorations.map((dec) => (
@@ -173,27 +173,6 @@ export default function GallerySection() {
               height={220}
               priority
             />
-            {/* 説明文があれば下部に表示（例として） */}
-            {img.description && (
-              <div
-                style={{
-                  position: 'absolute',
-                  left: 0,
-                  bottom: 0,
-                  width: '100%',
-                  background: 'rgba(255,255,255,0.7)',
-                  color: '#444',
-                  fontSize: '13px',
-                  padding: '4px 8px',
-                  borderBottomLeftRadius: 16,
-                  borderBottomRightRadius: 16,
-                  boxSizing: 'border-box',
-                  textAlign: 'center',
-                }}
-              >
-                {img.description}
-              </div>
-            )}
           </div>
         ))}
       </div>

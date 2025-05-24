@@ -78,15 +78,16 @@ export default function HeaderSection() {
       <div className={logoNavWrapStyle}>
         <div className={logoStyle}>Dr. Love</div>
         <nav className={navStyle}>
-          <Link href="/">ミッション</Link>
-          <Link href="/">サービス</Link>
-          <Link href="/">メンバー紹介</Link>
-          <Link href="/">ニュース</Link>
-          <Link href="/">採用情報</Link>
-          <Link href="/">会社概要</Link>
-          <Link href="/">ギャラリー</Link>
+          <Link href="#service">サービス</Link>
+          <Link href="#member">メンバー紹介</Link>
+          <Link href="#news">ニュース</Link>
+          <Link href="#recruit">採用情報</Link>
+          <Link href="#company">会社概要</Link>
+          <Link href="#gallery">ギャラリー</Link>
         </nav>
-        <button type="button" className={mobileMenuButtonStyle}>☰</button>
+        <button type="button" className={mobileMenuButtonStyle}>
+          ☰
+        </button>
       </div>
     </header>
   );

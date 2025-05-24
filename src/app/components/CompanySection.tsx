@@ -64,7 +64,7 @@ const companyInfo = [
 
 export default function CompanySection() {
   return (
-    <section className={sectionStyle}>
+    <section className={sectionStyle} id="company">
       <SectionTitle en="COMPANY" jp="会社概要" />
       <table className={tableStyle}>
         <tbody>

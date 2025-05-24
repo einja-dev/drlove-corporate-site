@@ -72,7 +72,7 @@ export default function RecruitSection() {
   const { sizeType } = useWindowSize();
   const isMobile = sizeType === 'xs' || sizeType === 'sm';
   return (
-    <section className={sectionStyle}>
+    <section className={sectionStyle} id="recruit">
       <div className={cardStyle}>
         <Image src="/figma-assets/recruit_bg.png" alt="recruit bg" fill className={bgImgStyle} />
         <div className={titleStyle}>私たちと一緒に働きませんか？</div>
