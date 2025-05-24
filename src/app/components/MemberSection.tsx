@@ -28,10 +28,11 @@ const sectionStyle = css({
   maxWidth: '1120px',
   margin: '0 auto',
   padding: '96px 0',
-  background: '#fff',
+  background: 'background',
   display: 'flex',
   flexDirection: 'column',
   gap: '64px',
+  zIndex: 1,
 });
 
 const mainCardStyle = css({

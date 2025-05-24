@@ -17,6 +17,7 @@ export default defineConfig({
         orangeHeading: { value: '#FF8A5C' },
         blueHeading: { value: '#618BFF' },
         greenHeading: { value: '#A2E0AE' },
+        background: { value: '#fff' },
       },
     },
     extend: {},

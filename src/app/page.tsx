@@ -19,6 +19,7 @@ const mainContainer = css({
   flexDirection: 'column',
   alignItems: 'center',
   background: '#fff',
+  position: 'relative',
 });
 
 const contentWrapper = css({

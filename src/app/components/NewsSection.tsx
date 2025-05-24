@@ -6,10 +6,11 @@ const sectionStyle = css({
   width: '100%',
   margin: '0 auto',
   padding: '96px 0',
-  background: '#fff',
+  background: 'background',
   display: 'flex',
   flexDirection: 'column',
   gap: '48px',
+  zIndex: 1,
 });
 
 const newsListStyle = css({

@@ -1,21 +1,32 @@
+'use client';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { css } from '../../../styled-system/css';
 
 const headerStyle = css({
-  position: 'sticky',
+  position: 'fixed',
   top: 0,
   left: 0,
-  width: '100%',
-  zIndex: 9999,
+  width: '100vw',
+  zIndex: 100,
+  transition: 'opacity 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1)',
+  opacity: 0,
+  pointerEvents: 'none',
+  transform: 'translateY(-24px)',
+  background: '#fff !important',
+  boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
+  boxSizing: 'border-box',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   padding: '8px 16px',
-  background: '#fff !important',
-  boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
-  boxSizing: 'border-box',
   md: {
     padding: '8px 40px',
+  },
+  '&.visible': {
+    opacity: 1,
+    pointerEvents: 'auto',
+    transform: 'translateY(0)',
   },
 });
 
@@ -73,8 +84,19 @@ const mobileMenuButtonStyle = css({
 });
 
 export default function HeaderSection() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setVisible(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <header className={headerStyle}>
+    <header className={`${headerStyle} ${visible ? 'visible' : ''}`}>
       <div className={logoNavWrapStyle}>
         <div className={logoStyle}>Dr. Love</div>
         <nav className={navStyle}>

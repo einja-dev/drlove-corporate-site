@@ -13,23 +13,28 @@ const heroSection = css({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  position: 'sticky',
-  top: '64px',
   bg: '#fff',
+
+  position: 'sticky',
+  top: '16px',
   md: {
+    top: '40px',
     p: '0 40px',
   },
 });
 
 const heroContainer = css({
   w: '100%',
-  height: 'calc(100vh - 100px)',
+  height: 'calc(100svh - 32px)',
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  borderRadius: '16px',
+  borderRadius: '40px',
   position: 'relative',
+  md: {
+    height: 'calc(100svh - 80px)',
+  },
 });
 
 const heroImageWrap = css({
@@ -50,7 +55,7 @@ const BASE = 130; // 100より大きいほど下が基準
 
 const heroTextContainer = css({
   position: 'absolute',
-  top: '4vh',
+  top: '4svh',
   right: '4%',
   margin: '0 auto',
   width: '70%',
@@ -62,17 +67,17 @@ const heroTextContainer = css({
   // アスペクト比 0 〜 1/2（超縦長）
   '@media (max-aspect-ratio: 1/2)': {
     width: '80%',
-    top: '20vh',
+    top: '20svh',
     md: {
-      top: '28vh',
+      top: '28svh',
     },
   },
 
   // アスペクト比 1/2 〜 2/3
   '@media (min-aspect-ratio: 1/2) and (max-aspect-ratio: 2/3)': {
-    top: '14vh',
+    top: '14svh',
     md: {
-      top: '18vh',
+      top: '18svh',
     },
   },
 
@@ -84,18 +89,18 @@ const heroTextContainer = css({
 
   // 画面のアスペクト比（横÷縦）が7:5（=1.4）以上横長のとき
   '@media (min-aspect-ratio: 7/5)': {
-    top: '5vh',
+    top: '5svh',
     right: '2%',
     width: '45%',
   },
   md: {
-    top: '7vh',
+    top: '7svh',
     right: '2%',
     width: '65%',
     transform: 'none',
   },
   lg: {
-    top: '10vh',
+    top: '10svh',
     right: '4%',
     width: '55%',
   },

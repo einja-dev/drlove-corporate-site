@@ -12,7 +12,8 @@ const sectionStyle = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  background: '#fff',
+  background: 'background',
+  zIndex: 1,
   md: {
     padding: '120px 0 0 0',
   },

@@ -11,6 +11,10 @@ const tokens = {
     "value": "#A2E0AE",
     "variable": "var(--colors-green-heading)"
   },
+  "colors.background": {
+    "value": "#fff",
+    "variable": "var(--colors-background)"
+  },
   "breakpoints.sm": {
     "value": "640px",
     "variable": "var(--breakpoints-sm)"

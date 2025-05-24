@@ -9,7 +9,8 @@ const sectionStyle = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '40px',
-  background: '#fff',
+  background: 'background',
+  zIndex: 1,
 });
 
 const tableStyle = css({

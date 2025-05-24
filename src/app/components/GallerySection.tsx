@@ -3,7 +3,7 @@ import { css } from '../../../styled-system/css';
 
 const sectionStyle = css({
   width: '100%',
-  background: '#fff',
+  background: 'background',
   position: 'relative',
   overflow: 'hidden',
   minHeight: 'clamp(480px, 70vw, 800px)',
@@ -11,6 +11,7 @@ const sectionStyle = css({
   justifyContent: 'center',
   alignItems: 'center',
   padding: '0',
+  zIndex: 1,
 });
 
 const galleryWrap = css({

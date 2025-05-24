@@ -6,9 +6,10 @@ import { SectionTitle } from './SectionTitle';
 const sectionStyle = css({
   width: '100%',
   position: 'relative',
-  background: '#fff',
+  background: 'background',
   overflow: 'hidden',
   padding: '32px',
+  zIndex: 1,
   md: {
     padding: '64px',
   },

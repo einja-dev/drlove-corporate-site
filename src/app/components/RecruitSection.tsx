@@ -6,12 +6,13 @@ import { PrimaryButton } from './PrimaryButton';
 
 const sectionStyle = css({
   width: '100%',
-  background: '#fff',
+  background: 'background',
   padding: '32px 16px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   position: 'relative',
+  zIndex: 1,
   md: {
     padding: '40px 32px',
   },

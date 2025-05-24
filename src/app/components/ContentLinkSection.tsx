@@ -8,7 +8,10 @@ const sectionStyle = css({
   gridTemplateColumns: '1fr',
   gap: '24px',
   padding: '32px 24px',
-  background: '#fff',
+  background: 'background',
+  zIndex: 1,
+  position: 'relative',
+
   md: {
     gridTemplateColumns: 'repeat(3, 1fr)',
     gap: '32px',

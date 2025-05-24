@@ -1,9 +1,9 @@
 /* eslint-disable */
-export type Token = "colors.orangeHeading" | "colors.blueHeading" | "colors.greenHeading" | "breakpoints.sm" | "breakpoints.md" | "breakpoints.lg" | "breakpoints.xl" | "breakpoints.2xl" | "sizes.breakpoint-sm" | "sizes.breakpoint-md" | "sizes.breakpoint-lg" | "sizes.breakpoint-xl" | "sizes.breakpoint-2xl" | "colors.colorPalette"
+export type Token = "colors.orangeHeading" | "colors.blueHeading" | "colors.greenHeading" | "colors.background" | "breakpoints.sm" | "breakpoints.md" | "breakpoints.lg" | "breakpoints.xl" | "breakpoints.2xl" | "sizes.breakpoint-sm" | "sizes.breakpoint-md" | "sizes.breakpoint-lg" | "sizes.breakpoint-xl" | "sizes.breakpoint-2xl" | "colors.colorPalette"
 
-export type ColorPalette = "orangeHeading" | "blueHeading" | "greenHeading"
+export type ColorPalette = "orangeHeading" | "blueHeading" | "greenHeading" | "background"
 
-export type ColorToken = "orangeHeading" | "blueHeading" | "greenHeading" | "colorPalette"
+export type ColorToken = "orangeHeading" | "blueHeading" | "greenHeading" | "background" | "colorPalette"
 
 export type BreakpointToken = "sm" | "md" | "lg" | "xl" | "2xl"
 
