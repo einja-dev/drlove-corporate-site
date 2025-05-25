@@ -19,7 +19,7 @@ const heroSection = css({
   top: '16px',
   md: {
     top: '40px',
-    p: '0 40px',
+    p: '0 24px',
   },
 });
 
@@ -75,6 +75,7 @@ const heroTextContainer = css({
 
   // アスペクト比 1/2 〜 2/3
   '@media (min-aspect-ratio: 1/2) and (max-aspect-ratio: 2/3)': {
+    width: '75%',
     top: '14svh',
     md: {
       top: '18svh',
@@ -82,9 +83,10 @@ const heroTextContainer = css({
   },
 
   // アスペクト比 2/3 〜 3/4
-  '@media (max-aspect-ratio: 3/4)': {
-    right: '50%',
-    transform: 'translateX(50%)',
+  '@media  (min-aspect-ratio: 2/3)　 and (max-aspect-ratio: 3/4)': {
+    width: '75%',
+    top: '10svh',
+    right: '2%',
   },
 
   // 画面のアスペクト比（横÷縦）が7:5（=1.4）以上横長のとき

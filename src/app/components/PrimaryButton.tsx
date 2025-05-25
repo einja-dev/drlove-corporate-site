@@ -5,55 +5,62 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   gradText?: boolean;
   borderRadiusType?: 'default' | 'special';
   size?: 'default' | 'small';
+  gradientBorder?: boolean;
 };
 
-export function PrimaryButton({
-  children,
-  variant = 'primary',
-  gradText = false,
-  borderRadiusType = 'default',
-  size = 'default',
-  ...props
-}: Props) {
-  const style = css({
-    display: 'inline-block',
-    fontFamily: 'M+ 1m',
-    fontWeight: 700,
-    fontSize: size === 'small' ? '15px' : '20px',
-    lineHeight: '1.5',
-    padding: size === 'small' ? '10px 24px' : '20px 48px',
-    border: 'none',
-    borderRadius: borderRadiusType === 'special' ? '24px 8px 24px 8px' : '32px',
-    background: variant === 'primary' ? 'linear-gradient(90deg, #FF749D 0%, #FFB374 100%)' : '#fff',
-    color: variant === 'primary' ? '#fff' : '#FF749D',
-    boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
-    cursor: 'pointer',
-    transition: 'opacity 0.2s',
-    textAlign: 'center',
-    margin: '0 auto',
-    _hover: {
-      opacity: 0.85,
-    },
-  });
+export const primaryButtonStyle = css({
+  position: 'relative',
+  border: 'none',
+  borderRadius: '50px',
+  background: '#fff',
+  color: '#FF749D',
+  fontFamily: "'M PLUS 1p', 'M+ 1p', sans-serif",
+  fontWeight: 700,
+  fontSize: '15px',
+  padding: '6px 24px',
+  zIndex: 1,
+  cursor: 'pointer',
+  overflow: 'hidden',
+  _before: {
+    content: '""',
+    position: 'absolute',
+    inset: 0,
+    borderRadius: '50px',
+    padding: '1.5px',
+    background: 'linear-gradient(90deg, #FF749D 0%, #FFB374 100%)',
+    mask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)' as unknown as string,
+    maskComposite: 'exclude' as unknown as string,
+    WebkitMask:
+      'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)' as unknown as string,
+    WebkitMaskComposite: 'xor' as unknown as string,
+    pointerEvents: 'none',
+    zIndex: 0,
+  },
 
+  lg: {
+    padding: '6px 24px',
+  },
+});
+
+export const primaryButtonTextStyle = css({
+  backgroundImage: 'linear-gradient(90deg, #FF749D 0%, #FFB374 100%)',
+  backgroundClip: 'text' as unknown as string,
+  color: 'transparent' as unknown as string,
+  display: 'inline-block',
+  fontWeight: 700,
+  fontSize: '16px',
+  position: 'relative',
+  top: '1px',
+
+  lg: {
+    fontSize: '20px',
+  },
+});
+
+export function PrimaryButton({ children, gradText, borderRadiusType, ...props }: Props) {
   return (
-    <button className={style} {...props}>
-      {gradText ? (
-        <span
-          style={{
-            backgroundImage: 'linear-gradient(90deg, #FF749D 0%, #FFB374 100%)',
-            backgroundClip: 'text',
-            WebkitBackgroundClip: 'text',
-            color: 'transparent',
-            WebkitTextFillColor: 'transparent',
-            display: 'inline-block',
-          }}
-        >
-          {children}
-        </span>
-      ) : (
-        children
-      )}
+    <button className={primaryButtonStyle} {...props}>
+      <span className={primaryButtonTextStyle}>{children}</span>
     </button>
   );
 }

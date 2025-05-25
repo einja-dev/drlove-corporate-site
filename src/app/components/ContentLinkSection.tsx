@@ -1,9 +1,8 @@
 'use client';
 import { css } from '@/styled-system/css';
-import gsap from 'gsap';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useEffect, useRef } from 'react';
+import { useFadeInOnScroll } from '../hooks/useFadeInOnScroll';
 import { SectionTitle } from './SectionTitle';
 import { Spacer } from './Spacer';
 
@@ -137,76 +136,10 @@ const items = [
 ];
 
 export default function ContentLinkSection() {
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-
-  // refを安定化させるためのコールバック
-  const setCardRef = useCallback((el: HTMLDivElement | null, idx: number) => {
-    cardRefs.current[idx] = el;
-  }, []);
-
-  useEffect(() => {
-    let detach: (() => void) | null = null;
-    const handler = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const total = rect.height;
-      const scrolled = windowHeight - rect.top;
-      const progress = Math.min(1, Math.max(0, scrolled / total));
-      // progress 0.0〜1.0
-      // 0.2で1枚目、0.45で2枚目、0.7で3枚目
-      const thresholds = [0.2, 0.45, 0.7];
-      cardRefs.current.forEach((el, i) => {
-        if (!el) return;
-        if (progress > thresholds[i]) {
-          gsap.to(el, {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            delay: i * 0.05,
-            ease: 'power2.out',
-            transform: 'skewX(-8deg) translateY(0px)',
-          });
-        } else {
-          gsap.to(el, {
-            opacity: 0,
-            y: 40,
-            duration: 0.4,
-            ease: 'power2.in',
-            transform: 'skewX(-8deg) translateY(40px)',
-          });
-        }
-      });
-    };
-    // Lenis対応
-    type LenisType = {
-      on?: (event: string, fn: () => void) => void;
-      off?: (event: string, fn: () => void) => void;
-    };
-    const win = window as unknown as { lenis?: LenisType };
-    const lenis = win.lenis;
-    if (lenis && typeof lenis.on === 'function' && typeof lenis.off === 'function') {
-      lenis.on('scroll', handler);
-      detach = () => {
-        lenis.off?.('scroll', handler);
-      };
-    } else {
-      window.addEventListener('scroll', handler);
-      window.addEventListener('resize', handler);
-      detach = () => {
-        window.removeEventListener('scroll', handler);
-        window.removeEventListener('resize', handler);
-      };
-    }
-    handler();
-    return () => {
-      if (detach) detach();
-    };
-  }, []);
+  const setCardRef = useFadeInOnScroll(0.35);
 
   return (
-    <section className={sectionStyle} ref={sectionRef}>
+    <section className={sectionStyle}>
       <SectionTitle en="CONTENTS" jp="コンテンツ" />
       <Spacer size={64} />
       <div

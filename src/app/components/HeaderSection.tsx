@@ -1,7 +1,11 @@
 'use client';
 import { css } from '@/styled-system/css';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
+import { PrimaryButton } from './PrimaryButton';
 
 const headerStyle = css({
   position: 'fixed',
@@ -20,8 +24,13 @@ const headerStyle = css({
   justifyContent: 'center',
   alignItems: 'center',
   padding: '8px 16px',
+  height: '60px',
   md: {
     padding: '8px 40px',
+  },
+
+  lg: {
+    height: '72px',
   },
   '&.visible': {
     opacity: 1,
@@ -36,23 +45,9 @@ const logoNavWrapStyle = css({
   justifyContent: 'space-between',
   gap: '16px',
   width: '100%',
-  maxWidth: '1280px',
   md: {
     justifyContent: 'space-between',
     gap: '40px',
-  },
-});
-
-const logoStyle = css({
-  fontFamily: 'Iwata Maru Gothic Std',
-  fontWeight: '400',
-  fontSize: '24px',
-  lineHeight: '1.5em',
-  color: '#FF749D',
-  letterSpacing: '-3%',
-  flexShrink: 0,
-  md: {
-    fontSize: '32px',
   },
 });
 
@@ -65,20 +60,26 @@ const navStyle = css({
   fontFamily: 'M+ 1m',
   fontWeight: '400',
   lineHeight: '1.8em',
-  md: {
+  lg: {
     display: 'flex',
   },
 });
 
 const mobileMenuButtonStyle = css({
-  display: 'block',
-  background: 'none',
-  border: 'none',
+  display: 'flex',
+  background: '#fff',
+  border: '1px solid #DEDEDE',
+  borderRadius: '50%',
   padding: '8px',
   cursor: 'pointer',
   color: '#444444',
+  width: '40px',
+  height: '40px',
+  alignItems: 'center',
+  justifyContent: 'center',
+  boxSizing: 'border-box',
   fontSize: '24px',
-  md: {
+  lg: {
     display: 'none',
   },
 });
@@ -94,7 +95,7 @@ const mobileMenuOverlayStyle = css({
   opacity: 0,
   pointerEvents: 'none',
   transition: 'opacity 0.3s',
-  md: { display: 'none' },
+  lg: { display: 'none' },
   '&.open': {
     opacity: 1,
     pointerEvents: 'auto',
@@ -118,7 +119,7 @@ const mobileMenuNavStyle = css({
   transform: 'translateX(100%)',
   opacity: 0,
   transition: 'transform 0.3s, opacity 0.3s',
-  md: { display: 'none' },
+  lg: { display: 'none' },
   '&.open': {
     transform: 'translateX(0)',
     opacity: 1,
@@ -129,13 +130,32 @@ const closeButtonStyle = css({
   position: 'absolute',
   top: '16px',
   right: '16px',
-  background: 'none',
-  border: 'none',
-  fontSize: '28px',
-  color: '#444',
-  cursor: 'pointer',
   zIndex: 2,
+  background: '#fff',
+  md: {
+    right: '24px',
+  },
 });
+
+type IconButtonProps = {
+  onClick: () => void;
+  ariaLabel?: string;
+  icon: any;
+  className?: string;
+};
+
+function IconButton({ onClick, ariaLabel, icon, className }: IconButtonProps) {
+  return (
+    <button
+      type="button"
+      className={[mobileMenuButtonStyle, className].filter(Boolean).join(' ')}
+      aria-label={ariaLabel}
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={icon} size="sm" />
+    </button>
+  );
+}
 
 export default function HeaderSection() {
   const [visible, setVisible] = useState(false);
@@ -166,7 +186,15 @@ export default function HeaderSection() {
   return (
     <header className={`${headerStyle} ${visible ? 'visible' : ''}`}>
       <div className={logoNavWrapStyle}>
-        <div className={logoStyle}>Dr. Love</div>
+        <Link href="/">
+          <Image
+            src="/assets/header/logo-header.png"
+            alt="Dr.Loveロゴ（装飾込み）"
+            width={160}
+            height={40}
+            style={{ height: '40px', width: 'auto' }}
+          />
+        </Link>
         <nav className={navStyle}>
           <Link href="#service">サービス</Link>
           <Link href="#member">メンバー紹介</Link>
@@ -174,15 +202,13 @@ export default function HeaderSection() {
           <Link href="#recruit">採用情報</Link>
           <Link href="#company">会社概要</Link>
           <Link href="#gallery">ギャラリー</Link>
+          <div className={css({ display: 'none', lg: { display: 'block' } })}>
+            <PrimaryButton size="small" gradText variant="secondary">
+              お問い合わせ
+            </PrimaryButton>
+          </div>
         </nav>
-        <button
-          type="button"
-          className={mobileMenuButtonStyle}
-          aria-label="メニューを開く"
-          onClick={() => setIsMenuOpen(true)}
-        >
-          ☰
-        </button>
+        <IconButton onClick={() => setIsMenuOpen(true)} icon={faBars} ariaLabel="メニューを開く" />
       </div>
 
       <div
@@ -197,14 +223,12 @@ export default function HeaderSection() {
         className={`${mobileMenuNavStyle} ${isMenuOpen ? 'open' : ''}`}
         aria-hidden={!isMenuOpen}
       >
-        <button
-          type="button"
-          className={closeButtonStyle}
+        <IconButton
           onClick={closeMenu}
-          aria-label="メニューを閉じる"
-        >
-          ×
-        </button>
+          icon={faXmark}
+          ariaLabel="メニューを閉じる"
+          className={closeButtonStyle}
+        />
         <Link
           href="#service"
           onClick={closeMenu}
@@ -247,6 +271,13 @@ export default function HeaderSection() {
         >
           ギャラリー
         </Link>
+        <div
+          style={{ marginTop: '32px', width: '100%', display: 'flex', justifyContent: 'center' }}
+        >
+          <PrimaryButton size="small" gradText variant="secondary">
+            お問い合わせ
+          </PrimaryButton>
+        </div>
       </nav>
     </header>
   );

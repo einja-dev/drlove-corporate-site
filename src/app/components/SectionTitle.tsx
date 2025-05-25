@@ -25,7 +25,7 @@ const enTitleStyle = css({
 });
 
 const jpTitleStyle = css({
-  fontFamily: 'M+ 1m',
+  fontFamily: 'M+ 1p',
   fontWeight: '500',
   fontSize: 'clamp(2em, 5vw, 3rem)',
   lineHeight: '1.5em',

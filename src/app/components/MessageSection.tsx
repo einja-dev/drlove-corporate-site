@@ -1,15 +1,7 @@
 'use client';
+import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
 import { css } from '@/styled-system/css';
-import type Lenis from '@studio-freight/lenis';
-import gsap from 'gsap';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
-
-declare global {
-  interface Window {
-    lenis?: InstanceType<typeof Lenis>;
-  }
-}
 
 const messageCatch = 'Bloom from pain. 痛みから咲く。';
 
@@ -39,104 +31,18 @@ Dr.Loveは、「相談することが当たり前」になる文化をつくり�
 
 export default function MessageSection() {
   const lines = messageLead.split(/\n/).map((line) => (line.trim() === '' ? null : line));
-  const [visibleLines, setVisibleLines] = useState(0);
-  const linesRef = useRef<(HTMLDivElement | null)[]>([]);
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
-  const [showHeading, setShowHeading] = useState(false);
-  const [headingFinished, setHeadingFinished] = useState(false);
-
-  useEffect(() => {
-    // Lenisのscrollイベントを使う
-    let detach: (() => void) | null = null;
-    const handler = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // セクションの上端が画面下端で0、下端が画面下端で1
-      const total = rect.height;
-      const scrolled = windowHeight - rect.top;
-      const progress = Math.min(1, Math.max(0, scrolled / total));
-
-      const linesToShow = Math.ceil(progress * lines.length);
-      setVisibleLines(linesToShow);
-      setShowHeading(progress > 0.2);
-    };
-    // Lenisインスタンスがwindowにある前提
-    const lenis = window.lenis;
-    if (lenis && typeof lenis.on === 'function') {
-      lenis.on('scroll', handler);
-      detach = () => lenis.off('scroll', handler);
-    } else {
-      // Fallback: 通常のscrollイベント
-      window.addEventListener('scroll', handler);
-      window.addEventListener('resize', handler);
-      detach = () => {
-        window.removeEventListener('scroll', handler);
-        window.removeEventListener('resize', handler);
-      };
-    }
-    handler();
-    return () => {
-      if (detach) detach();
-    };
-  }, [lines.length]);
-
-  useEffect(() => {
-    if (!headingFinished) return; // 見出しが描画完了してから本文アニメーション
-    linesRef.current.forEach((el, i) => {
-      if (el) {
-        if (i < visibleLines) {
-          gsap.to(el, { opacity: 1, y: 0, duration: 0.6, delay: i * 0.01, ease: 'power2.out' });
-        } else {
-          gsap.to(el, { opacity: 0, y: 20, duration: 0.3, ease: 'power2.in' });
-        }
-      }
-    });
-  }, [visibleLines, headingFinished]);
-
-  useEffect(() => {
-    // 見出しアニメーション（showHeadingに応じて表示・非表示）
-    if (headingRef.current) {
-      if (showHeading) {
-        setHeadingFinished(false);
-        gsap.to(headingRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: 'power2.out',
-          delay: 0.1,
-          onComplete: () => setHeadingFinished(true),
-        });
-      } else {
-        gsap.to(headingRef.current, {
-          opacity: 0,
-          y: 20,
-          duration: 0.3,
-          ease: 'power2.in',
-          onComplete: () => setHeadingFinished(false),
-        });
-      }
-    }
-  }, [showHeading]);
-
-  useEffect(() => {
-    if (headingFinished) {
-      setVisibleLines(0);
-    }
-  }, [headingFinished]);
+  const setHeadingRef = useFadeInOnScroll(0.9); // 見出し用
+  const setLineRef = useFadeInOnScroll(0.9); // 本文用
 
   return (
     <section
-      ref={sectionRef}
       className={css({
         background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%)',
         zIndex: 1,
         width: '100vw',
         padding: '16px',
         md: {
-          padding: '40px',
+          padding: '24px',
         },
       })}
     >
@@ -173,9 +79,9 @@ export default function MessageSection() {
             },
           })}
         >
-          {/* キャッチコピー */}
+          {/* Catch copy */}
           <h2
-            ref={headingRef}
+            ref={(el) => setHeadingRef(el, 0)}
             className={css({
               position: 'relative',
               display: 'inline-block',
@@ -250,7 +156,7 @@ export default function MessageSection() {
             </div>
           </h2>
 
-          {/* リード文（1行ずつアニメーション表示） */}
+          {/* Lead lines */}
           <div
             className={css({
               display: 'flex',
@@ -264,19 +170,16 @@ export default function MessageSection() {
           >
             {lines.map((line, i) =>
               line === null ? (
-                <div key={`empty-${i}`} style={{ height: '1.5em' }} />
+                <div
+                  key={`empty-${i}`}
+                  style={{ height: '1.5em' }}
+                  ref={(el) => setLineRef(el, i)}
+                />
               ) : (
                 <div
                   key={`${line}-${i}`}
-                  ref={(el) => {
-                    linesRef.current[i] = el;
-                  }}
-                  style={{
-                    opacity: headingFinished && i < visibleLines ? 1 : 0,
-                    transform:
-                      headingFinished && i < visibleLines ? 'translateY(0)' : 'translateY(20px)',
-                    transition: 'opacity 0.6s, transform 0.6s',
-                  }}
+                  ref={(el) => setLineRef(el, i)}
+                  style={{ opacity: 0, transform: 'translateY(20px)' }}
                   className={css({
                     fontFamily: 'Noto Serif JP, serif',
                     fontWeight: 500,
@@ -284,7 +187,9 @@ export default function MessageSection() {
                     color: '#444',
                     textAlign: 'left',
                     fontSize: 'clamp(0.9rem, 1.2vw, 2rem)',
-                    whiteSpace: 'pre-line',
+                    whiteSpace: 'pre-wrap',
+                    lineBreak: 'strict',
+                    wordBreak: 'break-word',
                   })}
                 >
                   {line}

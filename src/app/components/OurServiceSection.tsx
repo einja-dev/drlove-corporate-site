@@ -89,10 +89,8 @@ const phoneImage = css({
   width: '180px',
   height: '360px',
   maxWidth: '100%',
-  boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
-  borderRadius: '32px',
   lg: {
-    width: '320px',
+    width: '480px',
     height: '640px',
   },
 });
