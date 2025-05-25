@@ -16,6 +16,7 @@
     "@pandacss/dev": "^0.53.6",
     "@pandacss/preset-panda": "^0.53.6",
     "@pandacss/types": "^0.53.6",
+    "@radix-ui/react-slot": "^1.2.3",
     "@studio-freight/lenis": "^1.0.42",
     "@types/lodash-es": "^4.17.12",
     "framer-motion": "^12.12.2",
