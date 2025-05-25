@@ -1,7 +1,7 @@
 'use client';
+import { css } from '@/styled-system/css';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { css } from '../../../styled-system/css';
 import { PrimaryButton } from './PrimaryButton';
 
 const sectionStyle = css({

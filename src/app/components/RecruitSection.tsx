@@ -1,6 +1,6 @@
 'use client';
+import { css } from '@/styled-system/css';
 import Image from 'next/image';
-import { css } from '../../../styled-system/css';
 import { useWindowSize } from '../hooks/useWindowSize';
 import { PrimaryButton } from './PrimaryButton';
 

@@ -1,4 +1,4 @@
-import { css } from '../../../styled-system/css';
+import { css } from '@/styled-system/css';
 
 type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary';

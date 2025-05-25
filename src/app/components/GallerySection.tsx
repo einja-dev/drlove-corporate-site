@@ -1,5 +1,5 @@
+import { css } from '@/styled-system/css';
 import Image from 'next/image';
-import { css } from '../../../styled-system/css';
 
 const sectionStyle = css({
   width: '100%',

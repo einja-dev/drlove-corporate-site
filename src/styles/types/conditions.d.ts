@@ -212,6 +212,12 @@ export interface Conditions {
 	"_icon": string
 	/** `@starting-style` */
 	"_starting": string
+	/** `@media screen and (min-width: 30rem)` */
+	"xs": string
+	/** `@media screen and (min-width: 30rem) and (max-width: 39.9975rem)` */
+	"xsOnly": string
+	/** `@media screen and (max-width: 29.9975rem)` */
+	"xsDown": string
 	/** `@media screen and (min-width: 40rem)` */
 	"sm": string
 	/** `@media screen and (min-width: 40rem) and (max-width: 47.9975rem)` */
@@ -242,6 +248,16 @@ export interface Conditions {
 	"2xlOnly": string
 	/** `@media screen and (max-width: 95.9975rem)` */
 	"2xlDown": string
+	/** `@media screen and (min-width: 30rem) and (max-width: 39.9975rem)` */
+	"xsToSm": string
+	/** `@media screen and (min-width: 30rem) and (max-width: 47.9975rem)` */
+	"xsToMd": string
+	/** `@media screen and (min-width: 30rem) and (max-width: 63.9975rem)` */
+	"xsToLg": string
+	/** `@media screen and (min-width: 30rem) and (max-width: 79.9975rem)` */
+	"xsToXl": string
+	/** `@media screen and (min-width: 30rem) and (max-width: 95.9975rem)` */
+	"xsTo2xl": string
 	/** `@media screen and (min-width: 40rem) and (max-width: 47.9975rem)` */
 	"smToMd": string
 	/** `@media screen and (min-width: 40rem) and (max-width: 63.9975rem)` */

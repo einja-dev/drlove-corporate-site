@@ -15,6 +15,10 @@ const tokens = {
     "value": "#fff",
     "variable": "var(--colors-background)"
   },
+  "breakpoints.xs": {
+    "value": "480px",
+    "variable": "var(--breakpoints-xs)"
+  },
   "breakpoints.sm": {
     "value": "640px",
     "variable": "var(--breakpoints-sm)"
@@ -34,6 +38,10 @@ const tokens = {
   "breakpoints.2xl": {
     "value": "1536px",
     "variable": "var(--breakpoints-2xl)"
+  },
+  "sizes.breakpoint-xs": {
+    "value": "480px",
+    "variable": "var(--sizes-breakpoint-xs)"
   },
   "sizes.breakpoint-sm": {
     "value": "640px",

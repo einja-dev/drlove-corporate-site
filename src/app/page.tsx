@@ -1,4 +1,4 @@
-import { css } from '../../styled-system/css';
+import { css } from '@/styled-system/css';
 import CompanyLogoSection from './components/CompanyLogoSection';
 import CompanySection from './components/CompanySection';
 import ContentLinkSection from './components/ContentLinkSection';

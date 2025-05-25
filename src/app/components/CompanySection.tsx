@@ -1,9 +1,8 @@
-import { css } from '../../../styled-system/css';
+import { css } from '@/styled-system/css';
 import { SectionTitle } from './SectionTitle';
 
 const sectionStyle = css({
   width: '100%',
-  maxWidth: '1280px',
   margin: '0 auto',
   padding: '96px 80px',
   display: 'flex',

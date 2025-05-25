@@ -20,9 +20,17 @@ export default defineConfig({
         background: { value: '#fff' },
       },
     },
+    breakpoints: {
+      xs: '480px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
     extend: {},
   },
 
   // The output directory for your css system
-  outdir: 'styled-system',
+  outdir: 'src/styled-system',
 });

@@ -1,5 +1,5 @@
+import { css } from '@/styled-system/css';
 import Image from 'next/image';
-import { css } from '../../../styled-system/css';
 import { SectionTitle } from './SectionTitle';
 
 const sectionStyle = css({
