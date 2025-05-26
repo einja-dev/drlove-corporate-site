@@ -21,11 +21,11 @@ const sectionStyle = css({
 
 const bgStyle = css({
   position: 'absolute',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
+  top: '15%',
+  left: '15%',
+  width: '70%',
+  height: '70%',
+  objectFit: 'contain',
   zIndex: 0,
   pointerEvents: 'none',
 });
@@ -143,13 +143,7 @@ export default function CompanyLogoSection() {
 
   return (
     <section className={sectionStyle}>
-      <Image
-        src="/top/company/company-bg-moyamoya.png"
-        alt="背景"
-        fill
-        className={bgStyle}
-        priority
-      />
+      <Image src="/top/company/company-bg-moyamoya.png" alt="背景" fill className={bgStyle} />
       <h2 className={titleStyle}>想いを共にする企業と、ともに歩んでいます。</h2>
       {/* 横スクロール3行（無限ループ） */}
       {logoRows.map((row, idx) => {
