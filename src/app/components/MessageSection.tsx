@@ -35,15 +35,33 @@ Dr.Loveは、「相談することが当たり前」<spbr>になる文化をつ�
 // 直前 1 文字と句読点をノーブレークで包み、その後に <wbr> を挿入
 const addNoBreak = (text: string) => text;
 
+const wbrText = css({
+  fontFamily: 'Noto Serif JP, serif',
+  fontWeight: 500,
+  lineHeight: 2.4,
+  color: '#444',
+  textAlign: 'left',
+  fontSize: 'clamp(0.8rem, 3vw, 1.2rem)',
+  whiteSpace: 'normal',
+  lineBreak: 'strict',
+  wordBreak: 'keep-all',
+  overflowWrap: 'break-word',
+  xs: {
+    fontSize: 'clamp(0.9rem, 2vw, 2rem)',
+  },
+});
+
 export default function MessageSection() {
   const { isSP } = useWindowSize();
   const lines = isSP
     ? messageLead
         .replace(/<spbr>/g, '\n')
+        .replace(/<wbr>/g, '\u200B')
         .split(/\n/)
         .map((line) => addNoBreak(line.trim()))
     : messageLead
         .replace(/<spbr>/g, '')
+        .replace(/<wbr>/g, '\u200B')
         .split(/\n/)
         .map((line) => addNoBreak(line.trim()));
   const setHeadingRef = useFadeInOnScroll(0.9); // 見出し用
@@ -203,21 +221,7 @@ export default function MessageSection() {
                   key={`line-${i}`}
                   ref={setLineRef}
                   style={{ opacity: 0, transform: 'translateY(20px)' }}
-                  className={css({
-                    fontFamily: 'Noto Serif JP, serif',
-                    fontWeight: 500,
-                    lineHeight: 2.4,
-                    color: '#444',
-                    textAlign: 'left',
-                    fontSize: 'clamp(0.8rem, 3vw, 1.2rem)',
-                    whiteSpace: 'normal', // ← 自動折り返し
-                    lineBreak: 'strict',
-                    wordBreak: 'keep-all',
-                    overflowWrap: 'break-word', // 長い英単語だけ分割。句読点だけの行を防ぐ
-                    xs: {
-                      fontSize: 'clamp(0.9rem, 2vw, 2rem)',
-                    },
-                  })}
+                  className={wbrText}
                   dangerouslySetInnerHTML={{ __html: line }}
                 />
               )

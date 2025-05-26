@@ -85,12 +85,12 @@ const rightCol = css({
   },
 });
 
-const sectionText = css({
-  fontFamily: 'M+ 1m, sans-serif',
+const wbrText = css({
   fontWeight: 400,
   fontSize: '15px',
   color: '#444',
   lineHeight: '2',
+  wordBreak: 'keep-all',
 });
 
 const sectionSubTitle = css({
@@ -278,14 +278,14 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
           t === '' ? (
             <div
               key={`empty-${title || ''}-${i}`}
-              className={sectionText}
+              className={wbrText}
               ref={setLineRef}
               style={{ height: '1.5em' }}
             />
           ) : (
             <div
               key={`${title || ''}-${i}`}
-              className={sectionText}
+              className={wbrText}
               ref={setLineRef}
               style={{ whiteSpace: 'normal', lineBreak: 'strict', wordBreak: 'keep-all' }}
               dangerouslySetInnerHTML={{ __html: t }}

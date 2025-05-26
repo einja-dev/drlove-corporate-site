@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { M_PLUS_1p, Noto_Serif_JP, Varela_Round } from 'next/font/google';
 import './globals.css';
+import { useUserAgent } from './hooks/useUserAgent';
 import { Providers } from './Providers';
 
 const varelaRound = Varela_Round({
@@ -34,12 +35,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isIosSafari } = useUserAgent();
+  const bodyClass = `${mplus.variable} ${varelaRound.variable} ${notoSerif.variable}${isIosSafari ? ' ios-safari' : ''}`;
+
+  if (typeof window !== 'undefined' && isIosSafari) {
+    if (!document.getElementById('ios-safari-wordbreak')) {
+      const style = document.createElement('style');
+      style.id = 'ios-safari-wordbreak';
+      style.innerHTML = '.ios-safari .wbrText { word-break: break-all !important; }';
+      document.head.appendChild(style);
+    }
+  }
+
   return (
     <html lang="ja">
       <head>
         <link rel="icon" href="/favicon.svg" />
       </head>
-      <body className={`${mplus.variable} ${varelaRound.variable} ${notoSerif.variable}`}>
+      <body className={bodyClass}>
         <Providers>{children}</Providers>
       </body>
     </html>
