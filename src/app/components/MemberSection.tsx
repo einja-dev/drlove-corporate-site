@@ -58,11 +58,11 @@ const mainCardStyle = css({
   height: 'auto',
   background: 'none',
   boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
-  padding: '60px 40px 0',
+  padding: '40px 24px 0',
   justifyContent: 'space-between',
   sm: {
     flexDirection: 'row',
-    padding: '60px 40px',
+    padding: '48px 40px',
   },
 
   lg: {
@@ -119,17 +119,18 @@ const mainImgWrapper = css({
   position: 'relative',
   aspectRatio: '4 / 3',
   zIndex: 1,
-  width: 'clamp(300px, 130%, 459px)',
+  width: 'clamp(300px, 130%, 500px)',
   right: '-10%',
 
   sm: {
     position: 'absolute',
-    width: 'clamp(400px, 56%, 600px)',
+    width: 'clamp(400px, 67%, 600px)',
     right: '-23%',
     bottom: '0',
     margin: 0,
   },
   md: {
+    width: 'clamp(400px, 60%, 600px)',
     aspectRatio: '6 / 5',
     right: '-20%',
   },
@@ -146,8 +147,16 @@ const subCardStyle = css({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'flex-start',
-  padding: '40px 32px 0 32px',
+  padding: '48px 24px 0',
   gap: '16px',
+
+  sm: {
+    padding: '48px 40px 0',
+  },
+
+  lg: {
+    padding: '60px 64px 0',
+  },
 });
 const subBgStyle = css({
   position: 'absolute',
@@ -254,7 +263,7 @@ export default function MemberSection() {
                 私はもう誰にも私と同じ思いをして母のように病を患い死を選んでほしくないです。
                 まずは私から"1人で抱え込まない社会"の実現を目指し、
                 今世の中に蔓延っている世代間の負の連鎖を断ち切り、連鎖の始まりを阻止したい。
-                それぞれに寄り添い心を育て、自分を愛する事で人と健やかな関係
+                それぞれに寄り添い心を育て、自分を愛する事で人と健やかな関係を築けるように。
                 <br />
                 <br />
                 そんな思いからDr. Loveを立ち上げました。
