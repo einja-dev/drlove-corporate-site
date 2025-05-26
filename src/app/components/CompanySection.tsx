@@ -63,6 +63,7 @@ const contactLinkStyle = css({
 
 const companyInfo = [
   { label: '会社名', value: 'Dr.Love株式会社' },
+  // TODO: 所在地をupdateする
   { label: '所在地', value: '東京都渋谷区○○-○○-○○' },
   { label: '設立', value: '2025年8月2日' },
   { label: '代表', value: '水池愛香' },

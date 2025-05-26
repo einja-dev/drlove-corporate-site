@@ -1,4 +1,5 @@
 import { css } from '@/styled-system/css';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const footerStyle = css({
@@ -43,7 +44,15 @@ const copyrightStyle = css({
 export default function FooterSection() {
   return (
     <footer className={footerStyle}>
-      <div className={logoStyle}>Dr. Love AI</div>
+      <Link href="/">
+        <Image
+          src="/assets/header/logo-header.png"
+          alt="Dr.Loveロゴ（装飾込み）"
+          width={160}
+          height={40}
+          style={{ height: '40px', width: 'auto' }}
+        />
+      </Link>
       <nav className={navStyle}>
         <Link href="/">ミッション</Link>
         <Link href="/">サービス</Link>
