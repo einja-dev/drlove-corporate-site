@@ -89,13 +89,16 @@ const buttonWrapperStyle = css({
 
 const descriptionStyle = css({
   fontWeight: 400,
-  fontSize: '16px',
+  fontSize: '14px',
   color: '#444444',
   lineHeight: '1.8',
   textAlign: 'center',
   marginTop: '24px',
   position: 'relative',
   zIndex: 2,
+  sm: {
+    fontSize: '16px',
+  },
 });
 
 export default function CompanyLogoSection() {
