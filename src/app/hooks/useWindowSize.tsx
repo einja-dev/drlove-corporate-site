@@ -62,12 +62,12 @@ function windowSizeTypeLessThan(sizeType: BreakpointCode, width: number): boolea
 
 export const useWindowSize = () => {
   const size = useContext(WindowSizeContext);
+  const width = size?.width || 0;
   return {
     ...size,
     sizeType: size ? getWindowSizeType(size.width) : 'xs',
-    sizeTypeGreaterThan: (sizeType: BreakpointCode) =>
-      windowSizeTypeGreaterThan(sizeType, size?.width || 0),
-    sizeTypeLessThan: (sizeType: BreakpointCode) =>
-      windowSizeTypeLessThan(sizeType, size?.width || 0),
+    sizeTypeGreaterThan: (sizeType: BreakpointCode) => windowSizeTypeGreaterThan(sizeType, width),
+    sizeTypeLessThan: (sizeType: BreakpointCode) => windowSizeTypeLessThan(sizeType, width),
+    isSP: width < breakpoints.sm,
   };
 };
