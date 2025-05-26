@@ -208,9 +208,11 @@ export default function HeaderSection() {
           <Link href="#company">会社概要</Link>
           <Link href="#gallery">ギャラリー</Link>
           <div className={css({ display: 'none', lg: { display: 'block' } })}>
-            <PrimaryButton size="small" gradText variant="secondary">
-              お問い合わせ
-            </PrimaryButton>
+            <Link href="/inquiry" style={{ textDecoration: 'none' }}>
+              <PrimaryButton size="small" gradText variant="secondary">
+                お問い合わせ
+              </PrimaryButton>
+            </Link>
           </div>
         </nav>
         <IconButton onClick={() => setIsMenuOpen(true)} icon={faBars} ariaLabel="メニューを開く" />
@@ -279,9 +281,11 @@ export default function HeaderSection() {
         <div
           style={{ marginTop: '32px', width: '100%', display: 'flex', justifyContent: 'center' }}
         >
-          <PrimaryButton size="small" gradText variant="secondary">
-            お問い合わせ
-          </PrimaryButton>
+          <Link href="/inquiry" style={{ textDecoration: 'none' }}>
+            <PrimaryButton size="small" gradText variant="secondary">
+              お問い合わせ
+            </PrimaryButton>
+          </Link>
         </div>
       </nav>
     </header>

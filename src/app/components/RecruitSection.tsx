@@ -104,14 +104,11 @@ export default function RecruitSection() {
     if (!isMobile || !cardRef.current) return;
 
     const el = cardRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsHover(entry.isIntersecting),
-      {
-        root: null,
-        threshold: 0,
-        rootMargin: '0px 0px -55% 0px',
-      }
-    );
+    const observer = new IntersectionObserver(([entry]) => setIsHover(entry.isIntersecting), {
+      root: null,
+      threshold: 0,
+      rootMargin: '0px 0px -55% 0px',
+    });
 
     observer.observe(el);
     return () => observer.disconnect();
@@ -163,13 +160,8 @@ export default function RecruitSection() {
           }}
         >
           <Link href="/recruit" style={{ textDecoration: 'none' }}>
-            <PrimaryButton
-              variant="secondary"
-              gradText
-              borderRadiusType="special"
-              size={isMobile ? 'small' : 'default'}
-            >
-              <span className={buttonTextStyle}>募集職種をみる</span>
+            <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
+              募集職種をみる
             </PrimaryButton>
           </Link>
         </div>

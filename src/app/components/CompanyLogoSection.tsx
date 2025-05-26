@@ -1,6 +1,7 @@
 'use client';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { PrimaryButton } from './PrimaryButton';
 
@@ -46,12 +47,12 @@ const titleStyle = css({
 
 const rowScrollStyle = css({
   width: '100%',
-  overflow: 'hidden',          // hide scrollbar and prevent manual scroll
+  overflow: 'hidden', // hide scrollbar and prevent manual scroll
   display: 'flex',
   flexDirection: 'row',
   gap: '24px',
   marginBottom: '32px',
-  pointerEvents: 'none',       // disable user interaction (no manual scrolling)
+  pointerEvents: 'none', // disable user interaction (no manual scrolling)
 });
 
 const logoCardStyle = css({
@@ -176,9 +177,11 @@ export default function CompanyLogoSection() {
         まずはお気軽にご相談ください
       </div>
       <div className={buttonWrapperStyle}>
-        <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
-          お問い合わせ
-        </PrimaryButton>
+        <Link href="/inquiry" style={{ textDecoration: 'none' }}>
+          <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
+            お問い合わせ
+          </PrimaryButton>
+        </Link>
       </div>
     </section>
   );
