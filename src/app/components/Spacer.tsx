@@ -15,17 +15,60 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Spacer = React.forwardRef<HTMLDivElement, Props>(
-  ({ size, orientation = 'vertical', asChild = false, className, style, ...rest }, ref) => {
-    // styled-systemのcss関数でレスポンシブpropsに対応
-    const dynamicClass = css(
-      orientation === 'horizontal'
-        ? { width: size, height: '100%', display: 'block', flexShrink: 0 }
-        : { height: size, width: '100%', display: 'block', flexShrink: 0 }
-    );
+  ({ size, orientation = 'vertical', asChild = false, className = '', style, ...rest }, ref) => {
+    // Determine if `size` is a primitive (string/number) or responsive object
+    const isResponsive = typeof size === 'object';
+
+    // dynamic class when responsive object provided
+    const dynamicClass = isResponsive
+      ? css(
+          orientation === 'horizontal'
+            ? {
+                width: size,
+                flexShrink: 0,
+                flexBasis: size,
+                display: 'inline-block',
+              }
+            : {
+                height: size,
+                flexShrink: 0,
+                flexBasis: size,
+                display: 'block',
+              }
+        )
+      : '';
+
+    // inline fallback style for primitive sizes (e.g., '32px'), or for responsive: use base value
+    const inlineSizeStyle: React.CSSProperties =
+      (() => {
+        if (!size) return {};
+        if (!isResponsive)
+          return orientation === 'horizontal' ? { width: size, flexBasis: size } : { height: size, flexBasis: size };
+
+        // responsive object: use `base` if available, else first key as inline fallback
+        const obj = size as Record<string, Primitive>;
+        const baseVal =
+          obj.base ??
+          obj.sm ??
+          obj.md ??
+          obj.lg ??
+          obj.xl ??
+          obj['2xl'] ??
+          Object.values(obj)[0];
+
+        return orientation === 'horizontal'
+          ? { width: baseVal, flexBasis: baseVal }
+          : { height: baseVal, flexBasis: baseVal };
+      })();
 
     const Comp = asChild ? Slot : 'div';
     return (
-      <Comp ref={ref} className={`${dynamicClass} ${className ?? ''}`} style={style} {...rest} />
+      <Comp
+        ref={ref}
+        className={`${dynamicClass} ${className}`.trim()}
+        style={{ ...inlineSizeStyle, ...style }}
+        {...rest}
+      />
     );
   }
 );

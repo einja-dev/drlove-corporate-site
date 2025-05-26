@@ -172,7 +172,7 @@ Dr.Love AIは、心の深い部分からあなたに寄り添いながら、よ�
   },
   {
     id: 'sub-1',
-    video: '/videos/serviceImage2.webm',
+    video: '/videos/serviceImage2.mp4',
     title: '24時間あなたの心に寄り添う',
     text: `気持ちがうまく整理できないときや、<wbr>誰にも相談できずに抱え込んでしまったとき。<wbr>LINEで話しかけていただくだけで、<wbr><span class="nb">Dr. Love AI</span>が<wbr>あなたの想いを丁寧に受けとめ、<wbr>やさしく言葉にしていきます。
 
@@ -185,7 +185,7 @@ Dr.Love AIが、いつでもあなたのそばにいます。`,
   },
   {
     id: 'main-2',
-    video: '/videos/serviceImage3.webm',
+    video: '/videos/serviceImage3.mp4',
     title: 'あなた専属の相談相手',
     text: `Dr.Love AIは、<wbr>あなたの骨格タイプ・顔立ち・パーソナルカラーなどをもとに、<wbr>"今のあなた"にぴったりな<wbr>美容サロンを複数提案し、予約までまるごとサポートします。
 
@@ -276,7 +276,7 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
             <ServiceTitleWithBars title={title} />
           )}
         </div>
-        <Spacer size={{ base: '16px', md: '32px' }} />
+        <Spacer size="24px" />
         {texts.map((t, i) =>
           t === '' ? (
             <div
@@ -304,7 +304,7 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
             ref={setVideoRef}
             src={video}
             className={videoFill}
-            style={idx === 0 ? { transform: 'scale(1.1)' } : undefined}
+            style={idx === 0 ? { transform: 'scale(1.07)' } : undefined}
             autoPlay
             loop
             muted
