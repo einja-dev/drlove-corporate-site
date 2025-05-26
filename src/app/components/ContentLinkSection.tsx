@@ -144,7 +144,7 @@ export default function ContentLinkSection() {
   return (
     <section className={sectionStyle}>
       <div
-        ref={(el) => setTitleRef(el, 0)}
+        ref={setTitleRef}
         style={{ opacity: 0, willChange: 'opacity, transform', transition: 'none' }}
       >
         <SectionTitle en="CONTENTS" jp="コンテンツ" />

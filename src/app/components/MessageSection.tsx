@@ -104,7 +104,7 @@ export default function MessageSection() {
         >
           {/* Catch copy */}
           <h2
-            ref={(el) => setHeadingRef(el, 0)}
+            ref={setHeadingRef}
             className={css({
               position: 'relative',
               display: 'inline-block',
@@ -196,12 +196,12 @@ export default function MessageSection() {
                 <div
                   key={`empty-${i}`}
                   style={{ height: '1.5em', minHeight: '3em' }}
-                  ref={(el) => setLineRef(el, i)}
+                  ref={setLineRef}
                 />
               ) : (
                 <div
                   key={`line-${i}`}
-                  ref={(el) => setLineRef(el, i)}
+                  ref={setLineRef}
                   style={{ opacity: 0, transform: 'translateY(20px)' }}
                   className={css({
                     fontFamily: 'Noto Serif JP, serif',

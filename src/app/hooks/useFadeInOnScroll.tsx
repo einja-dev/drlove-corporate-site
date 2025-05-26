@@ -14,11 +14,7 @@ const getObserverRoot = (): Element | null => {
   return (window as LenisWindow).lenis?.wrapper ?? null;
 };
 
-export function useFadeInOnScroll(
-  threshold: number = 0.35,
-  fromY: number = 40,
-  rootMargin: string = '0px'
-) {
+export function useFadeInOnScroll(threshold = 0.35, fromY = 40, rootMargin = '0px') {
   const itemRefs = useRef<(HTMLElement | null)[]>([]);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -84,7 +80,9 @@ export function useFadeInOnScroll(
     observerRef.current = observer;
 
     // 遅れて登録された要素を observe
-    itemRefs.current.forEach((el) => observer.observe(el));
+    itemRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
     itemRefs.current = [];
 
     return () => observer.disconnect();

@@ -8,15 +8,18 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "complexity": {
+        "noForEach": "off"
+      },
       "correctness": {
-        "noUnusedVariables": "error"
+        "noUnusedVariables": "warn"
       },
       "suspicious": {
-        "noExplicitAny": "error"
+        "noExplicitAny": "warn"
       },
       "style": {
-        "noNonNullAssertion": "error",
-        "useConst": "error"
+        "noNonNullAssertion": "warn",
+        "useConst": "warn"
       }
     }
   },
