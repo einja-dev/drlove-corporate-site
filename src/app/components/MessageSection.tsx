@@ -73,7 +73,7 @@ export default function MessageSection() {
           background: 'background',
           width: '100%',
           margin: '0 auto',
-          padding: '64px 4px 64px 24px',
+          padding: '64px 4px 80px 24px',
           display: 'flex',
           flexDirection: 'column',
           gap: '32px',
@@ -81,9 +81,9 @@ export default function MessageSection() {
           position: 'relative',
           overflow: 'hidden',
           borderRadius: '40px',
-          sm: { padding: '80px 24px' },
+          sm: { padding: '80px 24px 96px' },
           md: {
-            padding: '96px 80px',
+            padding: '96px 80px 120px',
             gap: '48px',
           },
         })}

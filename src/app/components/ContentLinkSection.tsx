@@ -10,20 +10,20 @@ import { Spacer } from './Spacer';
 
 const sectionStyle = css({
   width: '100%',
-  padding: '32px 24px 0', // mobile
+  padding: '64px 24px 64px', // mobile
   background: 'background',
   zIndex: 1,
   position: 'relative',
 
   md: {
     gap: '32px',
-    padding: '64px 80px 0', // medium+
+    padding: '64px 80px', // medium+
   },
   lg: {
-    padding: '80px 80px 0', // large+
+    padding: '80px 80px 96px', // large+
   },
   xl: {
-    padding: '80px 160px 0',
+    padding: '80px 160px',
   },
 });
 

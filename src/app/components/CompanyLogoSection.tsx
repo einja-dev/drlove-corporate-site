@@ -7,7 +7,7 @@ import { PrimaryButton } from './PrimaryButton';
 const sectionStyle = css({
   width: '100%',
   margin: '0 auto',
-  padding: '96px 16px 48px 16px',
+  padding: '96px 16px 96px 16px',
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
@@ -15,7 +15,7 @@ const sectionStyle = css({
   background: 'background',
   zIndex: 1,
   md: {
-    padding: '120px 16px 64px 16px',
+    padding: '120px 16px 120px 16px',
   },
 });
 
