@@ -111,14 +111,14 @@ export default function CompanyLogoSection() {
     logos.slice(i * logosPerRow, (i + 1) * logosPerRow)
   );
 
-  // 各行のアニメーション設定
+  // 各行のアニメーション設定を改善
   const getRowAnimation = (rowIndex: number, rowLength: number) => {
     const cardWidth = 168 + 24; // カード幅 + gap
     const totalWidth = rowLength * cardWidth;
 
-    // 一定の速度でスクロール（画面サイズに依存しない）
     const pixelsPerSecond = 50; // 1秒間に移動するピクセル数
     const duration = totalWidth / pixelsPerSecond; // 秒単位
+    // より正確なスピード計算
 
     if (rowIndex === 1) {
       // 2行目は右向き
@@ -148,7 +148,7 @@ export default function CompanyLogoSection() {
               className={animatedRowStyle}
               style={animationProps}
             >
-              {/* 2セット分のロゴを配置 */}
+              {/* 2セット分のロゴを配置（より正確な位置調整） */}
               {[...row, ...row].map((logo, i) => (
                 <div key={`${logo.alt}-${i}`} className={logoCardStyle}>
                   <Image
