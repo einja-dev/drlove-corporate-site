@@ -20,7 +20,7 @@ const newsListStyle = css({
   gap: '16px',
   overflowX: 'auto',
   alignItems: 'stretch',
-  padding: '8px 0',
+  padding: '8px 16px',
   scrollbarWidth: 'auto',
   scrollbarGutter: 'stable',
 
@@ -29,11 +29,11 @@ const newsListStyle = css({
   },
 
   '&::-webkit-scrollbar': {
-    height: '16px',
+    height: '8px',
   },
   '&::-webkit-scrollbar-thumb': {
     background: '#eee',
-    borderRadius: '8px',
+    borderRadius: '4px',
   },
 });
 
@@ -139,14 +139,21 @@ const labelStyle = css({
 
 const newsData = [
   {
-    date: '2025/05/27',
+    date: '2025/06/05',
+    text: 'Nontitle Season5 4話 6/5 放送予定、乞うご期待！',
+    img: '/top/news/news-2.png',
+    label: 'メディア出演',
+    link: 'https://www.youtube.com/@nontitle8964',
+  },
+  {
+    date: '2025/06/01',
     text: '5/12 CEO水池愛香 ボディメイク大会に初出場で大健闘「もっと上を目指したい」',
     img: '/top/news/news-1.png',
     label: 'メディア掲載',
     link: 'https://news.yahoo.co.jp/articles/18508fbde1a4f655558d4ed759a0c3b58e0f0899',
   },
   {
-    date: '2025/05/25',
+    date: '2025/05/29',
     text: 'Nontitle Season5 3話 5/29 放送予定、乞うご期待！',
     img: '/top/news/news-2.png',
     label: 'メディア出演',

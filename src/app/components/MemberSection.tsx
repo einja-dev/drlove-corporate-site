@@ -203,9 +203,9 @@ const imageWrapper = css({
 
 export default function MemberSection() {
   const fadeInTitleRef = useFadeInOnScroll();
-  const fadeInMainRef = useFadeInOnScroll();
-  const fadeInSub1Ref = useFadeInOnScroll();
-  const fadeInSub2Ref = useFadeInOnScroll();
+  const fadeInMainRef = useFadeInOnScroll(0.01);
+  const fadeInSub1Ref = useFadeInOnScroll(0.01);
+  const fadeInSub2Ref = useFadeInOnScroll(0.03);
   return (
     <section className={sectionStyle} id="member">
       <div ref={fadeInTitleRef}>
@@ -295,17 +295,20 @@ export default function MemberSection() {
             <br />
             でも、将来が不安で眠れない夜もある。
             <br />
-            そんな自分に、そっと寄り添ってくれる存在がいたら…そう思ったことが、何度もありました。
+            そんな自分に、そっと寄り添ってくれる存在がいたら…
+            <br />
+            そう思ったことが、何度もありました。
             <br />
             <br />
-            心の病に向き合えない。誰にも話せずに苦しんでいる人たち。そして、それに気づきながらも、何もできなかった自分。
+            心の病と向き合う友人。 <br />
+            誰にも話せずに苦しんでいる人たち。 <br />
+            そして、それに気づきながらも、何もできなかった自分。
             <br />
             <br />
             私が感じた「新しい自分に出会える喜び」を他の中の人たちにも感じてほしいし、Dr.Loveを通して感じてほしい。
             <br />
             <br />
             Dr.Loveは、その第一歩です。
-            <br />
           </div>
           <div className={imageWrapper}>
             <Image
@@ -334,7 +337,6 @@ export default function MemberSection() {
               医薬品研究者の夢見て大学進学するも新しい美容の文化を韓国から日本へ取り入れるために大学を中退、術後ケア専門サロン「インディバケアプラチナム」開業。
               <br />
               自分自身の美容整形の経験を強みに日本へアフターケアの文化を広めた。 <br />
-              <br />
               後にグリークヨーグルト専門店「milkygreek」共同開業。
               日本中にグリークヨーグルト旋風を起こした。
               <br />

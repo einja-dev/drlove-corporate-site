@@ -18,6 +18,8 @@
     height: auto;
   }
 
+  .nb { white-space: nowrap; }
+
   .lenis.lenis-smooth {
     scroll-behavior: auto !important;
   }

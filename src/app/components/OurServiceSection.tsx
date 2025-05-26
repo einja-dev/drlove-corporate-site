@@ -102,8 +102,7 @@ const sectionSubTitle = css({
   backgroundClip: 'text',
   color: 'transparent',
   display: 'inline-block',
-  margin: '24px 0 8px 0',
-  fontFamily: 'Iwata Maru Gothic Std, sans-serif',
+  fontFamily: 'Noto Serif JP, serif',
 });
 
 const videoFill = css({
@@ -175,7 +174,7 @@ Dr.Love AIは、心の深い部分からあなたに寄り添いながら、よ�
     id: 'sub-1',
     video: '/videos/serviceImage2.webm',
     title: '24時間あなたの心に寄り添う',
-    text: `気持ちがうまく整理できないときや、誰にも相談できずに抱え込んでしまったとき。LINEで話しかけていただくだけで、Dr. Love AIがあなたの想いを丁寧に受けとめ、やさしく言葉にしていきます。
+    text: `気持ちがうまく整理できないときや、<wbr>誰にも相談できずに抱え込んでしまったとき。<wbr>LINEで話しかけていただくだけで、<wbr><span class="nb">Dr. Love AI</span>が<wbr>あなたの想いを丁寧に受けとめ、<wbr>やさしく言葉にしていきます。
 
 つらさや不安、理由のわからないモヤモヤを<wbr>ひとつずつ言語化しながら、少し心が軽くなったり、自分らしい考え方や選択肢に気づけるよう<wbr>サポートします。
 
@@ -188,7 +187,7 @@ Dr.Love AIが、いつでもあなたのそばにいます。`,
     id: 'main-2',
     video: '/videos/serviceImage3.webm',
     title: 'あなた専属の相談相手',
-    text: `Dr.Love AIは、あなたの骨格タイプ・顔立ち・パーソナルカラーなどをもとに、"今のあなた"にぴったりな美容サロンを複数提案し、予約までまるごとサポートします。
+    text: `Dr.Love AIは、<wbr>あなたの骨格タイプ・顔立ち・パーソナルカラーなどをもとに、<wbr>"今のあなた"にぴったりな<wbr>美容サロンを複数提案し、予約までまるごとサポートします。
 
 さらに、肌質や予算、好みに合わせて、おすすめのコスメを複数ご提案。
 そのままECサイトで購入できる<wbr>リンクも自動でお届けするので、迷わず行動に移せます。
@@ -249,9 +248,6 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
 
   const RowClass = idx % 2 === 0 ? rowBase : `${rowBase} ${rowReverse}`;
 
-  // --- Spacerサイズをレスポンシブで指定 ---
-  const spacerSize = typeof window !== 'undefined' && window.innerWidth < 768 ? '16px' : '32px';
-
   return (
     <div className={RowClass}>
       {/* watercolor background for the first block */}
@@ -280,8 +276,7 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
             <ServiceTitleWithBars title={title} />
           )}
         </div>
-        {/* Spacerのサイズをレスポンシブで調整 */}
-        <Spacer size={spacerSize} />
+        <Spacer size={{ base: '16px', md: '32px' }} />
         {texts.map((t, i) =>
           t === '' ? (
             <div
