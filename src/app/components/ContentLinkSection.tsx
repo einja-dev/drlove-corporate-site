@@ -10,7 +10,7 @@ import { Spacer } from './Spacer';
 
 const sectionStyle = css({
   width: '100%',
-  padding: '64px 24px 64px', // mobile
+  padding: '64px 48px 64px', // mobile
   background: 'background',
   zIndex: 1,
   position: 'relative',
@@ -30,7 +30,7 @@ const sectionStyle = css({
 const cardStyle = css({
   position: 'relative',
   width: '100%',
-  height: '300px',
+  height: '260px',
   borderRadius: '32px',
   overflow: 'hidden',
   display: 'flex',
@@ -87,8 +87,8 @@ const items = [
     href: '#service',
     aspectRatio: '516/772',
     imageWrapClass: css({
-      top: '65px',
-      width: '50%',
+      top: '60px',
+      width: '55%',
       transform: 'skewX(5deg)',
       xs: {
         top: '80px',
@@ -108,7 +108,7 @@ const items = [
     href: '#member',
     aspectRatio: '741/606',
     imageWrapClass: css({
-      top: '80px',
+      top: '70px',
       width: '80%',
       transform: 'skewX(5deg)',
       md: {
@@ -125,8 +125,8 @@ const items = [
     href: '#news',
     aspectRatio: '358/820',
     imageWrapClass: css({
-      top: '70px',
-      width: '30%',
+      top: '55px',
+      width: '40%',
       transform: 'skewX(5deg)',
       md: {
         top: '100px',

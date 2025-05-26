@@ -1,6 +1,6 @@
 'use client';
-import { useBreakPoint } from '@/app/hooks/useBreakPoint';
 import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
+import { useWindowSize } from '@/app/hooks/useWindowSize';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
 import { useEffect } from 'react';
@@ -36,7 +36,7 @@ Dr.Loveは、「相談することが当たり前」<spbr>になる文化をつ�
 const addNoBreak = (text: string) => text;
 
 export default function MessageSection() {
-  const { isSP } = useBreakPoint();
+  const { isSP } = useWindowSize();
   const lines = isSP
     ? messageLead
         .replace(/<spbr>/g, '\n')
@@ -195,7 +195,7 @@ export default function MessageSection() {
               line.trim() === '' ? (
                 <div
                   key={`empty-${i}`}
-                  style={{ height: '1.5em', minHeight: '3em' }}
+                  style={{ height: '0.7em', minHeight: '1.5em' }}
                   ref={setLineRef}
                 />
               ) : (
@@ -209,13 +209,13 @@ export default function MessageSection() {
                     lineHeight: 2.4,
                     color: '#444',
                     textAlign: 'left',
-                    fontSize: '0.8rem',
+                    fontSize: 'clamp(0.8rem, 3vw, 1.2rem)',
                     whiteSpace: 'normal', // ← 自動折り返し
                     lineBreak: 'strict',
                     wordBreak: 'keep-all',
                     overflowWrap: 'break-word', // 長い英単語だけ分割。句読点だけの行を防ぐ
                     xs: {
-                      fontSize: 'clamp(0.9rem, 1.6vw, 2rem)',
+                      fontSize: 'clamp(0.9rem, 2vw, 2rem)',
                     },
                   })}
                   dangerouslySetInnerHTML={{ __html: line }}

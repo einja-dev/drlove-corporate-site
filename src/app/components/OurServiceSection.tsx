@@ -13,7 +13,7 @@ const sectionStyle = css({
   position: 'relative',
   background: 'background',
   overflow: 'hidden',
-  padding: '32px 32px 64px', // extra bottom padding
+  padding: '32px 32px 80px', // extra bottom padding
   zIndex: 2,
   borderRadius: '0 0 40px 40px',
   // Downward-only shadow: y‑offset 24px, blur 32px, negative spread to avoid top shadow
@@ -28,7 +28,7 @@ const contentWrapper = css({
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'column',
-  gap: '32px', // narrower gap on small screens
+  gap: '48px', // narrower gap on small screens
   paddingTop: '48px',
   md: {
     gap: '48px', // narrower on md and up
@@ -39,7 +39,7 @@ const contentWrapper = css({
 const rowBase = css({
   display: 'flex',
   flexDirection: 'column',
-  gap: '32px', // narrower gap on small screens
+  gap: '16px', // narrower gap on small screens
   alignItems: 'center',
   width: '100%',
   position: 'relative',
@@ -177,9 +177,9 @@ Dr.Love AIは、心の深い部分からあなたに寄り添いながら、よ�
     title: '24時間あなたの心に寄り添う',
     text: `気持ちがうまく整理できないときや、誰にも相談できずに抱え込んでしまったとき。LINEで話しかけていただくだけで、Dr. Love AIがあなたの想いを丁寧に受けとめ、やさしく言葉にしていきます。
 
-つらさや不安、理由のわからないモヤモヤをひとつずつ言語化しながら、少し心が軽くなったり、自分らしい考え方や選択肢に気づけるようサポートします。
+つらさや不安、理由のわからないモヤモヤを<wbr>ひとつずつ言語化しながら、少し心が軽くなったり、自分らしい考え方や選択肢に気づけるよう<wbr>サポートします。
 
-また、占いや診断コンテンツなども充実しており、"楽しみながら自分を知る"ことができるのも特徴です。
+また、占いや診断コンテンツなども充実しており、"楽しみながら自分を知る"<wbr>ことができるのも特徴です。
 
 誰にも言えなかった気持ちを、もうひとりで抱えなくていい。
 Dr.Love AIが、いつでもあなたのそばにいます。`,
@@ -191,12 +191,12 @@ Dr.Love AIが、いつでもあなたのそばにいます。`,
     text: `Dr.Love AIは、あなたの骨格タイプ・顔立ち・パーソナルカラーなどをもとに、"今のあなた"にぴったりな美容サロンを複数提案し、予約までまるごとサポートします。
 
 さらに、肌質や予算、好みに合わせて、おすすめのコスメを複数ご提案。
-そのままECサイトで購入できるリンクも自動でお届けするので、迷わず行動に移せます。
+そのままECサイトで購入できる<wbr>リンクも自動でお届けするので、迷わず行動に移せます。
 
-毎月、自分の変化を楽しめる「美容サブスクボックス」では、外見を整えるだけでなく、心の充実にもつながる"自分磨き"体験をお届け。
+毎月、自分の変化を楽しめる<wbr>「美容サブスクボックス」<wbr>では、外見を整えるだけでなく、心の充実にもつながる"自分磨き"体験をお届け。
 ただ消費するのではなく、「気づき」と「前向きな変化」を実感しながら続けられる設計です。
 
-そして、本格的に外見を整えたい方には、半年〜1年かけて最短距離で自己変革を叶える「外見プロデュースパック」もご用意。
+そして、本格的に外見を整えたい方には、半年〜1年かけて最短距離で自己変革を叶える<wbr>「外見プロデュースパック」<wbr>もご用意。
 
 骨格診断やパーソナルカラー分析をベースに、ヘア・スキンケア・ファッション・サロン・コスメまで一貫してプロデュース。
 "見た目"から始まる新しい自分へ、しっかりと伴走していきます。`,

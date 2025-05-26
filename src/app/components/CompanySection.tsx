@@ -4,12 +4,18 @@ import { SectionTitle } from './SectionTitle';
 const sectionStyle = css({
   width: '100%',
   margin: '0 auto',
-  padding: '96px 80px',
+  // Narrower horizontal padding on small screens
+  padding: '64px 24px',
   display: 'flex',
   flexDirection: 'column',
   gap: '40px',
   background: 'background',
   zIndex: 1,
+
+  // Restore larger padding from md and up
+  md: {
+    padding: '96px 80px',
+  },
 });
 
 const tableStyle = css({

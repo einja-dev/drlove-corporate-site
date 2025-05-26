@@ -46,19 +46,12 @@ const titleStyle = css({
 
 const rowScrollStyle = css({
   width: '100%',
-  overflowX: 'auto',
+  overflow: 'hidden',          // hide scrollbar and prevent manual scroll
   display: 'flex',
   flexDirection: 'row',
   gap: '24px',
   marginBottom: '32px',
-  scrollbarWidth: 'thin',
-  '&::-webkit-scrollbar': {
-    height: '8px',
-  },
-  '&::-webkit-scrollbar-thumb': {
-    background: '#eee',
-    borderRadius: '4px',
-  },
+  pointerEvents: 'none',       // disable user interaction (no manual scrolling)
 });
 
 const logoCardStyle = css({
