@@ -21,9 +21,15 @@ const galleryWrap = css({
   maxWidth: '1100px',
   margin: '0 auto',
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+  gridTemplateColumns: 'repeat(3, 1fr)',
   gap: 'clamp(16px, 3vw, 32px)',
   padding: 'clamp(20px, 4vw, 40px)',
+  '@media (max-width: 768px)': {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
+  '@media (max-width: 480px)': {
+    gridTemplateColumns: '1fr',
+  },
 });
 
 const cardCommon = {
@@ -123,18 +129,30 @@ export default function GallerySection() {
           />
         ))}
         {/* 画像カード */}
-        {galleryImages.map((img) => (
-          <div key={img.src} style={{ ...cardCommon, background: img.bgColor }}>
-            <Image
-              src={img.src}
-              alt={img.alt}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              width={400}
-              height={220}
-              priority
-            />
-          </div>
-        ))}
+        {galleryImages.map((img, index) => {
+          // 3列固定の場合の計算
+          const positionInRow = index % 3;
+
+          return (
+            <div
+              key={img.src}
+              style={{
+                ...cardCommon,
+                background: img.bgColor,
+                marginTop: `${positionInRow * 20}px`
+              }}
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                width={400}
+                height={220}
+                priority
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );
