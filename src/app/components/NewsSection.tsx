@@ -14,31 +14,21 @@ const sectionStyle = css({
 });
 
 const newsListStyle = css({
-  display: 'flex',
-  flexDirection: 'row',
-  padding: '8px 0',
+  display: 'grid',
+  gridAutoFlow: 'column',
+  gridAutoColumns: 'clamp(180px, 32vw, 262px)',
+  gap: '24px',
+  overflowX: 'auto',
   alignItems: 'stretch',
-  justifyContent: 'flex-start',
-  width: '100%',
-  overflowX: 'scroll',
-  flexWrap: 'nowrap',
-  paddingBottom: '8px',
+  padding: '8px 0',
   scrollbarWidth: 'auto',
   scrollbarGutter: 'stable',
-  '& > div': {
-    marginLeft: '16px',
-  },
   '&::-webkit-scrollbar': {
     height: '16px',
   },
   '&::-webkit-scrollbar-thumb': {
     background: '#eee',
     borderRadius: '8px',
-  },
-  md: {
-    '& > div': {
-      marginLeft: '24px',
-    },
   },
 });
 
@@ -51,25 +41,39 @@ const newsCardStyle = css({
   flexDirection: 'column',
   overflow: 'hidden',
   flex: '0 0 auto',
+  transition: 'box-shadow 0.25s cubic-bezier(.4,0,.2,1), transform 0.25s cubic-bezier(.4,0,.2,1)',
   md: {
     padding: '16px',
+  },
+  cursor: 'pointer',
+  '&:hover': {
+    boxShadow: '0 8px 32px 0 rgba(97,139,255,0.18)',
+    transform: 'translateY(-4px) scale(1.03)',
+    '& img': {
+      transform: 'scale(1.08)',
+    },
   },
 });
 const newsImageWrap = css({
   width: '100%',
-  aspectRatio: '230/160',
+  aspectRatio: '16/9',
   borderRadius: '12px 12px 0 0',
   overflow: 'hidden',
   background: '#fff',
   flexShrink: 0,
   position: 'relative',
+  transition: 'transform 0.25s cubic-bezier(.4,0,.2,1)',
   md: {
     borderRadius: '12px',
+  },
+  '&:hover img': {
+    transform: 'scale(1.08)',
   },
 });
 
 const newsImageStyle = css({
   objectFit: 'cover',
+  transition: 'transform 0.25s cubic-bezier(.4,0,.2,1)',
 });
 
 const cardContentStyle = css({
@@ -88,7 +92,6 @@ const cardContentStyle = css({
 });
 
 const dateStyle = css({
-  fontFamily: 'M+ 1m',
   fontWeight: '700',
   fontSize: '16px',
   color: '#FF749D',
@@ -97,9 +100,7 @@ const dateStyle = css({
 });
 
 const contentStyle = css({
-  fontFamily: 'Noto Serif CJK JP',
-  fontWeight: '500',
-  fontSize: '16px',
+  fontSize: '14px',
   color: '#444',
   lineHeight: '1.8',
   textAlign: 'left',
@@ -107,28 +108,58 @@ const contentStyle = css({
   textOverflow: 'ellipsis',
   display: '-webkit-box',
   lineClamp: 3,
+  md: {
+    fontSize: '16px',
+  },
+  minHeight: '5.4em',
+});
+
+const labelStyle = css({
+  display: 'inline-block',
+  border: '1px solid #FF749D',
+  borderRadius: '8px',
+  background: '#FFF',
+  color: '#FF749D',
+  fontWeight: 700,
+  fontSize: '16px',
+  fontFamily: 'inherit',
+  padding: '4px 8px',
+  textAlign: 'center',
+  margin: '20px 0 12px 0',
+  boxSizing: 'border-box',
+  lineHeight: 1.6,
+  boxShadow: 'none',
+  alignSelf: 'flex-start',
 });
 
 const newsData = [
   {
-    date: '2025/06/12',
-    text: 'ニュース内容が入るよ3ぎょうぐらい。ニュース内容が入るよ3ぎょうぐらい。',
-    img: '/figma-assets/news_card1.png',
+    date: '2025/05/27',
+    text: '5/12 CEO水池愛香 ボディメイク大会に初出場で大健闘「もっと上を目指したい」',
+    img: '/top/news/news-1.png',
+    label: 'メディア掲載',
+    link: 'https://news.yahoo.co.jp/articles/18508fbde1a4f655558d4ed759a0c3b58e0f0899',
   },
   {
-    date: '2025/06/01',
-    text: '新サービスをリリースしました。詳細はお知らせページをご覧ください。',
-    img: '/figma-assets/news_card2.png',
+    date: '2025/05/25',
+    text: 'Nontitle Season5 3話 5/29 放送予定、乞うご期待！',
+    img: '/top/news/news-2.png',
+    label: 'メディア出演',
+    link: 'https://www.youtube.com/@nontitle8964',
   },
   {
-    date: '2025/05/20',
-    text: 'AIカウンセリング機能がアップデートされました。',
-    img: '/figma-assets/news_card3.png',
+    date: '2025/05/22',
+    text: 'Nontitle Season5 2話 5/22 放送予定、乞うご期待！',
+    img: '/top/news/news-3.png',
+    label: 'メディア出演',
+    link: 'https://youtu.be/sPE8J9imqqo?si=sTIa7TMyz2QR0VvA',
   },
   {
-    date: '2025/05/01',
-    text: 'Dr.LoveのWebサイトを公開しました。',
-    img: '/figma-assets/news_card4.png',
+    date: '2025/05/15',
+    text: 'Nontitle Season5 1話 5/15 放送開始！高卒 vs 大卒 ディベート対決波乱の幕開け！？',
+    img: '/top/news/news-4.png',
+    label: 'メディア出演',
+    link: 'https://youtu.be/eTeX1d5WVQY?si=qZaosRtLsSOSF1yA',
   },
 ];
 
@@ -137,32 +168,30 @@ export default function NewsSection() {
     <section className={sectionStyle} id="news">
       <SectionTitle en="NEWS" jp="ニュース" />
       <div className={newsListStyle}>
-        <div className={newsCardStyle}>
-          <div className={newsImageWrap}>
-            <Image
-              src="/figma-assets/news_card1_mainimg.png"
-              alt="news"
-              fill
-              className={newsImageStyle}
-            />
-          </div>
-          <div className={cardContentStyle}>
-            <div className={dateStyle}>2025/06/12</div>
-            <div className={contentStyle}>
-              ニュース内容が入るよ3ぎょうぐらい。ニュース内容が入るよ3ぎょうぐらい。
-            </div>
-          </div>
-        </div>
         {newsData.map((item) => (
-          <div className={newsCardStyle} key={item.date}>
-            <div className={newsImageWrap}>
-              <Image src={item.img} alt="news" fill className={newsImageStyle} />
+          <a
+            key={item.date + item.text}
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <div className={newsCardStyle}>
+              <div className={newsImageWrap}>
+                <Image src={item.img} alt="news" fill className={newsImageStyle} />
+              </div>
+              <div className={cardContentStyle}>
+                <div className={dateStyle}>{item.date}</div>
+                <div
+                  className={contentStyle}
+                  style={{ WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}
+                >
+                  {item.text}
+                </div>
+                <span className={labelStyle}>{item.label}</span>
+              </div>
             </div>
-            <div className={cardContentStyle}>
-              <div className={dateStyle}>{item.date}</div>
-              <div className={contentStyle}>{item.text}</div>
-            </div>
-          </div>
+          </a>
         ))}
       </div>
     </section>
