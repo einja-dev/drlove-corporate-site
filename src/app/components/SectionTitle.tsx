@@ -10,7 +10,7 @@ const enTitleStyle = css({
   fontFamily: 'Varela Round',
   fontStyle: 'normal',
   fontWeight: '400',
-  fontSize: 'clamp(2rem, 4vw, 2.5rem)',
+  fontSize: 'clamp(2rem, 2.5vw, 2.5rem)',
   lineHeight: '100%',
   textAlign: 'center',
   background: 'linear-gradient(98deg, #FF749D 0%, #FFB374 100%)',
@@ -20,14 +20,13 @@ const enTitleStyle = css({
   display: 'inline-block',
 
   md: {
-    fontSize: 'clamp(2rem, 4vw, 2.5rem)',
+    fontSize: 'clamp(2rem, 3vw, 2.5rem)',
   },
 });
 
 const jpTitleStyle = css({
-  fontFamily: 'M+ 1p',
   fontWeight: '500',
-  fontSize: 'clamp(2em, 5vw, 3rem)',
+  fontSize: 'clamp(2em, 3.4vw, 3rem)',
   lineHeight: '1.5em',
   textAlign: 'center',
   backgroundImage: 'linear-gradient(90deg, #FF749D 0%, #FFB374 100%)',

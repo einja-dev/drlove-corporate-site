@@ -14,11 +14,10 @@ const headerStyle = css({
   width: '100vw',
   zIndex: 100,
   transition: 'opacity 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1)',
-  opacity: 0,
-  pointerEvents: 'none',
-  transform: 'translateY(-24px)',
+  opacity: 1,
+  pointerEvents: 'auto',
+  transform: 'translateY(0)',
   background: '#fff !important',
-  boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
   boxSizing: 'border-box',
   display: 'flex',
   justifyContent: 'center',
@@ -32,11 +31,10 @@ const headerStyle = css({
   lg: {
     height: '72px',
   },
-  '&.visible': {
-    opacity: 1,
-    pointerEvents: 'auto',
-    transform: 'translateY(0)',
-  },
+});
+
+const headerShadowStyle = css({
+  boxShadow: '0 4px 16px rgba(0,0,0,0.12)',
 });
 
 const logoNavWrapStyle = css({
@@ -57,7 +55,6 @@ const navStyle = css({
   gap: '16px',
   fontSize: '16px',
   color: '#444444',
-  fontFamily: 'M+ 1m',
   fontWeight: '400',
   lineHeight: '1.8em',
   lg: {
@@ -158,16 +155,22 @@ function IconButton({ onClick, ariaLabel, icon, className }: IconButtonProps) {
 }
 
 export default function HeaderSection() {
-  const [visible, setVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
-      setVisible(window.scrollY > 10);
+    const handleScroll = () => {
+      const messageSection = document.getElementById('message-section');
+      const header = document.querySelector('header');
+      if (!messageSection || !header) return;
+      const headerRect = header.getBoundingClientRect();
+      const messageRect = messageSection.getBoundingClientRect();
+      // messageSectionの上端がヘッダーの下端に到達したら影を出す
+      setIsScrolled(messageRect.top <= headerRect.bottom);
     };
-    window.addEventListener('scroll', onScroll);
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -184,7 +187,9 @@ export default function HeaderSection() {
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
 
   return (
-    <header className={`${headerStyle} ${visible ? 'visible' : ''}`}>
+    <header
+      className={[headerStyle, isScrolled ? headerShadowStyle : ''].filter(Boolean).join(' ')}
+    >
       <div className={logoNavWrapStyle}>
         <Link href="/">
           <Image

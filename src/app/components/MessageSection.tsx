@@ -1,46 +1,68 @@
 'use client';
+import { useBreakPoint } from '@/app/hooks/useBreakPoint';
 import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 const messageCatch = 'Bloom from pain. 痛みから咲く。';
 
-const messageLead = `人生はいつも思い通りじゃない、傷つくことも泣きたい夜もある。
+const messageLead = `人生はいつも思い通りじゃない、<spbr>傷つくことも泣きたい夜もある。
 でもあなたの物語はあなたが主役。
-笑えない日々を超えて笑顔で立ち上がったその瞬間にこそ、本当の愛と幸せがあなたを抱きしめに来る。
+笑えない日々を超えて<spbr>笑顔で立ち上がったその瞬間にこそ、<spbr>本当の愛と幸せがあなたを抱きしめに来る。
 
 現代の日本には、
-精神疾患、虐待、依存、孤独、そして自殺など、深刻な社会課題が数多く存在しています。
-私たちは、それらの多くが「人とのすれ違い」から生まれていると考えています。
+精神疾患、虐待、依存、孤独、そして自殺など、<spbr>深刻な社会課題が数多く存在しています。
+私たちは、それらの多くが「人とのすれ違い」<spbr>から生まれていると考えています。
 
-Dr.Loveは、「1人で抱え込まない社会作り」をビジョンに掲げ、
-"世代間の負の連鎖を断ち切り、連鎖の始まりを阻止する"ことをミッションとしています。
+Dr.Loveは、<spbr>「1人で抱え込まない社会作り」をビジョンに掲げ、
+<strong>"世代間の負の連鎖を断ち切り、</strong> <spbr><strong>連鎖の始まりを阻止する"</strong> <spbr>ことをミッションとしています。
 
-人と人とのすれ違いを、分かり合いに変えるための小さな第一歩を届けたい。
-自分の気持ちを素直に言葉にし、自分自身を理解し、大切にできる人を増やしたい。
+人と人とのすれ違いを、<spbr>分かり合いに変えるための小さな第一歩を届けたい。
+自分の気持ちを素直に言葉にし、<spbr>自分自身を理解し、大切にできる人を増やしたい。
 
-そしてその先に、愛の循環が広がっていくことで、
-やがて他者の気持ちにも自然と寄り添える、あたたかい社会が育まれていくと信じています。
+そしてその先に、<spbr>愛の循環が広がっていくことで、
+やがて他者の気持ちにも自然と寄り添える、<spbr>あたたかい社会が育まれていくと信じています。
 
-Dr.Loveは、「相談することが当たり前」になる文化をつくり、
-悩める人々の心の拠り所になることを、本気で目指しています。
+Dr.Loveは、「相談することが当たり前」<spbr>になる文化をつくり、
+悩める人々の心の拠り所になることを、<spbr>本気で目指しています。
 
 悩みを抱えるすべての人に寄り添い、
-心に小さな光を灯すように、自信を取り戻すきっかけを届け続けること。
+心に小さな光を灯すように、<spbr>自信を取り戻すきっかけを届け続けること。
+
 それこそが、Dr.Loveの存在意義です。`;
 
+// 直前 1 文字と句読点をノーブレークで包み、その後に <wbr> を挿入
+const addNoBreak = (text: string) => text;
+
 export default function MessageSection() {
-  const lines = messageLead.split(/\n/).map((line) => (line.trim() === '' ? null : line));
+  const { isSP } = useBreakPoint();
+  const lines = isSP
+    ? messageLead
+        .replace(/<spbr>/g, '\n')
+        .split(/\n/)
+        .map((line) => addNoBreak(line.trim()))
+    : messageLead
+        .replace(/<spbr>/g, '')
+        .split(/\n/)
+        .map((line) => addNoBreak(line.trim()));
   const setHeadingRef = useFadeInOnScroll(0.9); // 見出し用
-  const setLineRef = useFadeInOnScroll(0.9); // 本文用
+  const setLineRef = useFadeInOnScroll(0.01); // 本文用
+
+  // lines配列の中身を確認
+  useEffect(() => {
+    console.log('lines:', lines);
+  }, [lines]);
 
   return (
     <section
+      id="message-section"
       className={css({
         background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%)',
         zIndex: 1,
         width: '100vw',
         padding: '16px',
+
         md: {
           padding: '24px',
         },
@@ -51,7 +73,7 @@ export default function MessageSection() {
           background: 'background',
           width: '100%',
           margin: '0 auto',
-          padding: '80px 24px',
+          padding: '64px 4px 64px 24px',
           display: 'flex',
           flexDirection: 'column',
           gap: '32px',
@@ -59,6 +81,7 @@ export default function MessageSection() {
           position: 'relative',
           overflow: 'hidden',
           borderRadius: '40px',
+          sm: { padding: '80px 24px' },
           md: {
             padding: '96px 80px',
             gap: '48px',
@@ -93,7 +116,7 @@ export default function MessageSection() {
               textAlign: 'left',
               marginBottom: '16px',
               md: {
-                fontSize: 'clamp(1.4rem, 3vw, 4rem)',
+                fontSize: 'clamp(1.4rem, 3vw, 4.5rem)',
                 marginBottom: '24px',
               },
             })}
@@ -169,15 +192,15 @@ export default function MessageSection() {
             })}
           >
             {lines.map((line, i) =>
-              line === null ? (
+              line.trim() === '' ? (
                 <div
                   key={`empty-${i}`}
-                  style={{ height: '1.5em' }}
+                  style={{ height: '1.5em', minHeight: '3em' }}
                   ref={(el) => setLineRef(el, i)}
                 />
               ) : (
                 <div
-                  key={`${line}-${i}`}
+                  key={`line-${i}`}
                   ref={(el) => setLineRef(el, i)}
                   style={{ opacity: 0, transform: 'translateY(20px)' }}
                   className={css({
@@ -186,19 +209,27 @@ export default function MessageSection() {
                     lineHeight: 2.4,
                     color: '#444',
                     textAlign: 'left',
-                    fontSize: 'clamp(0.9rem, 1.2vw, 2rem)',
-                    whiteSpace: 'pre-wrap',
+                    fontSize: '0.8rem',
+                    whiteSpace: 'normal', // ← 自動折り返し
                     lineBreak: 'strict',
-                    wordBreak: 'break-word',
+                    wordBreak: 'keep-all',
+                    overflowWrap: 'break-word', // 長い英単語だけ分割。句読点だけの行を防ぐ
+                    xs: {
+                      fontSize: 'clamp(0.9rem, 1.6vw, 2rem)',
+                    },
                   })}
-                >
-                  {line}
-                </div>
+                  dangerouslySetInnerHTML={{ __html: line }}
+                />
               )
             )}
           </div>
         </div>
       </div>
+      <style jsx global>{`
+        .nb {
+          white-space: nowrap;
+        }
+      `}</style>
     </section>
   );
 }

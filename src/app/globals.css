@@ -3,28 +3,34 @@
 
 
 @layer base {
+
+  body, html {
+    font-family: var(--font-mplus), var(--font-varela-round), var(--font-noto-serif-jp), 'Varela Round', 'Noto Serif JP', sans-serif;
+  }
+
+
   pre {
     white-space: pre-wrap;
     word-break: break-word;
   }
-}
 
-html.lenis, html.lenis body {
-  height: auto;
-}
+  html.lenis, html.lenis body {
+    height: auto;
+  }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
 
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
 
-.lenis.lenis-smooth iframe {
-  pointer-events: none;
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
 }

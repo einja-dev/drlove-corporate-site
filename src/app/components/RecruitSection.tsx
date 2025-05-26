@@ -1,6 +1,8 @@
 'use client';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
 import { useWindowSize } from '../hooks/useWindowSize';
 import { PrimaryButton } from './PrimaryButton';
 
@@ -24,8 +26,8 @@ const sectionStyle = css({
 
 const cardStyle = css({
   position: 'relative',
-  width: '1536px',
-  height: '480px',
+  width: '100%',
+  aspectRatio: '1120 / 620',
   borderRadius: '16px',
   padding: '40px 32px',
   overflow: 'hidden',
@@ -46,14 +48,23 @@ const bgImgStyle = css({
   pointerEvents: 'none',
 });
 
+const overlayStyle = css({
+  position: 'absolute',
+  inset: 0,
+  width: '100%',
+  height: '100%',
+  background: 'rgba(255,215,181,0.2)',
+  zIndex: 1,
+  pointerEvents: 'none',
+});
+
 const titleStyle = css({
   fontFamily: 'M+ 1m',
   fontWeight: 500,
-  fontSize: 'clamp(1.2rem, 5vw, 2.5rem)',
+  fontSize: '28px',
   lineHeight: '1.8',
-  color: '#fff',
+  color: '#FF8A5C',
   textAlign: 'center',
-  textShadow: '0px 4px 4px rgba(0,0,0,0.25)',
   marginBottom: '32px',
   zIndex: 2,
 });
@@ -61,38 +72,67 @@ const titleStyle = css({
 const descStyle = css({
   fontFamily: 'M+ 1m',
   fontWeight: 500,
-  fontSize: 'clamp(1rem, 1.5vw, 1.5rem)',
-  lineHeight: '1.8',
-  color: '#fff',
+  fontSize: '18px',
+  lineHeight: '1.9',
+  color: '#444444',
   textAlign: 'center',
-  textShadow: '0px 4px 4px rgba(0,0,0,0.25)',
   zIndex: 2,
+});
+
+const buttonTextStyle = css({
+  fontFamily: 'M+ 1m',
+  fontWeight: 500,
+  fontSize: '20px',
+  lineHeight: '1',
 });
 
 export default function RecruitSection() {
   const { sizeType } = useWindowSize();
   const isMobile = sizeType === 'xs' || sizeType === 'sm';
+  const [isHover, setIsHover] = useState(false);
   return (
     <section className={sectionStyle} id="recruit">
-      <div className={cardStyle}>
-        <Image src="/figma-assets/recruit_bg.png" alt="recruit bg" fill className={bgImgStyle} />
-        <div className={titleStyle}>私たちと一緒に働きませんか？</div>
-        <div className={descStyle}>
-          <span>Dr. Love AIでは一緒に働くメンバーを募集しています</span>
-          <br />
-          私たちと〜的な文章が3行程度で入ります。Dr. Love AIでは一緒に働くメンバーを募集しています
-          <br />
-          私たちと〜的な文章が3行程度で入ります。
+      <div
+        className={cardStyle}
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+      >
+        <Image
+          src={isHover ? '/top/recruit/recruit_bg_hover.png' : '/top/recruit/recruit_bg_only.png'}
+          alt="recruit bg"
+          fill
+          className={bgImgStyle}
+        />
+        <div className={overlayStyle} />
+        <div style={{ position: 'absolute', top: 48, left: 0, width: '100%', zIndex: 2 }}>
+          <div className={titleStyle}>本気で向き合う仲間を募集します</div>
+          <div className={descStyle}>
+            Dr.Loveでは、孤独や不安を抱える人に寄り添える社会をつくる。
+            <br />
+            その想いに共感し、行動できる方をお待ちしています。
+          </div>
         </div>
-        <div style={{ zIndex: 2, marginTop: '40px' }}>
-          <PrimaryButton
-            variant="secondary"
-            gradText
-            borderRadiusType="special"
-            size={isMobile ? 'small' : 'default'}
-          >
-            募集要項はこちらから
-          </PrimaryButton>
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 48,
+            left: 0,
+            width: '100%',
+            zIndex: 2,
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Link href="/recruit" style={{ textDecoration: 'none' }}>
+            <PrimaryButton
+              variant="secondary"
+              gradText
+              borderRadiusType="special"
+              size={isMobile ? 'small' : 'default'}
+            >
+              <span className={buttonTextStyle}>募集職種をみる</span>
+            </PrimaryButton>
+          </Link>
         </div>
       </div>
     </section>

@@ -4,11 +4,11 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'secondary';
   gradText?: boolean;
   borderRadiusType?: 'default' | 'special';
-  size?: 'default' | 'small';
+  size?: 'default' | 'small' | 'large';
   gradientBorder?: boolean;
 };
 
-export const primaryButtonStyle = css({
+const primaryButtonBaseStyle = css({
   position: 'relative',
   border: 'none',
   borderRadius: '50px',
@@ -36,9 +36,14 @@ export const primaryButtonStyle = css({
     pointerEvents: 'none',
     zIndex: 0,
   },
+});
 
-  lg: {
-    padding: '6px 24px',
+const primaryButtonLargeStyle = css({
+  fontSize: '20px',
+  padding: '16px 48px',
+  '@media (max-width: 767px)': {
+    fontSize: '16px',
+    padding: '10px 28px',
   },
 });
 
@@ -55,11 +60,29 @@ export const primaryButtonTextStyle = css({
   lg: {
     fontSize: '20px',
   },
+  '.large &': {
+    fontSize: '24px',
+    lg: {
+      fontSize: '28px',
+    },
+    '@media (max-width: 767px)': {
+      fontSize: '16px',
+    },
+  },
 });
 
-export function PrimaryButton({ children, gradText, borderRadiusType, ...props }: Props) {
+export function PrimaryButton({
+  children,
+  gradText,
+  borderRadiusType,
+  size = 'default',
+  ...props
+}: Props) {
+  const classNames = [primaryButtonBaseStyle];
+  if (size === 'large') classNames.push(primaryButtonLargeStyle);
+  if (size === 'large') classNames.push('large');
   return (
-    <button className={primaryButtonStyle} {...props}>
+    <button className={classNames.join(' ')} {...props}>
       <span className={primaryButtonTextStyle}>{children}</span>
     </button>
   );

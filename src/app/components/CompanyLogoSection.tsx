@@ -7,7 +7,7 @@ import { PrimaryButton } from './PrimaryButton';
 const sectionStyle = css({
   width: '100%',
   margin: '0 auto',
-  padding: '80px 16px 0 16px',
+  padding: '96px 16px 48px 16px',
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
@@ -15,7 +15,7 @@ const sectionStyle = css({
   background: 'background',
   zIndex: 1,
   md: {
-    padding: '120px 0 0 0',
+    padding: '120px 16px 64px 16px',
   },
 });
 
@@ -31,16 +31,15 @@ const bgStyle = css({
 });
 
 const titleStyle = css({
-  fontFamily: 'M+ 1m',
-  fontWeight: 500,
-  fontSize: '32px',
+  fontSize: 'clamp(0.9rem,5vw, 3rem)',
+  fontWeight: '500',
   color: '#444',
   textAlign: 'center',
   lineHeight: '1.8',
   marginBottom: '48px',
   zIndex: 1,
   md: {
-    fontSize: '36px',
+    fontSize: 'clamp(0.9rem,4vw, 2.5rem)',
     marginBottom: '56px',
   },
 });
@@ -64,19 +63,19 @@ const rowScrollStyle = css({
 
 const logoCardStyle = css({
   background: '#fff',
-  borderRadius: '16px',
-  boxShadow: '0 0 24px 0 rgba(0,0,0,0.06)',
+  borderRadius: '8px',
+  boxShadow: '0 4px 24px 0 rgba(0,0,0,0.08)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: '16px',
-  width: '204px',
-  height: '80px',
+  padding: '12px',
+  width: '168px',
+  height: '56px',
   overflow: 'hidden',
 });
 
-const logos = Array.from({ length: 14 }, (_, i) => ({
-  src: `/figma-assets/logo-${(i + 1).toString().padStart(2, '0')}.png`,
+const logos = Array.from({ length: 30 }, (_, i) => ({
+  src: `/top/company/logo-${(i + 1).toString().padStart(2, '0')}.png`,
   alt: `logo-${i + 1}`,
 }));
 
@@ -84,7 +83,18 @@ const buttonWrapperStyle = css({
   width: '100%',
   display: 'flex',
   justifyContent: 'center',
-  marginBottom: '40px',
+  marginTop: '24px',
+  zIndex: 2,
+});
+
+const descriptionStyle = css({
+  fontWeight: 400,
+  fontSize: '16px',
+  color: '#444444',
+  lineHeight: '1.8',
+  textAlign: 'center',
+  marginTop: '24px',
+  position: 'relative',
   zIndex: 2,
 });
 
@@ -133,7 +143,13 @@ export default function CompanyLogoSection() {
 
   return (
     <section className={sectionStyle}>
-      <Image src="/figma-assets/company-bg.png" alt="背景" fill className={bgStyle} priority />
+      <Image
+        src="/top/company/company-bg-moyamoya.png"
+        alt="背景"
+        fill
+        className={bgStyle}
+        priority
+      />
       <h2 className={titleStyle}>想いを共にする企業と、ともに歩んでいます。</h2>
       {/* 横スクロール3行（無限ループ） */}
       {logoRows.map((row, idx) => {
@@ -146,11 +162,7 @@ export default function CompanyLogoSection() {
           transition: 'none',
         };
         return (
-          <div
-            className={rowScrollStyle}
-            key={row.map((logo) => logo.alt).join('-')}
-            style={{ overflow: 'hidden' }}
-          >
+          <div className={rowScrollStyle} key={row.map((logo) => logo.alt).join('-')}>
             <div style={style}>
               {[...row, ...row].map((logo, i) => (
                 <div key={`${logo.alt}-${i}`} className={logoCardStyle}>
@@ -167,9 +179,15 @@ export default function CompanyLogoSection() {
           </div>
         );
       })}
+      {/* ロゴ下の説明文 */}
+      <div className={descriptionStyle}>
+        共に歩んでくださるパートナーを随時募集しております
+        <br />
+        まずはお気軽にご相談ください
+      </div>
       <div className={buttonWrapperStyle}>
-        <PrimaryButton variant="secondary" gradText borderRadiusType="special">
-          提携をご検討の方はこちら
+        <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
+          お問い合わせ
         </PrimaryButton>
       </div>
     </section>

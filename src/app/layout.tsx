@@ -1,22 +1,26 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Noto_Serif_JP } from 'next/font/google';
+import { M_PLUS_1p, Noto_Serif_JP, Varela_Round } from 'next/font/google';
 import './globals.css';
 import { Providers } from './Providers';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const varelaRound = Varela_Round({
+  variable: '--font-varela-round',
   subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  weight: ['400'],
+  display: 'swap',
 });
 
 const notoSerif = Noto_Serif_JP({
   variable: '--font-noto-serif-jp',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
+const mplus = M_PLUS_1p({
+  variable: '--font-mplus',
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
   display: 'swap',
 });
 
@@ -35,7 +39,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.svg" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${notoSerif.variable}`}>
+      <body className={`${mplus.variable} ${varelaRound.variable} ${notoSerif.variable}`}>
         <Providers>{children}</Providers>
       </body>
     </html>

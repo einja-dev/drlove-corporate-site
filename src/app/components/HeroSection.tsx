@@ -16,16 +16,18 @@ const heroSection = css({
   bg: '#fff',
 
   position: 'sticky',
-  top: '16px',
+  top: '60px',
   md: {
-    top: '40px',
     p: '0 24px',
+  },
+  lg: {
+    top: '72px',
   },
 });
 
 const heroContainer = css({
   w: '100%',
-  height: 'calc(100svh - 32px)',
+  height: 'calc(100svh - 76px)',
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
@@ -33,7 +35,7 @@ const heroContainer = css({
   borderRadius: '40px',
   position: 'relative',
   md: {
-    height: 'calc(100svh - 80px)',
+    height: 'calc(100svh - 96px)',
   },
 });
 
@@ -113,6 +115,7 @@ const heroTextContainer = css({
 
 export default function HeroSection() {
   const [objectPosition, setObjectPosition] = useState('bottom');
+  const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
     const updateObjectPosition = () => {
@@ -131,8 +134,24 @@ export default function HeroSection() {
     return () => window.removeEventListener('resize', updateObjectPosition);
   }, []);
 
+  useEffect(() => {
+    const onScroll = () => {
+      const threshold = window.innerHeight * 1.1;
+      setIsHidden(window.scrollY > threshold);
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <section className={heroSection}>
+    <section
+      className={heroSection}
+      style={{
+        opacity: isHidden ? 0 : 1,
+        pointerEvents: isHidden ? 'none' : 'auto',
+        transition: 'opacity 0.4s',
+      }}
+    >
       <div className={heroContainer}>
         <div className={heroImageWrap}>
           <Image
