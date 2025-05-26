@@ -36,7 +36,10 @@ const sectionStyle = css({
   borderTopLeftRadius: '40px',
   borderTopRightRadius: '40px',
   boxShadow: '0 -16px 32px -8px rgba(0,0,0,0.10)',
-  padding: '64px 40px',
+  padding: '64px 16px',
+  sm: {
+    padding: '64px 24px',
+  },
   md: {
     padding: '80px 40px',
     gap: '64px',
