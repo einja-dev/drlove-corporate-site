@@ -204,7 +204,7 @@ Dr.Love AIが、いつでもあなたのそばにいます。`,
 
 const serviceContents = rawServiceContents.map(({ text, ...rest }) => ({
   ...rest,
-  texts: splitTextWithEmptyLines(text),
+  texts: splitTextWithEmptyLines(text.replace(/<wbr>/g, '\u200B').replace(/、/g, '、\u200B')),
 }));
 /* ---------- /service data ---------- */
 
@@ -226,9 +226,6 @@ export default function OurServiceSection() {
     </section>
   );
 }
-
-// --- utility: insert <wbr> after every Japanese comma so it can wrap there ---
-const addWbrAfterComma = (text: string) => text.replace(/、/g, '、<wbr>');
 
 /* ---------- Service block (in same file) ---------- */
 type ServiceBlockProps = {
@@ -291,7 +288,7 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
               className={sectionText}
               ref={setLineRef}
               style={{ whiteSpace: 'normal', lineBreak: 'strict', wordBreak: 'keep-all' }}
-              dangerouslySetInnerHTML={{ __html: addWbrAfterComma(t) }}
+              dangerouslySetInnerHTML={{ __html: t }}
             />
           )
         )}
