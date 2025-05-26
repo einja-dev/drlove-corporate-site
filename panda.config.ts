@@ -28,7 +28,18 @@ export default defineConfig({
       xl: '1280px',
       '2xl': '1536px',
     },
-    extend: {},
+    extend: {
+      keyframes: {
+        scrollLeft: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        scrollRight: {
+          '0%': { transform: 'translateX(-50%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+      },
+    },
   },
 
   // The output directory for your css system

@@ -2,7 +2,6 @@
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { PrimaryButton } from './PrimaryButton';
 
 const sectionStyle = css({
@@ -47,12 +46,11 @@ const titleStyle = css({
 
 const rowScrollStyle = css({
   width: '100%',
-  overflow: 'hidden', // hide scrollbar and prevent manual scroll
+  overflow: 'hidden',
   display: 'flex',
   flexDirection: 'row',
-  gap: '24px',
   marginBottom: '32px',
-  pointerEvents: 'none', // disable user interaction (no manual scrolling)
+  pointerEvents: 'none',
 });
 
 const logoCardStyle = css({
@@ -66,6 +64,16 @@ const logoCardStyle = css({
   width: '168px',
   height: '56px',
   overflow: 'hidden',
+  flexShrink: 0,
+});
+
+const animatedRowStyle = css({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '24px',
+  width: 'max-content',
+  animationTimingFunction: 'linear',
+  animationIterationCount: 'infinite',
 });
 
 const logos = Array.from({ length: 30 }, (_, i) => ({
@@ -103,58 +111,44 @@ export default function CompanyLogoSection() {
     logos.slice(i * logosPerRow, (i + 1) * logosPerRow)
   );
 
-  // 各行のアニメーション用state
-  const [offsets, setOffsets] = useState(Array(rowCount).fill(0));
-  const rowLengths = logoRows.map((row) => row.length);
-  const cardWidth = 204 + 24; // カード幅+gap
+  // 各行のアニメーション設定
+  const getRowAnimation = (rowIndex: number, rowLength: number) => {
+    const cardWidth = 168 + 24; // カード幅 + gap
+    const totalWidth = rowLength * cardWidth;
 
-  useEffect(() => {
-    const baseSpeed = 1.2; // px/frame
-    let rafId: number;
-    const animate = () => {
-      setOffsets((prev) =>
-        prev.map((offset, i) => {
-          const totalWidth = rowLengths[i] * cardWidth;
-          let next = offset;
-          if (i === 0) {
-            // 1行目: 右→左
-            next -= baseSpeed;
-            if (Math.abs(next) >= totalWidth) next = 0;
-          } else if (i === 1) {
-            // 2行目: 左→右
-            next += baseSpeed;
-            if (next > 0) next = -totalWidth;
-          } else if (i === 2) {
-            // 3行目: 右→左（通常速度）
-            next -= baseSpeed;
-            if (Math.abs(next) >= totalWidth) next = 0;
-          }
-          return next;
-        })
-      );
-      rafId = requestAnimationFrame(animate);
-    };
-    rafId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafId);
-  }, [rowLengths]);
+    // 一定の速度でスクロール（画面サイズに依存しない）
+    const pixelsPerSecond = 50; // 1秒間に移動するピクセル数
+    const duration = totalWidth / pixelsPerSecond; // 秒単位
+
+    if (rowIndex === 1) {
+      // 2行目は右向き
+      return {
+        animation: `scrollRight ${duration}s linear infinite`,
+      };
+    } else {
+      // 1行目と3行目は左向き
+      return {
+        animation: `scrollLeft ${duration}s linear infinite`,
+      };
+    }
+  };
 
   return (
     <section className={sectionStyle}>
       <Image src="/top/company/company-bg-moyamoya.png" alt="背景" fill className={bgStyle} />
       <h2 className={titleStyle}>想いを共にする企業と、ともに歩んでいます。</h2>
+
       {/* 横スクロール3行（無限ループ） */}
       {logoRows.map((row, idx) => {
-        const style = {
-          display: 'flex',
-          flexDirection: 'row' as const,
-          gap: '24px',
-          width: 'max-content',
-          transform: `translateX(${offsets[idx]}px)`,
-          transition: 'none',
-        };
+        const animationProps = getRowAnimation(idx, row.length);
+
         return (
-          <div className={rowScrollStyle} key={row.map((logo) => logo.alt).join('-')}>
-            <div style={style}>
+          <div className={rowScrollStyle} key={`row-${idx}`}>
+            <div
+              className={animatedRowStyle}
+              style={animationProps}
+            >
+              {/* 2セット分のロゴを配置 */}
               {[...row, ...row].map((logo, i) => (
                 <div key={`${logo.alt}-${i}`} className={logoCardStyle}>
                   <Image
@@ -170,6 +164,7 @@ export default function CompanyLogoSection() {
           </div>
         );
       })}
+
       {/* ロゴ下の説明文 */}
       <div className={descriptionStyle}>
         共に歩んでくださるパートナーを随時募集しております
