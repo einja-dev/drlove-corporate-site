@@ -65,7 +65,7 @@ const navStyle = css({
 const mobileMenuButtonStyle = css({
   display: 'flex',
   background: '#fff',
-  border: '1px solid #DEDEDE',
+  border: 'none',
   borderRadius: '50%',
   padding: '8px',
   cursor: 'pointer',
