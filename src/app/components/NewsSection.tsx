@@ -19,6 +19,7 @@ const newsListStyle = css({
   gridAutoColumns: 'clamp(180px, 32vw, 262px)',
   gap: '16px',
   overflowX: 'auto',
+  overflowY: 'hidden',
   alignItems: 'stretch',
   padding: '8px 16px',
   scrollbarWidth: 'auto',
