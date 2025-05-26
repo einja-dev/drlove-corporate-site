@@ -39,12 +39,12 @@ const contentWrapper = css({
 const rowBase = css({
   display: 'flex',
   flexDirection: 'column',
-  gap: '16px', // narrower gap on small screens
+  gap: '8px', // モバイル時は8px
   alignItems: 'center',
   width: '100%',
   position: 'relative',
   overflow: 'visible',
-  md: { gap: '60px', flexDirection: 'row' }, // slightly wider gap
+  md: { gap: '60px', flexDirection: 'row' }, // md以上は60px
 });
 const rowReverse = css({ md: { flexDirection: 'row-reverse' } });
 
@@ -159,13 +159,13 @@ const rawServiceContents = [
     id: 'main-1',
     video: '/videos/serviceImage1.mp4',
     titleImage: '/top/service/drlove-ai.png',
-    text: `心や見た目の悩みは、言葉にできないまま抱え込んでしまうことがあります。恋愛や仕事、人間関係、そして自分自身との向き合い。
+    text: `心や見た目の悩みは、言葉にできないまま<wbr>抱え込んでしまうことがあります。恋愛や仕事、人間関係、そして自分自身との向き合い。
 人生の節目ごとに形を変えながら、モヤモヤはそっと心に積もっていきます。
 
 「何に悩んでいるのか自分でもわからない」
 「つらいけど、誰かに相談するのは勇気がいる」
 
-そんな日常に潜む"心のつまずき"に対して、Dr.Love AIは対話を通じてあなたの感情をやさしく言語化し、整理し、見つめ直すお手伝いをします。
+そんな日常に潜む"心のつまずき"に対して、<wbr>Dr.Love AIは対話を通じて<wbr>あなたの感情をやさしく言語化し、整理し、見つめ直すお手伝いをします。
 ただ話を聞くだけではなく、あなたの現在地とこれからを照らす「言葉」、今できる「行動」、そして見た目を通じた「自己表現」までをトータルでサポートします。
 
 一人で抱え込まない社会へ。
@@ -249,6 +249,9 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
 
   const RowClass = idx % 2 === 0 ? rowBase : `${rowBase} ${rowReverse}`;
 
+  // --- Spacerサイズをレスポンシブで指定 ---
+  const spacerSize = typeof window !== 'undefined' && window.innerWidth < 768 ? '16px' : '32px';
+
   return (
     <div className={RowClass}>
       {/* watercolor background for the first block */}
@@ -277,7 +280,8 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
             <ServiceTitleWithBars title={title} />
           )}
         </div>
-        <Spacer size="32px" />
+        {/* Spacerのサイズをレスポンシブで調整 */}
+        <Spacer size={spacerSize} />
         {texts.map((t, i) =>
           t === '' ? (
             <div
@@ -305,7 +309,7 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
             ref={setVideoRef}
             src={video}
             className={videoFill}
-            style={idx === 0 ? { transform: 'scale(1.15)' } : undefined}
+            style={idx === 0 ? { transform: 'scale(1.1)' } : undefined}
             autoPlay
             loop
             muted
