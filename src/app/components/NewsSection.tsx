@@ -17,12 +17,17 @@ const newsListStyle = css({
   display: 'grid',
   gridAutoFlow: 'column',
   gridAutoColumns: 'clamp(180px, 32vw, 262px)',
-  gap: '24px',
+  gap: '16px',
   overflowX: 'auto',
   alignItems: 'stretch',
   padding: '8px 0',
   scrollbarWidth: 'auto',
   scrollbarGutter: 'stable',
+
+  md: {
+    gap: '24px',
+  },
+
   '&::-webkit-scrollbar': {
     height: '16px',
   },
