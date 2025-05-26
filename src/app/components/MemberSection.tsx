@@ -29,8 +29,16 @@ const sectionStyle = css({
   background: 'background',
   display: 'flex',
   flexDirection: 'column',
-  gap: '64px',
+  gap: '32px',
   zIndex: 1,
+  borderTopLeftRadius: '40px',
+  borderTopRightRadius: '40px',
+  boxShadow: '0 -16px 32px -8px rgba(0,0,0,0.10)',
+  padding: '64px 40px',
+  md: {
+    padding: '80px 40px',
+    gap: '64px',
+  },
 });
 
 const mainCardStyle = css({
@@ -178,7 +186,6 @@ export default function MemberSection() {
           width: '100%',
           maxWidth: '1120px',
           margin: '0 auto',
-          padding: '96px 0',
         })}
       >
         <div className={mainCardStyle}>
