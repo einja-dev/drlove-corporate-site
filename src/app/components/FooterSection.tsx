@@ -24,6 +24,8 @@ const logoStyle = css({
 
 const navStyle = css({
   display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
   gap: '16px',
   fontSize: '14px',
   color: '#444444',
