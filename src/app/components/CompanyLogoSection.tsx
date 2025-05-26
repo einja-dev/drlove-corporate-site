@@ -68,9 +68,35 @@ const logoCardStyle = css({
   overflow: 'hidden',
 });
 
-const logos = Array.from({ length: 30 }, (_, i) => ({
-  src: `/top/company/logo-${(i + 1).toString().padStart(2, '0')}.png`,
-  alt: `logo-${i + 1}`,
+export const logoFilenames: string[] = [
+  '[PNG]웨이브_로고(직사각형).png',
+  '💜💜エッジ💜💜.png',
+  '0EBEB123-592C-4189-B471-04DE43F170B4.jpg',
+  '494858411_1198789771396397_6950388020160594109_n-2.jpg',
+  // '[CROP]KakaoTalk_20210915_160227559_0.png',
+  'IMG_4359.JPG',
+  'IMG_5560.PNG',
+  'KakaoTalk_20230615_092939793.jpg',
+  // 'KakaoTalk_20241119_130522441_01.jpeg',
+  'KakaoTalk_20250415_141658932_01.png',
+  'KakaoTalk_20250521_151936300_01.png',
+  'lorraine_browroko.png',
+  'rogo.png',
+  'Web.png',
+  'エレーブクリニック.png',
+  'ジェナベル.jpeg',
+  'MANO.jpg',
+  'ファクト整形外科 (1).jpg',
+  'プラネット美容整形外科.png',
+  '武内製薬.jpeg',
+  '癒し〜ぷブランドロゴ.png',
+  'HUGO.png',
+  'DayBeauClinic.svg',
+  'NATURIA.svg',
+];
+const logos = logoFilenames.map((filename) => ({
+  src: `/top/company/${filename}`,
+  alt: filename.replace(/\.[^/.]+$/, ''),
 }));
 
 const buttonWrapperStyle = css({

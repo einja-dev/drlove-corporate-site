@@ -15,6 +15,7 @@ const sectionStyle = css({
   alignItems: 'center',
   position: 'relative',
   zIndex: 1,
+  flexDirection: 'column',
   md: {
     padding: '40px 32px',
   },
@@ -27,7 +28,7 @@ const sectionStyle = css({
 const cardStyle = css({
   position: 'relative',
   width: '100%',
-  aspectRatio: '1120 / 620',
+  aspectRatio: '224/144',
   borderRadius: '16px',
   padding: '40px 32px',
   overflow: 'hidden',
@@ -68,29 +69,67 @@ const overlayStyle = css({
 const titleStyle = css({
   fontFamily: 'M+ 1m',
   fontWeight: 500,
-  fontSize: '28px',
+  fontSize: '20px',
   lineHeight: '1.8',
   color: '#FF8A5C',
   textAlign: 'center',
-  marginBottom: '32px',
+  marginBottom: '16px',
   zIndex: 2,
+  md: {
+    fontSize: '28px',
+    marginBottom: '32px',
+  },
 });
 
 const descStyle = css({
   fontFamily: 'M+ 1m',
   fontWeight: 500,
-  fontSize: '18px',
+  fontSize: '14px',
   lineHeight: '1.9',
   color: '#444444',
   textAlign: 'center',
   zIndex: 2,
+  md: {
+    fontSize: '18px',
+  },
 });
 
-const buttonTextStyle = css({
-  fontFamily: 'M+ 1m',
-  fontWeight: 500,
-  fontSize: '20px',
-  lineHeight: '1',
+const recruitTextWrapMobileStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '12px',
+  width: '100%',
+  zIndex: 2,
+  position: 'static',
+  marginBottom: '24px',
+  md: { display: 'none' },
+});
+
+const recruitTextWrapDesktopStyle = css({
+  display: 'none',
+  md: { display: 'flex' },
+  width: '100%',
+  zIndex: 2,
+  position: 'absolute',
+  top: 48,
+  left: 0,
+  marginBottom: 0,
+  gap: 0,
+  alignItems: 'unset',
+  flexDirection: 'column',
+});
+
+const recruitButtonWrapDesktopStyle = css({
+  display: 'none',
+  md: { display: 'flex' },
+  position: 'absolute',
+  bottom: 64,
+  left: 0,
+  width: '100%',
+  zIndex: 2,
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 export default function RecruitSection() {
@@ -115,6 +154,15 @@ export default function RecruitSection() {
   }, [isMobile]);
   return (
     <section className={sectionStyle} id="recruit">
+      {/* md未満: 画像の上にタイトル・説明、画像の下にボタン */}
+      <div className={recruitTextWrapMobileStyle}>
+        <div className={titleStyle}>本気で向き合う仲間を募集します</div>
+        <div className={descStyle}>
+          Dr.Loveでは、孤独や不安を抱える人に寄り添える社会をつくる。
+          <br />
+          その想いに共感し、行動できる方をお待ちしています。
+        </div>
+      </div>
       <div
         className={cardStyle}
         ref={cardRef}
@@ -123,7 +171,7 @@ export default function RecruitSection() {
       >
         {/* default background */}
         <Image
-          src="/top/recruit/recruit_bg_only.png"
+          src="/top/recruit/recruit_bg_only_old.png"
           alt=""
           fill
           className={`${bgImgStyle} ${fadeImgStyle}`}
@@ -132,7 +180,7 @@ export default function RecruitSection() {
         />
         {/* hover background */}
         <Image
-          src="/top/recruit/recruit_bg_hover.png"
+          src="/top/recruit/recruit_bg_hover_old.png"
           alt=""
           fill
           className={`${bgImgStyle} ${fadeImgStyle}`}
@@ -140,7 +188,8 @@ export default function RecruitSection() {
           priority
         />
         <div className={overlayStyle} />
-        <div style={{ position: 'absolute', top: 48, left: 0, width: '100%', zIndex: 2 }}>
+        {/* md以上でのみ絶対配置で重ねる */}
+        <div className={recruitTextWrapDesktopStyle}>
           <div className={titleStyle}>本気で向き合う仲間を募集します</div>
           <div className={descStyle}>
             Dr.Loveでは、孤独や不安を抱える人に寄り添える社会をつくる。
@@ -148,17 +197,7 @@ export default function RecruitSection() {
             その想いに共感し、行動できる方をお待ちしています。
           </div>
         </div>
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 48,
-            left: 0,
-            width: '100%',
-            zIndex: 2,
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
+        <div className={recruitButtonWrapDesktopStyle}>
           <Link href="/recruit" style={{ textDecoration: 'none' }}>
             <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
               募集職種をみる
