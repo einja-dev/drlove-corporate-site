@@ -1,5 +1,4 @@
 'use client';
-import { useUserAgent } from '@/app/hooks/useUserAgent';
 import React from 'react';
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
@@ -8,8 +7,7 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 
 export const WbrTextWrapper = React.forwardRef<HTMLDivElement, Props>(
   ({ className, ...rest }, ref) => {
-    const { isIosSafari } = useUserAgent();
-    const mergedClass = isIosSafari ? [className, 'wbrText'].filter(Boolean).join(' ') : className;
+    const mergedClass = [className, 'wbrText'].filter(Boolean).join(' ');
     return <div ref={ref} className={mergedClass} {...rest} />;
   }
 );
