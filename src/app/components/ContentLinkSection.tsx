@@ -30,7 +30,7 @@ const sectionStyle = css({
 const cardStyle = css({
   position: 'relative',
   width: '100%',
-  height: '260px',
+  height: '320px',
   borderRadius: '32px',
   overflow: 'hidden',
   display: 'flex',
@@ -45,14 +45,14 @@ const cardStyle = css({
 
   xs: {
     padding: '40px 64px',
-    height: '360px',
+    height: '380px',
   },
   md: {
     height: '360px',
     padding: '40px 16px',
   },
   lg: {
-    height: '500px',
+    height: '480px',
   },
 });
 
@@ -74,7 +74,7 @@ const labelStyle = (color: string) =>
     whiteSpace: 'nowrap',
 
     md: {
-      fontSize: 'clamp(0.9rem, 3vw, 2.8rem)',
+      fontSize: 'clamp(0.9rem, 3vw, 2.2rem)',
     },
   });
 
@@ -89,14 +89,15 @@ const items = [
     imageWrapClass: css({
       top: '60px',
       width: '55%',
-      transform: 'skewX(5deg)',
+      left: 'calc(50% - 15px)',
+      transform: 'skewX(5deg) translateX(-50%)',
       xs: {
         top: '80px',
         width: '48%',
       },
       md: {
-        top: '100px',
-        width: '80%',
+        top: '95px',
+        width: '70%',
       },
     }),
   },
@@ -108,12 +109,13 @@ const items = [
     href: '#member',
     aspectRatio: '741/606',
     imageWrapClass: css({
-      top: '70px',
+      top: '80px',
       width: '80%',
-      transform: 'skewX(5deg)',
+      left: 'calc(50% + 3px)',
+      transform: 'skewX(5deg) translateX(-50%)',
       md: {
         top: '120px',
-        width: '120%',
+        width: '110%',
       },
     }),
   },
@@ -126,11 +128,12 @@ const items = [
     aspectRatio: '358/820',
     imageWrapClass: css({
       top: '55px',
-      width: '40%',
-      transform: 'skewX(5deg)',
+      width: '45%',
+      left: 'calc(50% + 10px)',
+      transform: 'skewX(5deg) translateX(-50%)',
       md: {
-        top: '100px',
-        width: '55%',
+        top: '95px',
+        width: '48%',
       },
     }),
   },
@@ -162,7 +165,7 @@ export default function ContentLinkSection() {
       >
         {items.map((item, idx) => {
           const cardRef = useRef<HTMLDivElement>(null);
-          const imageRef = useRef<HTMLDivElement>(null);
+          const imageRef = useRef<HTMLImageElement>(null);
           const handleMouseEnter = () => {
             gsap.to(cardRef.current, { y: -8, scale: 1.04, duration: 0.25, ease: 'power1.out' });
             gsap.to(imageRef.current, { y: -8, scale: 1.04, duration: 0.25, ease: 'power1.out' });
@@ -200,11 +203,11 @@ export default function ContentLinkSection() {
               >
                 <span className={labelStyle(item.labelColor)}>{item.label}</span>
                 <div
-                  ref={imageRef}
                   className={cx(css({ position: 'absolute' }), item.imageWrapClass)}
                   style={{ aspectRatio: item.aspectRatio }}
                 >
                   <Image
+                    ref={imageRef}
                     src={item.person}
                     alt={item.label}
                     fill
