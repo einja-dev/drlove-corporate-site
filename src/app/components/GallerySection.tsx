@@ -32,14 +32,23 @@ const galleryWrap = css({
   },
 });
 
-const cardCommon = {
+const cardBaseStyle = css({
   borderRadius: '16px',
   overflow: 'hidden',
   boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
   background: '#fff',
   aspectRatio: '3/2',
-  position: 'relative' as const,
-};
+  position: 'relative',
+  marginTop: 'var(--card-offset)',
+  '@media (max-width: 768px)': {
+    marginTop: 'var(--card-offset-tablet)',
+  },
+  '@media (max-width: 480px)': {
+    marginTop: 'var(--card-offset-mobile)',
+  },
+});
+
+
 
 // ギャラリー画像・説明・色などをオブジェクト配列で管理
 const galleryImages = [
@@ -113,6 +122,19 @@ const decorations = [
 ];
 
 export default function GallerySection() {
+  const getCardOffset = (index: number) => {
+    // CSS変数として設定する値を計算
+    const desktopOffset = (index % 3) * 20; // 3列: 0, 20, 40
+    const tabletOffset = (index % 2) * 20;  // 2列: 0, 20
+    const mobileOffset = 0;                 // 1列: 0
+
+    return {
+      '--card-offset': `${desktopOffset}px`,
+      '--card-offset-tablet': `${tabletOffset}px`,
+      '--card-offset-mobile': `${mobileOffset}px`,
+    } as React.CSSProperties;
+  };
+
   return (
     <section className={sectionStyle} id="gallery">
       <div className={galleryWrap}>
@@ -129,30 +151,25 @@ export default function GallerySection() {
           />
         ))}
         {/* 画像カード */}
-        {galleryImages.map((img, index) => {
-          // 3列固定の場合の計算
-          const positionInRow = index % 3;
-
-          return (
-            <div
-              key={img.src}
-              style={{
-                ...cardCommon,
-                background: img.bgColor,
-                marginTop: `${positionInRow * 20}px`
-              }}
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                width={400}
-                height={220}
-                priority
-              />
-            </div>
-          );
-        })}
+        {galleryImages.map((img, index) => (
+          <div
+            key={img.src}
+            className={cardBaseStyle}
+            style={{
+              ...getCardOffset(index),
+              background: img.bgColor,
+            }}
+          >
+            <Image
+              src={img.src}
+              alt={img.alt}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              width={400}
+              height={220}
+              priority
+            />
+          </div>
+        ))}
       </div>
     </section>
   );
