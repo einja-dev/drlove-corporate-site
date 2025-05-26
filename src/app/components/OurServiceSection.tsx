@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useLayoutEffect, useRef, useState } from 'react';
 import { SectionTitle } from './SectionTitle';
 import { Spacer } from './Spacer';
+import { WbrTextWrapper } from './WbrTextWrapper';
 
 /* ---------- styles ---------- */
 const sectionStyle = css({
@@ -91,6 +92,8 @@ const wbrText = css({
   color: '#444',
   lineHeight: '2',
   wordBreak: 'keep-all',
+  whiteSpace: 'normal',
+  lineBreak: 'strict',
 });
 
 const sectionSubTitle = css({
@@ -283,11 +286,9 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
               style={{ height: '1.5em' }}
             />
           ) : (
-            <div
+            <WbrTextWrapper
               key={`${title || ''}-${i}`}
-              className={wbrText}
               ref={setLineRef}
-              style={{ whiteSpace: 'normal', lineBreak: 'strict', wordBreak: 'keep-all' }}
               dangerouslySetInnerHTML={{ __html: t }}
             />
           )
