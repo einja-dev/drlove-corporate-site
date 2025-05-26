@@ -62,10 +62,10 @@ const contactLinkStyle = css({
 });
 
 const companyInfo = [
-  { label: '会社名', value: 'Dr. Love AI株式会社' },
+  { label: '会社名', value: 'Dr.Love株式会社' },
   { label: '所在地', value: '東京都渋谷区○○-○○-○○' },
-  { label: '設立', value: '2025年4月1日' },
-  { label: '代表', value: '山田 太郎' },
+  { label: '設立', value: '2025年8月2日' },
+  { label: '代表', value: '水池愛香' },
 ];
 
 export default function CompanySection() {
