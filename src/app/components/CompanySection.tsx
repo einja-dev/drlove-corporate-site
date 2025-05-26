@@ -1,4 +1,6 @@
 import { css } from '@/styled-system/css';
+import Link from 'next/link';
+import { PrimaryButton } from './PrimaryButton';
 import { SectionTitle } from './SectionTitle';
 
 const sectionStyle = css({
@@ -27,7 +29,6 @@ const tableStyle = css({
 });
 
 const thStyle = css({
-  fontFamily: 'M+ 1m',
   fontWeight: '700',
   fontSize: '16px',
   color: '#444',
@@ -39,7 +40,6 @@ const thStyle = css({
 });
 
 const tdStyle = css({
-  fontFamily: 'M+ 1m',
   fontWeight: '400',
   fontSize: '16px',
   color: '#444',
@@ -53,7 +53,6 @@ const contactLinkStyle = css({
   display: 'block',
   margin: '48px auto 0',
   textAlign: 'center',
-  fontFamily: 'M+ 1m',
   fontWeight: 500,
   fontSize: '18px',
   color: '#618BFF',
@@ -62,10 +61,11 @@ const contactLinkStyle = css({
 });
 
 const companyInfo = [
-  { label: '会社名', value: 'Dr. Love AI株式会社' },
-  { label: '所在地', value: '東京都渋谷区○○-○○-○○' },
-  { label: '設立', value: '2025年4月1日' },
-  { label: '代表', value: '山田 太郎' },
+  { label: '会社名', value: '株式会社 Dr. Love' },
+  { label: '所在地', value: '未定' },
+  { label: '設立日', value: '未定' },
+  { label: '代表', value: '水池 愛香' },
+  { label: '資本金', value: '未定' },
 ];
 
 export default function CompanySection() {
@@ -86,9 +86,11 @@ export default function CompanySection() {
           ))}
         </tbody>
       </table>
-      <a href="#contact" className={contactLinkStyle}>
-        Dr. Love AIに関するお問い合わせはコチラ
-      </a>
+      <Link href="/inquiry" style={{ textAlign: 'center', textDecoration: 'none' }}>
+        <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
+          お問い合わせ
+        </PrimaryButton>
+      </Link>
     </section>
   );
 }
