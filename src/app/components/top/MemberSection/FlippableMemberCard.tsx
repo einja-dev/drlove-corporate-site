@@ -57,13 +57,14 @@ const styles = {
     height: 'auto',
     margin: '0 auto',
     right: '-6%',
+    borderRadius: 'inherit',
   }),
   img: css({
     width: '100%',
     height: 'auto',
     aspectRatio: '4 / 3',
     objectFit: 'cover',
-    borderRadius: '24px',
+    borderRadius: 'inherit',
     display: 'block',
   }),
   bg: css({
@@ -96,11 +97,12 @@ const mainImageStyles = {
         aspectRatio: '6 / 5',
         right: isBack ? '-12%' : '-20%',
       },
+      borderRadius: 'inherit',
     }),
   img: css({
     width: '100%',
     height: 'auto',
-    borderRadius: '24px',
+    borderRadius: 'inherit',
     objectFit: 'cover',
   }),
 };
@@ -109,7 +111,6 @@ const cardContainer = css({
   perspective: '1200px',
   width: '100%',
   position: 'relative',
-  borderRadius: '24px',
 });
 const cardInner = css({
   display: 'grid',
