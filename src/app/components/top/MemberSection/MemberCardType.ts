@@ -9,4 +9,6 @@ export type MemberCardType = {
   bgImage: string;
   mainColor?: string;
   color?: string;
+  backImage: string;
+  backDesc: string;
 };

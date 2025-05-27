@@ -4,6 +4,7 @@ import { css, cx } from '@/styled-system/css';
 import Image from 'next/image';
 import { SectionTitle } from './SectionTitle';
 import { MainMemberCard } from './top/MemberSection/MainMemberCard';
+import type { MemberCardType } from './top/MemberSection/MemberCardType';
 import { SubMemberCard } from './top/MemberSection/SubMemberCard';
 
 const message = {
@@ -48,161 +49,6 @@ const sectionStyle = css({
   },
 });
 
-const mainCardStyle = css({
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  borderRadius: '24px',
-  overflow: 'hidden',
-  width: '100%',
-  minHeight: '340px',
-  height: 'auto',
-  background: 'none',
-  boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
-  padding: '40px 24px 0',
-  justifyContent: 'space-between',
-  sm: {
-    flexDirection: 'row',
-    padding: '48px 40px',
-  },
-
-  lg: {
-    padding: '60px 64px',
-  },
-});
-
-const mainBgStyle = css({
-  position: 'absolute',
-  inset: 0,
-  width: '100%',
-  height: '100%',
-  zIndex: 0,
-  objectFit: 'cover',
-});
-
-const mainImgStyle = css({
-  width: '100%',
-  height: 'auto',
-  borderRadius: '24px',
-  objectFit: 'cover',
-});
-
-const mainTextWrap = css({
-  position: 'relative',
-  zIndex: 2,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '16px',
-  width: '100%',
-  justifyContent: 'center',
-});
-
-const mainNameStyle = css({
-  color: '#FF8A5C',
-  fontFamily: 'Noto Serif JP',
-  fontWeight: '700',
-  fontSize: '24px',
-  letterSpacing: '0.1em',
-  marginRight: '8px',
-});
-const mainNameEnStyle = css({
-  color: '#FF8A5C',
-  fontSize: '16px',
-  fontWeight: '700',
-});
-const mainDescStyle = css({
-  color: '#444',
-  fontSize: '16px',
-  lineHeight: '1.8',
-});
-
-const mainImgWrapper = css({
-  position: 'relative',
-  aspectRatio: '4 / 3',
-  zIndex: 1,
-  width: 'clamp(300px, 130%, 500px)',
-  right: '-10%',
-
-  sm: {
-    position: 'absolute',
-    width: 'clamp(400px, 67%, 600px)',
-    right: '-23%',
-    bottom: '0',
-    margin: 0,
-  },
-  md: {
-    width: 'clamp(400px, 60%, 600px)',
-    aspectRatio: '6 / 5',
-    right: '-20%',
-  },
-});
-
-const subCardStyle = css({
-  position: 'relative',
-  borderRadius: '24px',
-  overflow: 'hidden',
-  width: '100%',
-  background: 'none',
-  boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-  padding: '48px 24px 0',
-  gap: '16px',
-
-  sm: {
-    padding: '48px 40px 0',
-  },
-
-  lg: {
-    padding: '60px 64px 0',
-  },
-});
-const subBgStyle = css({
-  position: 'absolute',
-  inset: 0,
-  width: '100%',
-  height: '100%',
-  zIndex: 0,
-  objectFit: 'cover',
-});
-const subNameStyle = (color: string) =>
-  css({
-    color,
-    fontFamily: 'Noto Serif JP',
-    fontWeight: '700',
-    fontSize: '20px',
-    marginRight: '8px',
-  });
-const subNameEnStyle = (color: string) =>
-  css({
-    color,
-    fontFamily: 'M+ 1m',
-    fontSize: '13px',
-    fontWeight: '700',
-  });
-const subDescStyle = css({
-  color: '#444',
-  fontFamily: 'M+ 1m',
-  fontSize: '15px',
-  lineHeight: '1.8',
-  marginBottom: '16px',
-  zIndex: 2,
-});
-
-const imageWrapper = css({
-  position: 'relative',
-  aspectRatio: '4 / 3',
-  width: 'clamp(300px, 100%, 459px)',
-  zIndex: 3,
-  overflow: 'hidden',
-  display: 'block',
-  height: '100%',
-  right: '-6%',
-});
-
 export default function MemberSection() {
   const fadeInTitleRef = useFadeInOnScroll();
   const fadeInMainRef = useFadeInOnScroll(0.01);
@@ -210,7 +56,7 @@ export default function MemberSection() {
   const fadeInSub2Ref = useFadeInOnScroll(0.03);
 
   // メインカード用card
-  const mainCard = {
+  const mainCard: MemberCardType = {
     name: '水池 愛香',
     nameEn: 'Aika Mizuike',
     desc: (
@@ -252,10 +98,12 @@ export default function MemberSection() {
     imageAlt: '水池愛香',
     bgImage: '/figma-assets/bg_maincard.png',
     mainColor: '#FF8A5C',
+    backImage: '/top/member/aika_2.png',
+    backDesc: '裏面の仮テキスト（例：水池愛香の裏面説明）',
   };
 
   // サブカード1用card
-  const subCard1 = {
+  const subCard1: MemberCardType = {
     name: '松崎 星哉',
     nameEn: 'Seiya Matsuzaki',
     desc: (
@@ -284,10 +132,12 @@ export default function MemberSection() {
     imageAlt: '松崎星哉',
     bgImage: '/figma-assets/bg_rightcard.png',
     color: '#4EE06A',
+    backImage: '/top/member/seiya_2.png',
+    backDesc: '裏面の仮テキスト（例：松崎星哉の裏面説明）',
   };
 
   // サブカード2用card
-  const subCard2 = {
+  const subCard2: MemberCardType = {
     name: '長谷川 エミ',
     nameEn: 'Emi Hasegawa',
     desc: (
@@ -309,6 +159,8 @@ export default function MemberSection() {
     imageAlt: '長谷川エミ',
     bgImage: '/figma-assets/bg_leftcard.png',
     color: '#618BFF',
+    backImage: '/top/member/emi_2.png',
+    backDesc: '裏面の仮テキスト（例：長谷川エミの裏面説明）',
   };
 
   return (
@@ -337,10 +189,10 @@ export default function MemberSection() {
         <MainMemberCard
           card={mainCard}
           refObj={fadeInMainRef}
-          className={`${mainCardStyle} ${css({ gridColumn: '1 / -1' })}`}
+          className={`${css({ gridColumn: '1 / -1' })}`}
         />
-        <SubMemberCard card={subCard1} refObj={fadeInSub1Ref} className={subCardStyle} />
-        <SubMemberCard card={subCard2} refObj={fadeInSub2Ref} className={subCardStyle} />
+        <SubMemberCard card={subCard1} refObj={fadeInSub1Ref} />
+        <SubMemberCard card={subCard2} refObj={fadeInSub2Ref} />
       </div>
     </section>
   );
