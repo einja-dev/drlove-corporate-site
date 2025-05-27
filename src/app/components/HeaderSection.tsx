@@ -195,8 +195,8 @@ export default function HeaderSection() {
           <Image
             src="/assets/header/logo-header.png"
             alt="Dr.Loveロゴ（装飾込み）"
-            width={160}
-            height={40}
+            width={311}
+            height={87}
             style={{ height: '40px', width: 'auto' }}
           />
         </Link>
