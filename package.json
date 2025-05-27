@@ -23,7 +23,6 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@studio-freight/lenis": "^1.0.42",
     "@types/lodash-es": "^4.17.12",
-    "framer-motion": "^12.12.2",
     "gsap": "^3.13.0",
     "lodash-es": "^4.17.21",
     "next": "15.3.2",
