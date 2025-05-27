@@ -69,7 +69,7 @@ const logoCardStyle = css({
 });
 
 export const logoFilenames: string[] = [
-  '[PNG]웨이브_로고(직사각형).png',
+  'WAVE_RHINOPLASTY_CLINIC.png',
   'エッジ.png',
   '0EBEB123-592C-4189-B471-04DE43F170B4.jpg',
   '494858411_1198789771396397_6950388020160594109_n-2.jpg',
