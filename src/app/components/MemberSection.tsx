@@ -7,27 +7,6 @@ import { MainMemberCard } from './top/MemberSection/MainMemberCard';
 import type { MemberCardType } from './top/MemberSection/MemberCardType';
 import { SubMemberCard } from './top/MemberSection/SubMemberCard';
 
-const message = {
-  memberName1: '水池 愛香',
-  memberNameEn1: 'Aika Mizuike',
-  menberDescription1:
-    '愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。',
-  menberSubDescription1:
-    '愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。愛香さんの経歴、説明が入ります。',
-  memberName2: '長谷川 エミ',
-  memberNameEn2: 'Emi Hasegawa',
-  menberDescription2:
-    '私は過去の経験から、見た目に強く悩み、美容整形に出会ったことで初めて「笑顔になれる自分」に出会えた。',
-  menberSubDescription2:
-    '自分を幸せにする「ミッション」は衝撃でした。そこからDr.Loveに出会えて、「世の中の人を幸せにする」ミッションに共感できた。',
-  memberName3: '松崎 星哉',
-  memberNameEn3: 'Seiya Matsuzaki',
-  menberDescription3:
-    '自信がある日もある。でも、将来が不安で眠れない夜もある。そんな自分に、そっと寄り添ってくれる存在がいたら…そう思ったことが、何度もありました。',
-  menberSubDescription3:
-    '心の病に向き合えない。誰にも話せずに苦しんでいる人たち。そして、それに気づきながらも、何もできなかった自分。',
-};
-
 const sectionStyle = css({
   width: '100%',
   margin: '0 auto',
@@ -99,7 +78,32 @@ export default function MemberSection() {
     bgImage: '/figma-assets/bg_maincard.png',
     mainColor: '#FF8A5C',
     backImage: '/top/member/aika_2.png',
-    backDesc: '裏面の仮テキスト（例：水池愛香の裏面説明）',
+    backDesc: (
+      <>
+        18歳で就労継続支援A型の福祉事業を起業し、上京。 <br />
+        幼い頃からの夢だったグラビアやアイドル活動をスタートさせる一方、 <br />
+        ロングブレスインストラクターとして7年間で1,000人以上の心と体のケアに携わる。 <br />
+        <br />
+        23歳ではクラウドファンディングを活用し、大きな胸の女性向けファッションブランド「Charlie
+        Style」を立ち上げ、 <br />
+        西武百貨店でのPOPUP開催やファッションショーを通じて「自分らしく美しくある」ことを提案。
+        <br />
+        <br />
+        25歳で発信力を高めるためYouTubeに挑戦し、徹底的な分析で100万再生超の動画を毎月輩出、 <br />
+        10ヶ月で登録者10万人を突破。現在は横動画で877万再生を達成。 <br />
+        <br />
+        <div className={css({ sm: { width: '65%' }, xl: { width: '100%' } })}>
+          YouTube運用代行会社「YouMedia」を設立し、 <br />
+          「井川意高が熔ける日本を斬る」など著名人のチャンネルも多数プロデュース。 <br />
+          <br />
+          講師を務めた「為国辰弥らのSNSの学校」への登壇を機に、Nontitleシーズン5への挑戦を決意。{' '}
+          <br />
+          母のように苦しむ人々を1人にしない社会の実現を目指し、
+          <br />
+          「Dr. Love」を構想・創業。
+        </div>
+      </>
+    ),
   };
 
   // サブカード1用card
@@ -133,7 +137,31 @@ export default function MemberSection() {
     bgImage: '/figma-assets/bg_rightcard.png',
     color: '#4EE06A',
     backImage: '/top/member/seiya_2.png',
-    backDesc: '裏面の仮テキスト（例：松崎星哉の裏面説明）',
+    backImageWrapperClassName: css({
+      '& > img': {
+        transform: 'scale(1.3) translate(-10%,11%)',
+      },
+    }),
+    backDesc: (
+      <>
+        このサービスには誰もが救われる可能性があると感じました。
+        <br />
+        恋愛や外見、心のケアまで寄り添えるこの仕組みは、
+        <br />
+        まさに“世のため人のため”に必要なものだと確信し、 参加を決めました。
+        <br />
+        <br />
+        中学時代はバスケ部に所属し、高卒後は社会に出て、挑戦と挫折を繰り返してきました。
+        <br />
+        多くの人に支えられながら、一歩ずつ前に進んできた経験が、今の原動力になっています。
+        <br />
+        <br />
+        営業職として結果を出してきた経験があり、対話力と向上心には自信があります。
+        <br />
+        人と真剣に向き合う姿勢を武器に、より多くの人を支えるサービスを広げていきたいです。
+        <br />
+      </>
+    ),
   };
 
   // サブカード2用card
@@ -141,6 +169,28 @@ export default function MemberSection() {
     name: '長谷川 エミ',
     nameEn: 'Emi Hasegawa',
     desc: (
+      <>
+        私は過去の経験から、見た目に強く悩み、美容整形に出会ったことで初めて「笑顔になれる自分」に出会えた。{' '}
+        <br /> <br />
+        自分を幸せにする「ミッション」は達成できた。 <br />
+        そこからDr.Loveに出会えて、 <br />
+        「世の中の人を幸せにする」ミッションに改めて出会えた。 <br /> <br />
+        私が感じた「新しい自分に出会える喜び」を世の中の人たちにも感じてほしい。Dr.Loveを通して感じてほしい。{' '}
+        <br /> <br />
+        日本の未来をもっと明るく幸せが溢れる世の中にするために。心も身体も美しくなるために。 <br />
+        <br />
+        Dr.Loveを通してもっと世界を幸せにします。
+      </>
+    ),
+    image: '/top/member/emi_1.png',
+    imageAlt: '長谷川エミ',
+    bgImage: '/figma-assets/bg_leftcard.png',
+    color: '#618BFF',
+    backImage: '/top/member/emi_2.png',
+    backImageWrapperClassName: css({
+      right: '5%',
+    }),
+    backDesc: (
       <>
         心の奥底から悩みを抱えた経験や、もう既に同様なビジョンを掲げて生きていた背景から強く共鳴した。
         <br />
@@ -155,12 +205,6 @@ export default function MemberSection() {
         サロン、飲食店経営の経験から「世の中の問題、課題改善」をDr.Loveを通してもっと深いミッションに人生を懸けて挑む。
       </>
     ),
-    image: '/top/member/emi_1.png',
-    imageAlt: '長谷川エミ',
-    bgImage: '/figma-assets/bg_leftcard.png',
-    color: '#618BFF',
-    backImage: '/top/member/emi_2.png',
-    backDesc: '裏面の仮テキスト（例：長谷川エミの裏面説明）',
   };
 
   return (

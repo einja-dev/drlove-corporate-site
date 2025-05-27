@@ -10,5 +10,7 @@ export type MemberCardType = {
   mainColor?: string;
   color?: string;
   backImage: string;
-  backDesc: string;
+  backDesc: React.ReactNode;
+  imageWrapperClassName?: string;
+  backImageWrapperClassName?: string;
 };
