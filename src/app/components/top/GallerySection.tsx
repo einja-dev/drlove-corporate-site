@@ -48,8 +48,6 @@ const cardBaseStyle = css({
   },
 });
 
-
-
 // ギャラリー画像・説明・色などをオブジェクト配列で管理
 const galleryImages = [
   {
@@ -125,8 +123,8 @@ export default function GallerySection() {
   const getCardOffset = (index: number) => {
     // CSS変数として設定する値を計算
     const desktopOffset = (index % 3) * 20; // 3列: 0, 20, 40
-    const tabletOffset = (index % 2) * 20;  // 2列: 0, 20
-    const mobileOffset = 0;                 // 1列: 0
+    const tabletOffset = (index % 2) * 20; // 2列: 0, 20
+    const mobileOffset = 0; // 1列: 0
 
     return {
       '--card-offset': `${desktopOffset}px`,

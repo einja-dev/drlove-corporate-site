@@ -1,14 +1,14 @@
 'use client';
+import { Container } from '@/app/components/ui/Container';
+import { PrimaryButton } from '@/app/components/ui/PrimaryButton';
+import { SectionTitle } from '@/app/components/ui/SectionTitle';
+import { Spacer } from '@/app/components/ui/Spacer';
+import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
+import { useWindowSize } from '@/app/hooks/useWindowSize';
 import { css, cx } from '@/styled-system/css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { useFadeInOnScroll } from '../hooks/useFadeInOnScroll';
-import { useWindowSize } from '../hooks/useWindowSize';
-import { Container } from './Container';
-import { PrimaryButton } from './PrimaryButton';
-import { SectionTitle } from './SectionTitle';
-import { Spacer } from './Spacer';
 
 const sectionStyle = css({
   width: '100%',

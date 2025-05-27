@@ -1,8 +1,8 @@
 'use client';
+import { SectionTitle } from '@/app/components/ui/SectionTitle';
+import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
-import { useFadeInOnScroll } from '../hooks/useFadeInOnScroll';
-import { SectionTitle } from './SectionTitle';
 
 const sectionStyle = css({
   width: '100%',

@@ -1,13 +1,13 @@
 'use client';
+import { Container } from '@/app/components/ui/Container';
+import { SectionTitle } from '@/app/components/ui/SectionTitle';
+import { Spacer } from '@/app/components/ui/Spacer';
+import { WbrTextWrapper } from '@/app/components/util/WbrTextWrapper';
 import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
 import { css } from '@/styled-system/css';
 import { splitTextWithEmptyLines } from '@/utils/text';
 import Image from 'next/image';
 import { useLayoutEffect, useRef, useState } from 'react';
-import { Container } from './Container';
-import { SectionTitle } from './SectionTitle';
-import { Spacer } from './Spacer';
-import { WbrTextWrapper } from './WbrTextWrapper';
 
 /* ---------- styles ---------- */
 const sectionStyle = css({

@@ -1,9 +1,9 @@
 'use client';
+import { PrimaryButton } from '@/app/components/ui/PrimaryButton';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { PrimaryButton } from './PrimaryButton';
 
 const sectionStyle = css({
   width: '100%',

@@ -57,5 +57,7 @@
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
   "biome.lspBin": "node_modules/biomejs.biome/bin/biome",
-  "eslint.enable": false
+  "eslint.enable": false,
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }

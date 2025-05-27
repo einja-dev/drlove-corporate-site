@@ -1,6 +1,6 @@
+import { FlippableMemberCard } from '@/app/components/top/MemberSection/FlippableMemberCard';
+import type { MemberCardType } from '@/app/components/top/MemberSection/MemberCardType';
 import type React from 'react';
-import { FlippableMemberCard } from './FlippableMemberCard';
-import type { MemberCardType } from './MemberCardType';
 
 type Props = {
   card: MemberCardType;

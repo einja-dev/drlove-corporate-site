@@ -1,8 +1,8 @@
+import type { MemberCardType } from '@/app/components/top/MemberSection/MemberCardType';
 import { css, cx } from '@/styled-system/css';
 import Image from 'next/image';
 import type React from 'react';
 import { useRef, useState } from 'react';
-import type { MemberCardType } from './MemberCardType';
 
 export type FlippableMemberCardProps = {
   card: MemberCardType;

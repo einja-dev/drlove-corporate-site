@@ -1,8 +1,8 @@
 'use client';
+import { HeroMessageSVG } from '@/app/components/top/Hero/HeroMessageSVG';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { HeroMessageSVG } from './HeroMessageSVG';
 
 const heroSection = css({
   w: '100%',

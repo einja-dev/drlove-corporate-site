@@ -1,7 +1,7 @@
+import FooterSection from '@/app/components/FooterSection';
+import HeaderSection from '@/app/components/HeaderSection';
 import { css } from '@/styled-system/css';
 import type React from 'react';
-import FooterSection from './components/FooterSection';
-import HeaderSection from './components/HeaderSection';
 
 const mainContainer = css({
   width: '100%',

@@ -1,8 +1,8 @@
+import { UserAgentEffect } from '@/app/components/util/UserAgentEffect';
+import { Providers } from '@/app/Providers';
 import type { Metadata } from 'next';
 import { M_PLUS_1p, Noto_Serif_JP, Varela_Round } from 'next/font/google';
-import { UserAgentEffect } from './components/UserAgentEffect';
 import './globals.css';
-import { Providers } from './Providers';
 
 const varelaRound = Varela_Round({
   variable: '--font-varela-round',

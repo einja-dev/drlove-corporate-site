@@ -1,11 +1,10 @@
 'use client';
+import { MainMemberCard } from '@/app/components/top/MemberSection/MainMemberCard';
+import type { MemberCardType } from '@/app/components/top/MemberSection/MemberCardType';
+import { SubMemberCard } from '@/app/components/top/MemberSection/SubMemberCard';
+import { SectionTitle } from '@/app/components/ui/SectionTitle';
 import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
-import { css, cx } from '@/styled-system/css';
-import Image from 'next/image';
-import { SectionTitle } from './SectionTitle';
-import { MainMemberCard } from './top/MemberSection/MainMemberCard';
-import type { MemberCardType } from './top/MemberSection/MemberCardType';
-import { SubMemberCard } from './top/MemberSection/SubMemberCard';
+import { css } from '@/styled-system/css';
 
 const sectionStyle = css({
   width: '100%',
@@ -148,7 +147,7 @@ export default function MemberSection() {
         <br />
         恋愛や外見、心のケアまで寄り添えるこの仕組みは、
         <br />
-        まさに“世のため人のため”に必要なものだと確信し、 参加を決めました。
+        まさに"世のため人のため"に必要なものだと確信し、 参加を決めました。
         <br />
         <br />
         中学時代はバスケ部に所属し、高卒後は社会に出て、挑戦と挫折を繰り返してきました。

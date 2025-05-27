@@ -1,11 +1,11 @@
 'use client';
+import { PrimaryButton } from '@/app/components/ui/PrimaryButton';
 import { css } from '@/styled-system/css';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
-import { PrimaryButton } from './PrimaryButton';
 
 const headerStyle = css({
   position: 'fixed',

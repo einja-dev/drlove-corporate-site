@@ -1,9 +1,9 @@
 'use client';
+import { PrimaryButton } from '@/app/components/ui/PrimaryButton';
+import { SectionTitle } from '@/app/components/ui/SectionTitle';
+import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
 import { css } from '@/styled-system/css';
 import Link from 'next/link';
-import { useFadeInOnScroll } from '../hooks/useFadeInOnScroll';
-import { PrimaryButton } from './PrimaryButton';
-import { SectionTitle } from './SectionTitle';
 
 const sectionStyle = css({
   width: '100%',

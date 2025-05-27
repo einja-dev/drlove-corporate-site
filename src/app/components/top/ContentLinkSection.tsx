@@ -1,13 +1,13 @@
 'use client';
+import { Container } from '@/app/components/ui/Container';
+import { SectionTitle } from '@/app/components/ui/SectionTitle';
+import { Spacer } from '@/app/components/ui/Spacer';
+import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
 import { css, cx } from '@/styled-system/css';
 import { gsap } from 'gsap';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
-import { useFadeInOnScroll } from '../hooks/useFadeInOnScroll';
-import { Container } from './Container';
-import { SectionTitle } from './SectionTitle';
-import { Spacer } from './Spacer';
 
 const items = [
   {

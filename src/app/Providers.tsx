@@ -1,6 +1,6 @@
+import LenisProvider from '@/app/components/util/LenisProvider';
+import { WindowSizeProvider } from '@/app/hooks/useWindowSize';
 import type { PropsWithChildren } from 'react';
-import LenisProvider from './components/LenisProvider';
-import { WindowSizeProvider } from './hooks/useWindowSize';
 
 export function Providers({ children }: PropsWithChildren) {
   return (

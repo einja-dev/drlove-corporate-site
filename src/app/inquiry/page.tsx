@@ -1,4 +1,4 @@
-import { PrimaryButton } from '../components/PrimaryButton';
+import { PrimaryButton } from '@/app/components/ui/PrimaryButton';
 import styles from './inquiry.module.css';
 
 export default function InquiryPage() {

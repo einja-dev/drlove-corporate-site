@@ -1,13 +1,13 @@
-import CompanyLogoSection from './components/CompanyLogoSection';
-import CompanySection from './components/CompanySection';
-import ContentLinkSection from './components/ContentLinkSection';
-import GallerySection from './components/GallerySection';
-import MemberSection from './components/MemberSection';
-import MessageSection from './components/MessageSection';
-import NewsSection from './components/NewsSection';
-import OurServiceSection from './components/OurServiceSection';
-import RecruitSection from './components/RecruitSection';
-import HeroSection from './components/top/Hero/HeroSection';
+import CompanyLogoSection from '@/app/components/CompanyLogoSection';
+import CompanySection from '@/app/components/top/CompanySection';
+import ContentLinkSection from '@/app/components/top/ContentLinkSection';
+import GallerySection from '@/app/components/top/GallerySection';
+import HeroSection from '@/app/components/top/Hero/HeroSection';
+import MemberSection from '@/app/components/top/MemberSection/MemberSection';
+import MessageSection from '@/app/components/top/MessageSection';
+import NewsSection from '@/app/components/top/NewsSection';
+import OurServiceSection from '@/app/components/top/OurServiceSection';
+import RecruitSection from '@/app/components/top/RecruitSection';
 
 export default function Home() {
   return (
