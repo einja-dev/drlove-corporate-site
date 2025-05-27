@@ -109,6 +109,7 @@ const cardContainer = css({
   perspective: '1200px',
   width: '100%',
   position: 'relative',
+  borderRadius: '24px',
 });
 const cardInner = css({
   display: 'grid',
