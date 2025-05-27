@@ -155,6 +155,9 @@ export default function RecruitSection() {
   const fadeDescRef = useFadeInOnScroll(0.18);
   const fadeCardRef = useFadeInOnScroll(0.22);
 
+  // IntersectionObserver用のラッパーdivを用意
+  // カード本体にはfadeCardRefのみ、ラッパーdivにcardRefを付与
+
   // Switch image on mobile when card is roughly centered
   useEffect(() => {
     if (!isMobile || !cardRef.current) return;
@@ -180,58 +183,61 @@ export default function RecruitSection() {
         <div className={recruitTextWrapMobileStyle} ref={fadeDescRef}>
           <div className={titleStyle}>本気で向き合う仲間を募集します</div>
         </div>
-        <div
-          className={cardStyle}
-          ref={fadeCardRef}
-          onMouseEnter={() => !isMobile && setIsHover(true)}
-          onMouseLeave={() => !isMobile && setIsHover(false)}
-        >
-          {/* default background */}
-          <Image
-            src="/top/recruit/recruit_bg_only_old.png"
-            alt=""
-            fill
-            className={`${bgImgStyle} ${fadeImgStyle}`}
-            style={{ opacity: isHover ? 0 : 1 }}
-            priority
-          />
-          {/* hover background */}
-          <Image
-            src="/top/recruit/recruit_bg_hover_old.png"
-            alt=""
-            fill
-            className={`${bgImgStyle} ${fadeImgStyle}`}
-            style={{ opacity: isHover ? 1 : 0 }}
-            priority
-          />
-          <div className={overlayStyle} />
-          {/* md以上でのみ絶対配置で重ねる */}
-          <div className={recruitTextWrapDesktopStyle}>
-            <div
-              className={cx(
-                titleStyle,
-                css({
-                  display: 'none',
-                  md: {
-                    display: 'block',
-                  },
-                })
-              )}
-            >
-              本気で向き合う仲間を募集します
+        {/* IntersectionObserver用ラッパーdivを追加 */}
+        <div ref={cardRef} style={{ width: '100%' }}>
+          <div
+            className={cardStyle}
+            ref={fadeCardRef}
+            onMouseEnter={() => !isMobile && setIsHover(true)}
+            onMouseLeave={() => !isMobile && setIsHover(false)}
+          >
+            {/* default background */}
+            <Image
+              src="/top/recruit/recruit_bg_only_old.png"
+              alt=""
+              fill
+              className={`${bgImgStyle} ${fadeImgStyle}`}
+              style={{ opacity: isHover ? 0 : 1 }}
+              priority
+            />
+            {/* hover background */}
+            <Image
+              src="/top/recruit/recruit_bg_hover_old.png"
+              alt=""
+              fill
+              className={`${bgImgStyle} ${fadeImgStyle}`}
+              style={{ opacity: isHover ? 1 : 0 }}
+              priority
+            />
+            <div className={overlayStyle} />
+            {/* md以上でのみ絶対配置で重ねる */}
+            <div className={recruitTextWrapDesktopStyle}>
+              <div
+                className={cx(
+                  titleStyle,
+                  css({
+                    display: 'none',
+                    md: {
+                      display: 'block',
+                    },
+                  })
+                )}
+              >
+                本気で向き合う仲間を募集します
+              </div>
+              <div className={descStyle}>
+                Dr.Loveでは、孤独や不安を抱える人に寄り添える社会をつくる。
+                <br />
+                その想いに共感し、行動できる方をお待ちしています。
+              </div>
             </div>
-            <div className={descStyle}>
-              Dr.Loveでは、孤独や不安を抱える人に寄り添える社会をつくる。
-              <br />
-              その想いに共感し、行動できる方をお待ちしています。
+            <div className={recruitButtonWrapDesktopStyle}>
+              <Link href="/recruit" style={{ textDecoration: 'none' }}>
+                <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
+                  募集職種をみる
+                </PrimaryButton>
+              </Link>
             </div>
-          </div>
-          <div className={recruitButtonWrapDesktopStyle}>
-            <Link href="/recruit" style={{ textDecoration: 'none' }}>
-              <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
-                募集職種をみる
-              </PrimaryButton>
-            </Link>
           </div>
         </div>
       </Container>

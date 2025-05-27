@@ -53,6 +53,7 @@ const styles = {
     overflow: 'hidden',
     display: 'block',
     width: '100%',
+    maxWidth: '480px',
     height: 'auto',
     margin: '0 auto',
     right: '-6%',
@@ -86,7 +87,7 @@ const mainImageStyles = {
       sm: {
         position: 'absolute',
         width: isBack ? 'clamp(400px, 60%, 600px)' : 'clamp(400px, 67%, 600px)',
-        right: isBack ? '-12%' : '-23%',
+        right: isBack ? '-12%' : '-20%',
         bottom: '0',
         margin: 0,
       },

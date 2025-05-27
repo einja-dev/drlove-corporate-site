@@ -217,7 +217,7 @@ export default function OurServiceSection() {
 
   return (
     <section className={sectionStyle} id="service">
-      <Container className={contentWrapper}>
+      <Container className={contentWrapper} noPadding>
         <div ref={setTitleRef}>
           <SectionTitle en="OUR SERVICE" jp="サービス" />
         </div>
