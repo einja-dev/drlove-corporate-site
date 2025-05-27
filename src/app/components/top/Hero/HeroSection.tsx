@@ -85,7 +85,7 @@ const heroTextContainer = css({
   },
 
   // アスペクト比 2/3 〜 3/4
-  '@media  (min-aspect-ratio: 2/3)　 and (max-aspect-ratio: 3/4)': {
+  '@media  (min-aspect-ratio: 2/3) and (max-aspect-ratio: 3/4)': {
     width: '75%',
     top: '10svh',
     right: '2%',

@@ -32,15 +32,18 @@ const bgStyle = css({
 });
 
 const titleStyle = css({
-  fontSize: 'clamp(0.9rem,5vw, 3rem)',
+  fontSize: 'clamp(0.9rem, 3vw, 2rem)',
   fontWeight: '500',
   color: '#444',
   textAlign: 'center',
   lineHeight: '1.8',
   marginBottom: '48px',
   zIndex: 1,
+  xs: {
+    fontSize: 'clamp(0.9rem, 4vw, 2rem)',
+  },
   md: {
-    fontSize: 'clamp(0.9rem,4vw, 2.5rem)',
+    fontSize: 'clamp(0.9rem, 3.2vw, 2.4rem)',
     marginBottom: '56px',
   },
 });

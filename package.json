@@ -17,7 +17,6 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "@next/font": "^14.2.15",
     "@pandacss/dev": "^0.53.6",
     "@pandacss/preset-panda": "^0.53.6",
     "@pandacss/types": "^0.53.6",

@@ -5,7 +5,8 @@ import { css } from '@/styled-system/css';
 import Image from 'next/image';
 import { useEffect } from 'react';
 
-const messageCatch = 'Bloom from pain. 痛みから咲く。';
+const messageCatchEn = 'Bloom from pain.';
+const messageCatchJp = '痛みから咲く。';
 
 const messageLead = `人生はいつも思い通りじゃない、<spbr>傷つくことも泣きたい夜もある。
 でもあなたの物語はあなたが主役。
@@ -52,8 +53,8 @@ const wbrText = css({
 });
 
 export default function MessageSection() {
-  const { isSP } = useWindowSize();
-  const lines = isSP
+  const { sizeTypeLessThan } = useWindowSize();
+  const lines = sizeTypeLessThan('xs')
     ? messageLead
         .replace(/<spbr>/g, '\n')
         .replace(/<wbr>/g, '\u200B')
@@ -77,7 +78,8 @@ export default function MessageSection() {
       id="message-section"
       className={css({
         background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%)',
-        zIndex: 1,
+        zIndex: 10,
+        position: 'relative',
         width: '100vw',
         padding: '16px',
 
@@ -135,10 +137,10 @@ export default function MessageSection() {
               textAlign: 'left',
               marginBottom: '16px',
               xs: {
-                fontSize: 'clamp(1.5rem, 5vw, 4rem)',
+                fontSize: 'clamp(1.5rem, 4vw, 4rem)',
               },
               md: {
-                fontSize: 'clamp(1.4rem, 3vw, 4.5rem)',
+                fontSize: 'clamp(1.4rem, 3.4vw, 4.5rem)',
                 marginBottom: '24px',
               },
             })}
@@ -195,9 +197,18 @@ export default function MessageSection() {
                 className={css({
                   position: 'relative',
                   zIndex: 1,
+                  whiteSpace: sizeTypeLessThan('xs') ? undefined : 'nowrap',
                 })}
               >
-                {messageCatch}
+                {sizeTypeLessThan('xs') ? (
+                  <>
+                    <span>{messageCatchEn}</span>
+                    <br />
+                    <span>{messageCatchJp}</span>
+                  </>
+                ) : (
+                  <span>{`${messageCatchEn} ${messageCatchJp}`}</span>
+                )}
               </span>
             </div>
           </h2>

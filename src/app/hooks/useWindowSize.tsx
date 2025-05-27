@@ -11,7 +11,8 @@ import {
 
 // ブレークポイント定義
 export const breakpoints = {
-  xs: 0,
+  '2xs': 0,
+  xs: 480,
   sm: 640,
   md: 768,
   lg: 1024,
@@ -46,6 +47,7 @@ export const WindowSizeProvider: FC<PropsWithChildren> = ({ children }) => {
 };
 
 function getWindowSizeType(width: number): BreakpointCode {
+  if (width < breakpoints.xs) return '2xs';
   if (width < breakpoints.sm) return 'xs';
   if (width < breakpoints.md) return 'sm';
   if (width < breakpoints.lg) return 'md';
