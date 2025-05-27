@@ -39,11 +39,12 @@ const primaryButtonBaseStyle = css({
 });
 
 const primaryButtonLargeStyle = css({
-  fontSize: '20px',
-  padding: '16px 48px',
-  '@media (max-width: 767px)': {
-    fontSize: '16px',
-    padding: '10px 28px',
+  fontSize: '16px',
+  padding: '12px 20px',
+  lineHeight: '1',
+  md: {
+    fontSize: '20px',
+    padding: '18px 32px',
   },
 });
 
@@ -52,7 +53,7 @@ export const primaryButtonTextStyle = css({
   backgroundClip: 'text' as unknown as string,
   color: 'transparent' as unknown as string,
   display: 'inline-block',
-  fontWeight: 700,
+  fontWeight: 500,
   fontSize: '16px',
   position: 'relative',
   top: '1px',
@@ -63,7 +64,7 @@ export const primaryButtonTextStyle = css({
   '.large &': {
     fontSize: '24px',
     lg: {
-      fontSize: '28px',
+      fontSize: '24px',
     },
     '@media (max-width: 767px)': {
       fontSize: '16px',

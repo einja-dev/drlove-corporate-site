@@ -1,5 +1,7 @@
+'use client';
 import { css } from '@/styled-system/css';
 import Link from 'next/link';
+import { useFadeInOnScroll } from '../hooks/useFadeInOnScroll';
 import { PrimaryButton } from './PrimaryButton';
 import { SectionTitle } from './SectionTitle';
 
@@ -69,10 +71,15 @@ const companyInfo = [
 ];
 
 export default function CompanySection() {
+  const fadeTitleRef = useFadeInOnScroll(0.15);
+  const fadeTableRef = useFadeInOnScroll(0.18);
+  const fadeButtonRef = useFadeInOnScroll(0.22);
   return (
     <section className={sectionStyle} id="company">
-      <SectionTitle en="COMPANY" jp="会社概要" />
-      <table className={tableStyle}>
+      <div ref={fadeTitleRef}>
+        <SectionTitle en="COMPANY" jp="会社概要" />
+      </div>
+      <table className={tableStyle} ref={fadeTableRef}>
         <tbody>
           {companyInfo.map((item, i) => (
             <tr key={item.label}>
@@ -86,7 +93,11 @@ export default function CompanySection() {
           ))}
         </tbody>
       </table>
-      <Link href="/inquiry" style={{ textAlign: 'center', textDecoration: 'none' }}>
+      <Link
+        href="/inquiry"
+        style={{ textAlign: 'center', textDecoration: 'none' }}
+        ref={fadeButtonRef}
+      >
         <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
           お問い合わせ
         </PrimaryButton>

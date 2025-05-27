@@ -87,13 +87,12 @@ const rightCol = css({
 });
 
 const wbrText = css({
-  fontWeight: 400,
-  fontSize: '15px',
+  fontSize: '14px',
   color: '#444',
-  lineHeight: '2',
-  wordBreak: 'keep-all',
-  whiteSpace: 'normal',
-  lineBreak: 'strict',
+
+  lg: {
+    fontSize: '16px',
+  },
 });
 
 const sectionSubTitle = css({
@@ -289,6 +288,7 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
             <WbrTextWrapper
               key={`${title || ''}-${i}`}
               ref={setLineRef}
+              className={wbrText}
               dangerouslySetInnerHTML={{ __html: t }}
             />
           )

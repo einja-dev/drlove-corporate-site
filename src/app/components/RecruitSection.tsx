@@ -1,10 +1,13 @@
 'use client';
-import { css } from '@/styled-system/css';
+import { css, cx } from '@/styled-system/css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { useFadeInOnScroll } from '../hooks/useFadeInOnScroll';
 import { useWindowSize } from '../hooks/useWindowSize';
 import { PrimaryButton } from './PrimaryButton';
+import { SectionTitle } from './SectionTitle';
+import { Spacer } from './Spacer';
 
 const sectionStyle = css({
   width: '100%',
@@ -30,13 +33,16 @@ const cardStyle = css({
   width: '100%',
   aspectRatio: '224/144',
   borderRadius: '16px',
-  padding: '40px 32px',
+  padding: '24px 32px',
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   boxShadow: '0px 4px 4px 0px rgba(0,0,0,0.25)',
+  md: {
+    padding: '40px 32px',
+  },
 });
 
 const bgImgStyle = css({
@@ -69,28 +75,35 @@ const overlayStyle = css({
 const titleStyle = css({
   fontFamily: 'M+ 1m',
   fontWeight: 500,
-  fontSize: '20px',
+  fontSize: '24px',
   lineHeight: '1.8',
   color: '#FF8A5C',
   textAlign: 'center',
   marginBottom: '16px',
   zIndex: 2,
   md: {
-    fontSize: '28px',
+    fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)',
     marginBottom: '32px',
   },
+  lg: { marginTop: '16px' },
 });
 
 const descStyle = css({
-  fontFamily: 'M+ 1m',
   fontWeight: 500,
-  fontSize: '14px',
   lineHeight: '1.9',
   color: '#444444',
   textAlign: 'center',
   zIndex: 2,
+  marginTop: '-24px',
+  fontSize: 'clamp(11px, 3vw, 1.2rem)',
+  xs: {
+    marginTop: '-10px',
+  },
   md: {
-    fontSize: '18px',
+    fontSize: 'clamp(0.9em, 1.5vw, 2rem)',
+  },
+  lg: {
+    marginTop: '-24px',
   },
 });
 
@@ -107,8 +120,6 @@ const recruitTextWrapMobileStyle = css({
 });
 
 const recruitTextWrapDesktopStyle = css({
-  display: 'none',
-  md: { display: 'flex' },
   width: '100%',
   zIndex: 2,
   position: 'absolute',
@@ -121,15 +132,27 @@ const recruitTextWrapDesktopStyle = css({
 });
 
 const recruitButtonWrapDesktopStyle = css({
-  display: 'none',
-  md: { display: 'flex' },
+  display: 'flex',
   position: 'absolute',
-  bottom: 64,
+  bottom: 24,
   left: 0,
   width: '100%',
   zIndex: 2,
   justifyContent: 'center',
   alignItems: 'center',
+  md: {
+    bottom: 64,
+  },
+});
+
+const recruitButtonWrapMobileStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  marginTop: '20px',
+  md: { display: 'none' },
 });
 
 export default function RecruitSection() {
@@ -137,6 +160,10 @@ export default function RecruitSection() {
   const isMobile = sizeType === 'xs' || sizeType === 'sm';
   const [isHover, setIsHover] = useState(false);
   const cardRef = useRef<HTMLDivElement | null>(null);
+  const fadeTitleRef = useFadeInOnScroll(0.15);
+  const fadeDescRef = useFadeInOnScroll(0.18);
+  const fadeCardRef = useFadeInOnScroll(0.22);
+  const fadeButtonRef = useFadeInOnScroll(0.28);
 
   // Switch image on mobile when card is roughly centered
   useEffect(() => {
@@ -154,8 +181,12 @@ export default function RecruitSection() {
   }, [isMobile]);
   return (
     <section className={sectionStyle} id="recruit">
+      <div ref={fadeTitleRef}>
+        <SectionTitle en="Recruit" jp="採用情報" />
+      </div>
+      <Spacer size="32px" />
       {/* md未満: 画像の上にタイトル・説明、画像の下にボタン */}
-      <div className={recruitTextWrapMobileStyle}>
+      <div className={recruitTextWrapMobileStyle} ref={fadeDescRef}>
         <div className={titleStyle}>本気で向き合う仲間を募集します</div>
         <div className={descStyle}>
           Dr.Loveでは、孤独や不安を抱える人に寄り添える社会をつくる。
@@ -165,7 +196,7 @@ export default function RecruitSection() {
       </div>
       <div
         className={cardStyle}
-        ref={cardRef}
+        ref={fadeCardRef}
         onMouseEnter={() => !isMobile && setIsHover(true)}
         onMouseLeave={() => !isMobile && setIsHover(false)}
       >
@@ -190,7 +221,19 @@ export default function RecruitSection() {
         <div className={overlayStyle} />
         {/* md以上でのみ絶対配置で重ねる */}
         <div className={recruitTextWrapDesktopStyle}>
-          <div className={titleStyle}>本気で向き合う仲間を募集します</div>
+          <div
+            className={cx(
+              titleStyle,
+              css({
+                display: 'none',
+                md: {
+                  display: 'block',
+                },
+              })
+            )}
+          >
+            本気で向き合う仲間を募集します
+          </div>
           <div className={descStyle}>
             Dr.Loveでは、孤独や不安を抱える人に寄り添える社会をつくる。
             <br />
@@ -204,6 +247,13 @@ export default function RecruitSection() {
             </PrimaryButton>
           </Link>
         </div>
+      </div>
+      <div className={recruitButtonWrapMobileStyle} ref={fadeButtonRef}>
+        <Link href="/recruit" style={{ textDecoration: 'none' }}>
+          <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
+            募集職種をみる
+          </PrimaryButton>
+        </Link>
       </div>
     </section>
   );

@@ -32,7 +32,7 @@ const heroContainer = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  borderRadius: '40px',
+  borderRadius: '16px',
   position: 'relative',
   md: {
     height: 'calc(100svh - 96px)',

@@ -344,7 +344,7 @@ export default function MemberSection() {
               サロン、飲食店経営の経験から「世の中の問題、課題改善」をDr.Loveを通してもっと深いミッションに人生を懸けて挑む。
             </div>
           </div>
-          <div className={cx(imageWrapper, css({ md: { right: '0' } }))}>
+          <div className={cx(imageWrapper, css({ md: {} }))}>
             <Image
               src="/top/member/emi_1.png"
               alt="長谷川エミ"

@@ -1,4 +1,5 @@
 'use client';
+import { css } from '@/styled-system/css';
 import React from 'react';
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
@@ -7,7 +8,18 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 
 export const WbrTextWrapper = React.forwardRef<HTMLDivElement, Props>(
   ({ className, ...rest }, ref) => {
-    const mergedClass = [className, 'wbrText'].filter(Boolean).join(' ');
+    const mergedClass = [
+      css({
+        lineHeight: '2',
+        wordBreak: 'keep-all',
+        whiteSpace: 'normal',
+        lineBreak: 'strict',
+      }),
+      'wbrText',
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
     return <div ref={ref} className={mergedClass} {...rest} />;
   }
 );

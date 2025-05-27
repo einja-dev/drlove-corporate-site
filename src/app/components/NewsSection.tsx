@@ -1,5 +1,7 @@
+'use client';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
+import { useFadeInOnScroll } from '../hooks/useFadeInOnScroll';
 import { SectionTitle } from './SectionTitle';
 
 const sectionStyle = css({
@@ -181,31 +183,34 @@ export default function NewsSection() {
     <section className={sectionStyle} id="news">
       <SectionTitle en="NEWS" jp="ニュース" />
       <div className={newsListStyle}>
-        {newsData.map((item) => (
-          <a
-            key={item.date + item.text}
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-            <div className={newsCardStyle}>
-              <div className={newsImageWrap}>
-                <Image src={item.img} alt="news" fill className={newsImageStyle} />
-              </div>
-              <div className={cardContentStyle}>
-                <div className={dateStyle}>{item.date}</div>
-                <div
-                  className={contentStyle}
-                  style={{ WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}
-                >
-                  {item.text}
+        {newsData.map((item, idx) => {
+          const fadeRef = useFadeInOnScroll(0.18 + idx * 0.05);
+          return (
+            <a
+              key={item.date + item.text}
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <div className={newsCardStyle} ref={fadeRef}>
+                <div className={newsImageWrap}>
+                  <Image src={item.img} alt="news" fill className={newsImageStyle} />
                 </div>
-                <span className={labelStyle}>{item.label}</span>
+                <div className={cardContentStyle}>
+                  <div className={dateStyle}>{item.date}</div>
+                  <div
+                    className={contentStyle}
+                    style={{ WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}
+                  >
+                    {item.text}
+                  </div>
+                  <span className={labelStyle}>{item.label}</span>
+                </div>
               </div>
-            </div>
-          </a>
-        ))}
+            </a>
+          );
+        })}
       </div>
     </section>
   );

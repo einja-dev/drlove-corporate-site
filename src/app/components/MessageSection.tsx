@@ -47,7 +47,7 @@ const wbrText = css({
   wordBreak: 'keep-all',
   overflowWrap: 'break-word',
   xs: {
-    fontSize: 'clamp(0.9rem, 2vw, 2rem)',
+    fontSize: 'clamp(0.9rem, 1.45vw, 1.5rem)',
   },
 });
 
@@ -98,7 +98,7 @@ export default function MessageSection() {
           alignItems: 'center',
           position: 'relative',
           overflow: 'hidden',
-          borderRadius: '40px',
+          borderRadius: '32px 32px 0 0',
           sm: { padding: '80px 24px 96px' },
           md: {
             padding: '96px 80px 120px',
@@ -128,11 +128,14 @@ export default function MessageSection() {
               display: 'inline-block',
               fontFamily: 'Noto Serif JP, serif',
               fontWeight: 'bold',
-              fontSize: 'clamp(1.5rem, 5vw, 4rem)',
               lineHeight: 1.8,
+              fontSize: '28px',
               color: '#444',
               textAlign: 'left',
               marginBottom: '16px',
+              xs: {
+                fontSize: 'clamp(1.5rem, 5vw, 4rem)',
+              },
               md: {
                 fontSize: 'clamp(1.4rem, 3vw, 4.5rem)',
                 marginBottom: '24px',
@@ -149,30 +152,31 @@ export default function MessageSection() {
                 className={css({
                   position: 'absolute',
                   display: 'inline-block',
-                  width: '75%',
+                  width: '270px',
                   height: '100%',
-                  top: '4px',
-                  left: '8px',
+                  top: '-10px',
+                  left: '-4px',
                   xs: {
-                    top: '16px',
+                    top: '20px',
+                    left: '-2px',
                     width: '100%',
                   },
                   md: {
-                    left: '16px',
+                    left: '-4px',
                     top: '24px',
                   },
                   lg: {
-                    left: '16px',
+                    left: '0',
                     top: '32px',
                   },
                   xl: {
-                    left: '16px',
+                    left: '0',
                     top: '40px',
                   },
                 })}
               >
                 <Image
-                  src="/images/watercolor-bg.png"
+                  src="/top/message/watercolor-bg.png"
                   alt=""
                   aria-hidden="true"
                   fill
