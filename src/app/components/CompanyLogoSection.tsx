@@ -167,7 +167,7 @@ export default function CompanyLogoSection() {
   return (
     <section className={sectionStyle}>
       <Image src="/top/company/company-bg-moyamoya.png" alt="背景" fill className={bgStyle} />
-      <h2 className={titleStyle}>想いを共にする企業と、ともに歩んでいます。</h2>
+      <h2 className={titleStyle}>想いを共にする企業様と一緒に歩んでおります</h2>
       {/* 横スクロール3行（無限ループ） */}
       {logoRows.map((row, idx) => {
         const style = {

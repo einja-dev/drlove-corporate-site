@@ -111,6 +111,7 @@ export default function MessageSection() {
             position: 'relative',
             zIndex: 1,
             width: '100%',
+            maxWidth: '1440px',
             margin: '0 auto',
             display: 'flex',
             flexDirection: 'column',

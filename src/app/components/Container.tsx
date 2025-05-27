@@ -1,0 +1,42 @@
+import { css, cx } from '@/styled-system/css';
+import type { ElementType, FC, PropsWithChildren } from 'react';
+
+// 型定義
+interface Props {
+  as?: ElementType;
+  maxWidth?: string;
+  className?: string;
+  noPadding?: boolean;
+}
+
+export const Container: FC<PropsWithChildren<Props>> = ({
+  children,
+  as: CustomTag = 'div',
+  maxWidth = '1440px',
+  noPadding = false,
+  className,
+}) => (
+  <CustomTag
+    className={cx(
+      css({
+        width: '100%',
+        maxWidth,
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        ...(noPadding
+          ? {}
+          : {
+              paddingRight: '16px',
+              paddingLeft: '16px',
+              md: {
+                paddingRight: '32px',
+                paddingLeft: '32px',
+              },
+            }),
+      }),
+      className
+    )}
+  >
+    {children}
+  </CustomTag>
+);

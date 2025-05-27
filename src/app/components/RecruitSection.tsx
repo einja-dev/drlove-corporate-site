@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useFadeInOnScroll } from '../hooks/useFadeInOnScroll';
 import { useWindowSize } from '../hooks/useWindowSize';
+import { Container } from './Container';
 import { PrimaryButton } from './PrimaryButton';
 import { SectionTitle } from './SectionTitle';
 import { Spacer } from './Spacer';
@@ -145,16 +146,6 @@ const recruitButtonWrapDesktopStyle = css({
   },
 });
 
-const recruitButtonWrapMobileStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '100%',
-  marginTop: '20px',
-  md: { display: 'none' },
-});
-
 export default function RecruitSection() {
   const { sizeType } = useWindowSize();
   const isMobile = sizeType === 'xs' || sizeType === 'sm';
@@ -163,7 +154,6 @@ export default function RecruitSection() {
   const fadeTitleRef = useFadeInOnScroll(0.15);
   const fadeDescRef = useFadeInOnScroll(0.18);
   const fadeCardRef = useFadeInOnScroll(0.22);
-  const fadeButtonRef = useFadeInOnScroll(0.28);
 
   // Switch image on mobile when card is roughly centered
   useEffect(() => {
@@ -181,80 +171,70 @@ export default function RecruitSection() {
   }, [isMobile]);
   return (
     <section className={sectionStyle} id="recruit">
-      <div ref={fadeTitleRef}>
-        <SectionTitle en="Recruit" jp="採用情報" />
-      </div>
-      <Spacer size="32px" />
-      {/* md未満: 画像の上にタイトル・説明、画像の下にボタン */}
-      <div className={recruitTextWrapMobileStyle} ref={fadeDescRef}>
-        <div className={titleStyle}>本気で向き合う仲間を募集します</div>
-        <div className={descStyle}>
-          Dr.Loveでは、孤独や不安を抱える人に寄り添える社会をつくる。
-          <br />
-          その想いに共感し、行動できる方をお待ちしています。
+      <Container noPadding>
+        <div ref={fadeTitleRef}>
+          <SectionTitle en="Recruit" jp="採用情報" />
         </div>
-      </div>
-      <div
-        className={cardStyle}
-        ref={fadeCardRef}
-        onMouseEnter={() => !isMobile && setIsHover(true)}
-        onMouseLeave={() => !isMobile && setIsHover(false)}
-      >
-        {/* default background */}
-        <Image
-          src="/top/recruit/recruit_bg_only_old.png"
-          alt=""
-          fill
-          className={`${bgImgStyle} ${fadeImgStyle}`}
-          style={{ opacity: isHover ? 0 : 1 }}
-          priority
-        />
-        {/* hover background */}
-        <Image
-          src="/top/recruit/recruit_bg_hover_old.png"
-          alt=""
-          fill
-          className={`${bgImgStyle} ${fadeImgStyle}`}
-          style={{ opacity: isHover ? 1 : 0 }}
-          priority
-        />
-        <div className={overlayStyle} />
-        {/* md以上でのみ絶対配置で重ねる */}
-        <div className={recruitTextWrapDesktopStyle}>
-          <div
-            className={cx(
-              titleStyle,
-              css({
-                display: 'none',
-                md: {
-                  display: 'block',
-                },
-              })
-            )}
-          >
-            本気で向き合う仲間を募集します
+        <Spacer size="32px" />
+        {/* md未満: 画像の上にタイトル・説明、画像の下にボタン */}
+        <div className={recruitTextWrapMobileStyle} ref={fadeDescRef}>
+          <div className={titleStyle}>本気で向き合う仲間を募集します</div>
+        </div>
+        <div
+          className={cardStyle}
+          ref={fadeCardRef}
+          onMouseEnter={() => !isMobile && setIsHover(true)}
+          onMouseLeave={() => !isMobile && setIsHover(false)}
+        >
+          {/* default background */}
+          <Image
+            src="/top/recruit/recruit_bg_only_old.png"
+            alt=""
+            fill
+            className={`${bgImgStyle} ${fadeImgStyle}`}
+            style={{ opacity: isHover ? 0 : 1 }}
+            priority
+          />
+          {/* hover background */}
+          <Image
+            src="/top/recruit/recruit_bg_hover_old.png"
+            alt=""
+            fill
+            className={`${bgImgStyle} ${fadeImgStyle}`}
+            style={{ opacity: isHover ? 1 : 0 }}
+            priority
+          />
+          <div className={overlayStyle} />
+          {/* md以上でのみ絶対配置で重ねる */}
+          <div className={recruitTextWrapDesktopStyle}>
+            <div
+              className={cx(
+                titleStyle,
+                css({
+                  display: 'none',
+                  md: {
+                    display: 'block',
+                  },
+                })
+              )}
+            >
+              本気で向き合う仲間を募集します
+            </div>
+            <div className={descStyle}>
+              Dr.Loveでは、孤独や不安を抱える人に寄り添える社会をつくる。
+              <br />
+              その想いに共感し、行動できる方をお待ちしています。
+            </div>
           </div>
-          <div className={descStyle}>
-            Dr.Loveでは、孤独や不安を抱える人に寄り添える社会をつくる。
-            <br />
-            その想いに共感し、行動できる方をお待ちしています。
+          <div className={recruitButtonWrapDesktopStyle}>
+            <Link href="/recruit" style={{ textDecoration: 'none' }}>
+              <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
+                募集職種をみる
+              </PrimaryButton>
+            </Link>
           </div>
         </div>
-        <div className={recruitButtonWrapDesktopStyle}>
-          <Link href="/recruit" style={{ textDecoration: 'none' }}>
-            <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
-              募集職種をみる
-            </PrimaryButton>
-          </Link>
-        </div>
-      </div>
-      <div className={recruitButtonWrapMobileStyle} ref={fadeButtonRef}>
-        <Link href="/recruit" style={{ textDecoration: 'none' }}>
-          <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
-            募集職種をみる
-          </PrimaryButton>
-        </Link>
-      </div>
+      </Container>
     </section>
   );
 }

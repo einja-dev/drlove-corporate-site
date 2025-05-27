@@ -4,6 +4,7 @@ import { css } from '@/styled-system/css';
 import { splitTextWithEmptyLines } from '@/utils/text';
 import Image from 'next/image';
 import { useLayoutEffect, useRef, useState } from 'react';
+import { Container } from './Container';
 import { SectionTitle } from './SectionTitle';
 import { Spacer } from './Spacer';
 import { WbrTextWrapper } from './WbrTextWrapper';
@@ -216,7 +217,7 @@ export default function OurServiceSection() {
 
   return (
     <section className={sectionStyle} id="service">
-      <div className={contentWrapper}>
+      <Container className={contentWrapper}>
         <div ref={setTitleRef}>
           <SectionTitle en="OUR SERVICE" jp="サービス" />
         </div>
@@ -224,7 +225,7 @@ export default function OurServiceSection() {
         {serviceContents.map((content, idx) => (
           <ServiceBlock key={content.id} idx={idx} {...content} />
         ))}
-      </div>
+      </Container>
     </section>
   );
 }
