@@ -76,12 +76,15 @@ const overlayStyle = css({
 const titleStyle = css({
   fontFamily: 'M+ 1m',
   fontWeight: 500,
-  fontSize: '24px',
+  fontSize: '20px',
   lineHeight: '1.8',
   color: '#FF8A5C',
   textAlign: 'center',
   marginBottom: '16px',
   zIndex: 2,
+  xs: {
+    fontSize: '24px',
+  },
   md: {
     fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)',
     marginBottom: '32px',

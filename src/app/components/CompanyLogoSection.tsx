@@ -109,13 +109,16 @@ const buttonWrapperStyle = css({
 
 const descriptionStyle = css({
   fontWeight: 400,
-  fontSize: '14px',
+  fontSize: '13px',
   color: '#444444',
   lineHeight: '1.8',
   textAlign: 'center',
   marginTop: '24px',
   position: 'relative',
   zIndex: 2,
+  xs: {
+    fontSize: '14px',
+  },
   sm: {
     fontSize: '16px',
   },
