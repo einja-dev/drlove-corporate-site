@@ -1,3 +1,4 @@
+import { SectionTitle } from '@/app/components/ui/SectionTitle';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
 
@@ -8,10 +9,15 @@ const sectionStyle = css({
   overflow: 'hidden',
   minHeight: 'clamp(480px, 70vw, 800px)',
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  padding: '0',
+  gap: '24px',
+  padding: '0 0 80px',
   zIndex: 1,
+  md: {
+    gap: '32px',
+  },
 });
 
 const galleryWrap = css({
@@ -98,6 +104,7 @@ export default function GallerySection() {
 
   return (
     <section className={sectionStyle} id="gallery">
+      <SectionTitle en="Gallery" jp="ギャラリー" />
       <div className={galleryWrap}>
         {/* 装飾（もやもや） */}
         <div
