@@ -2,7 +2,7 @@
 import { HeroMessageSVG } from '@/app/components/top/Hero/HeroMessageSVG';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 const heroSection = css({
   w: '100%',
@@ -42,6 +42,7 @@ const heroContainer = css({
 const heroImageWrap = css({
   w: '100%',
   zIndex: 0,
+  aspectRatio: '21 / 9',
 });
 
 const heroImage = css({
@@ -118,10 +119,10 @@ type HeroSectionProps = {
 };
 
 export default function HeroSection({ animate = false }: HeroSectionProps) {
-  const [objectPosition, setObjectPosition] = useState('bottom');
+  const [objectPosition, setObjectPosition] = useState('');
   const [isHidden, setIsHidden] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateObjectPosition = () => {
       const vpRatio = window.innerHeight / window.innerWidth;
       if (vpRatio > 1.2) {
@@ -163,7 +164,7 @@ export default function HeroSection({ animate = false }: HeroSectionProps) {
             alt="Dr. Love AI メインビジュアル"
             fill
             className={heroImage}
-            style={{ objectPosition }}
+            style={{ objectPosition, visibility: objectPosition ? 'visible' : 'hidden' }}
             priority
           />
         </div>

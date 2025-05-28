@@ -11,15 +11,16 @@ export const HeroMessageSVG: FC<{ animate?: boolean }> = ({ animate }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
+    console.log('[HeroMessageSVG] useEffect fired', { animate, svgRef: svgRef.current });
     if (!svgRef.current || !animate) return;
+
+    const path = svgRef.current.querySelector<SVGPathElement>('.mask-path2');
+    console.log('[HeroMessageSVG] path', path);
+    if (!path) return;
 
     // GSAP context で自動クリーンアップ☆
     const ctx = gsap.context(() => {
       // 1 本だけのマスクパスを取得
-      const path = svgRef.current!.querySelector<SVGPathElement>('.mask-path2');
-      if (!path) return;
-
-      // ダッシュ初期化
       const length = path.getTotalLength();
       gsap.set(path, {
         strokeDasharray: length,
