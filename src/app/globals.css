@@ -6,6 +6,8 @@
 
   body, html {
     font-family: var(--font-mplus), var(--font-varela-round), var(--font-noto-serif-jp), 'Varela Round', 'Noto Serif JP', sans-serif;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
 
