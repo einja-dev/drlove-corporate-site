@@ -45,6 +45,11 @@ function appendLogoAndWhiteBgTimeline(
       },
       onComplete: () => {
         console.log('[Splash] 白ぼかし円拡大完了', whiteCircle);
+        const splashImages = document.querySelectorAll('.splash-img');
+        splashImages.forEach((el) => {
+          (el as HTMLElement).style.opacity = '0';
+          (el as HTMLElement).style.display = 'none';
+        });
       },
     },
     '+=0.5'

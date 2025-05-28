@@ -1,7 +1,6 @@
 'use client';
 import { Container } from '@/app/components/ui/Container';
 import { SectionTitle } from '@/app/components/ui/SectionTitle';
-import { Spacer } from '@/app/components/ui/Spacer';
 import { WbrTextWrapper } from '@/app/components/util/WbrTextWrapper';
 import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
 import { css } from '@/styled-system/css';
@@ -57,6 +56,8 @@ const leftCol = css({
   flexDirection: 'column',
   alignItems: 'flex-start',
   justifyContent: 'center',
+  gap: '24px',
+  md: { gap: '32px' },
 });
 
 const rightCol = css({
@@ -90,6 +91,7 @@ const rightCol = css({
 const wbrText = css({
   fontSize: '14px',
   color: '#444',
+  lineHeight: '1.8',
 
   lg: {
     fontSize: '16px',
@@ -122,7 +124,6 @@ const serviceTitleWrap = css({
   flexDirection: 'column',
   alignItems: 'flex-start',
   width: '100%',
-  margin: '0 0 8px 0',
 });
 const serviceTitleText = css({
   fontFamily: 'Noto Serif JP, serif',
@@ -136,7 +137,7 @@ const serviceTitleBars = css({
   display: 'flex',
   flexDirection: 'row',
   gap: '8px',
-  marginTop: '8px',
+  marginTop: '12px',
   justifyContent: 'flex-start',
 });
 const serviceTitleBar = css({
@@ -250,19 +251,8 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
 
   return (
     <div className={RowClass}>
-      {/* watercolor background for the first block */}
-      {/* {idx === 0 && (
-        <Image
-          src="/images/watercolor-bg.png"
-          alt=""
-          fill
-          className={`${bgImageStyle} ${bgLeftHalf}`}
-          priority
-        />
-      )} */}
-
       {/* text */}
-      <div className={leftCol}>
+      <div className={leftCol} style={{ position: 'relative', zIndex: 1 }}>
         <div ref={setSubTitleRef} className={sectionSubTitle}>
           {titleImage ? (
             <Image
@@ -276,23 +266,48 @@ function ServiceBlock({ idx, title, titleImage, video, texts }: ServiceBlockProp
             <ServiceTitleWithBars title={title} />
           )}
         </div>
-        <Spacer size="24px" />
-        {texts.map((t, i) =>
-          t === '' ? (
-            <div
-              key={`empty-${title || ''}-${i}`}
-              className={wbrText}
-              ref={setLineRef}
-              style={{ height: '1.5em' }}
+        <div>
+          {texts.map((t, i) =>
+            t === '' ? (
+              <div
+                key={`empty-${title || ''}-${i}`}
+                className={wbrText}
+                ref={setLineRef}
+                style={{ height: '1.5em' }}
+              />
+            ) : (
+              <WbrTextWrapper
+                key={`${title || ''}-${i}`}
+                ref={setLineRef}
+                className={wbrText}
+                dangerouslySetInnerHTML={{ __html: t }}
+              />
+            )
+          )}
+        </div>
+        {/* 1つ目のサービスブロックだけ背景画像を追加 */}
+        {idx === 0 && (
+          <div
+            style={{
+              position: 'absolute',
+              left: '45%',
+              bottom: 0,
+              width: '110%',
+              aspectRatio: '2250 / 807',
+              zIndex: -1,
+              pointerEvents: 'none',
+              transform: 'translateX(-50%)',
+              display: 'flex',
+            }}
+          >
+            <Image
+              src="/top/service/service-bg.png"
+              alt=""
+              fill
+              style={{ objectFit: 'contain', objectPosition: 'bottom' }}
+              priority
             />
-          ) : (
-            <WbrTextWrapper
-              key={`${title || ''}-${i}`}
-              ref={setLineRef}
-              className={wbrText}
-              dangerouslySetInnerHTML={{ __html: t }}
-            />
-          )
+          </div>
         )}
       </div>
 

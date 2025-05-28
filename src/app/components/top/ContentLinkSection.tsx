@@ -60,10 +60,107 @@ const items = [
   },
 ];
 
+// 子コンポーネント化
+function ContentCard({ item, idx }: { item: (typeof items)[number]; idx: number }) {
+  const setCardRef = useFadeInOnScroll(0.35 + idx * 0.05);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const handleMouseEnter = () => {
+    gsap.to(cardRef.current, { y: -8, scale: 1.04, duration: 0.25, ease: 'power1.out' });
+    gsap.to(imageRef.current, { y: -8, scale: 1.04, duration: 0.25, ease: 'power1.out' });
+  };
+  const handleMouseLeave = () => {
+    gsap.to(cardRef.current, { y: 0, scale: 1, duration: 0.25, ease: 'power1.out' });
+    gsap.to(imageRef.current, { y: 0, scale: 1, duration: 0.25, ease: 'power1.out' });
+  };
+  return (
+    <Link href={item.href} key={item.label} style={{ textDecoration: 'none' }} scroll={true}>
+      <div
+        ref={(el) => {
+          setCardRef(el);
+          cardRef.current = el;
+        }}
+        className={css({
+          position: 'relative',
+          width: '100%',
+          aspectRatio: '373 / 480',
+          borderRadius: '16px',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+          background: '#fff',
+          transform: 'skewX(-5deg)',
+          xs: {
+            borderRadius: '32px',
+          },
+          ...(idx === 1
+            ? {
+                marginTop: '30px',
+                marginLeft: '-5px',
+                md: {
+                  marginTop: '60px',
+                  marginLeft: '-5px',
+                },
+              }
+            : {}),
+        })}
+        style={{
+          backgroundImage: `url(${item.bg})`,
+          backgroundSize: '115% 115%',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: '#fff',
+          opacity: 0,
+          transform: 'skewX(-5deg)',
+          willChange: 'opacity, transform',
+          transition: 'none',
+        }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <span
+          className={css({
+            position: 'absolute',
+            top: '6%',
+            left: '50%',
+            transform: 'skewX(5deg) translateX(-50%)',
+            fontWeight: 500,
+            fontSize: 'clamp(0.9rem, 3vw, 2.2rem)',
+            lineHeight: '1.8',
+            color: item.labelColor || '#4EE06A',
+            zIndex: 4,
+            whiteSpace: 'nowrap',
+            sm: {
+              fontSize: 'clamp(0.9rem, 3vw, 2.2rem)',
+            },
+          })}
+        >
+          {item.label}
+        </span>
+        <div
+          className={cx(css({ position: 'absolute' }), item.imageWrapClass)}
+          style={{ aspectRatio: item.aspectRatio }}
+        >
+          <Image
+            ref={imageRef}
+            src={item.person}
+            alt={item.label}
+            fill
+            priority
+            style={{ objectFit: 'contain' }}
+          />
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export default function ContentLinkSection() {
   // タイトルもフェードイン
   const setTitleRef = useFadeInOnScroll(0.15);
-  const setCardRef = useFadeInOnScroll(0.35);
 
   return (
     <section
@@ -112,106 +209,9 @@ export default function ContentLinkSection() {
             },
           })}
         >
-          {items.map((item, idx) => {
-            const cardRef = useRef<HTMLDivElement>(null);
-            const imageRef = useRef<HTMLImageElement>(null);
-            const handleMouseEnter = () => {
-              gsap.to(cardRef.current, { y: -8, scale: 1.04, duration: 0.25, ease: 'power1.out' });
-              gsap.to(imageRef.current, { y: -8, scale: 1.04, duration: 0.25, ease: 'power1.out' });
-            };
-            const handleMouseLeave = () => {
-              gsap.to(cardRef.current, { y: 0, scale: 1, duration: 0.25, ease: 'power1.out' });
-              gsap.to(imageRef.current, { y: 0, scale: 1, duration: 0.25, ease: 'power1.out' });
-            };
-            return (
-              <Link
-                href={item.href}
-                key={item.label}
-                style={{ textDecoration: 'none' }}
-                scroll={true}
-              >
-                <div
-                  ref={(el) => {
-                    setCardRef(el);
-                    cardRef.current = el;
-                  }}
-                  className={css({
-                    position: 'relative',
-                    width: '100%',
-                    aspectRatio: '373 / 480',
-                    borderRadius: '16px',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
-                    background: '#fff',
-                    transform: 'skewX(-5deg)',
-                    xs: {
-                      borderRadius: '32px',
-                    },
-                    ...(idx === 1
-                      ? {
-                          marginTop: '30px',
-                          marginLeft: '-5px',
-                          md: {
-                            marginTop: '60px',
-                            marginLeft: '-5px',
-                          },
-                        }
-                      : {}),
-                  })}
-                  style={{
-                    backgroundImage: `url(${item.bg})`,
-                    backgroundSize: '115% 115%',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundColor: '#fff',
-                    opacity: 0,
-                    transform: 'skewX(-5deg)',
-                    willChange: 'opacity, transform',
-                    transition: 'none',
-                  }}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <span
-                    className={css({
-                      position: 'absolute',
-                      top: '6%',
-                      left: '50%',
-                      transform: 'skewX(5deg) translateX(-50%)',
-                      fontWeight: 500,
-                      fontSize: 'clamp(0.9rem, 3vw, 2.2rem)',
-                      lineHeight: '1.8',
-                      color: item.labelColor || '#4EE06A',
-                      zIndex: 4,
-                      whiteSpace: 'nowrap',
-                      sm: {
-                        fontSize: 'clamp(0.9rem, 3vw, 2.2rem)',
-                      },
-                    })}
-                  >
-                    {item.label}
-                  </span>
-                  <div
-                    className={cx(css({ position: 'absolute' }), item.imageWrapClass)}
-                    style={{ aspectRatio: item.aspectRatio }}
-                  >
-                    <Image
-                      ref={imageRef}
-                      src={item.person}
-                      alt={item.label}
-                      fill
-                      priority
-                      style={{ objectFit: 'contain' }}
-                    />
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+          {items.map((item, idx) => (
+            <ContentCard key={item.label} item={item} idx={idx} />
+          ))}
         </div>
       </Container>
     </section>

@@ -209,9 +209,7 @@ export default function HeaderSection() {
           <Link href="#gallery">ギャラリー</Link>
           <div className={css({ display: 'none', lg: { display: 'block' } })}>
             <Link href="/inquiry" style={{ textDecoration: 'none' }}>
-              <PrimaryButton size="small" gradText variant="secondary">
-                お問い合わせ
-              </PrimaryButton>
+              <PrimaryButton size="small">お問い合わせ</PrimaryButton>
             </Link>
           </div>
         </nav>
@@ -282,9 +280,7 @@ export default function HeaderSection() {
           style={{ marginTop: '32px', width: '100%', display: 'flex', justifyContent: 'center' }}
         >
           <Link href="/inquiry" style={{ textDecoration: 'none' }}>
-            <PrimaryButton size="small" gradText variant="secondary">
-              お問い合わせ
-            </PrimaryButton>
+            <PrimaryButton size="small">お問い合わせ</PrimaryButton>
           </Link>
         </div>
       </nav>

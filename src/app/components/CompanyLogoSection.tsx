@@ -14,7 +14,7 @@ const sectionStyle = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  background: 'background',
+  background: ' linear-gradient(102.07deg, #FFFFFF -0.01%, #FFFCEE 99.99%);',
   zIndex: 1,
   md: {
     padding: '120px 16px 120px 16px',
@@ -66,7 +66,7 @@ const logoCardStyle = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: '4px 12px',
+  padding: '0 12px',
   width: '168px',
   height: '56px',
   overflow: 'hidden',
@@ -74,14 +74,14 @@ const logoCardStyle = css({
 
 const logoImageStyle = css({
   width: '120px !important',
-  height: '32px !important',
+  height: '40px !important',
   objectFit: 'contain',
   objectPosition: 'center',
 });
 
 export const logoFilenames: string[] = [
   'WAVE_RHINOPLASTY_CLINIC.png',
-  'エッジ.png',
+  // 'エッジ.png',
   '0EBEB123-592C-4189-B471-04DE43F170B4.jpg',
   '494858411_1198789771396397_6950388020160594109_n-2.jpg',
   // '[CROP]KakaoTalk_20210915_160227559_0.png',
@@ -119,7 +119,7 @@ const buttonWrapperStyle = css({
 });
 
 const descriptionStyle = css({
-  fontWeight: 400,
+  fontWeight: 500,
   fontSize: '13px',
   color: '#444444',
   lineHeight: '1.8',
@@ -150,7 +150,7 @@ export default function CompanyLogoSection() {
     // GSAPのパフォーマンス設定
     gsap.defaults({
       force3D: true,
-      lazy: false
+      lazy: false,
     });
 
     const timelines: (gsap.core.Timeline | gsap.core.Tween)[] = [];
@@ -173,7 +173,7 @@ export default function CompanyLogoSection() {
         },
         {
           xPercent: direction === 1 ? 0 : -16.666, // 移動距離を小さく
-          duration: 25, // 少し長めにしてスムーズに
+          duration: 50, // スピードを半分に
           ease: 'none',
           repeat: -1,
         }
@@ -190,6 +190,7 @@ export default function CompanyLogoSection() {
   return (
     <section className={sectionStyle}>
       <Image src="/top/company/company-bg-moyamoya.png" alt="背景" fill className={bgStyle} />
+
       <h2 className={titleStyle}>想いを共にする企業様と一緒に歩んでおります</h2>
       {/* 横スクロール3行（無限ループ） */}
       {logoRows.map((row, idx) => (
@@ -200,7 +201,10 @@ export default function CompanyLogoSection() {
             rowRefs.current[idx] = el;
           }}
         >
-          <div className="logo-container" style={{ display: 'flex', gap: '24px', width: 'max-content' }}>
+          <div
+            className="logo-container"
+            style={{ display: 'flex', gap: '24px', width: 'max-content' }}
+          >
             {/* 6回繰り返してラグを大幅に減らす */}
             {[...row, ...row, ...row, ...row, ...row, ...row].map((logo, i) => (
               <div key={`${logo.alt}-${i}`} className={`${logoCardStyle} logo-card`}>
@@ -226,9 +230,7 @@ export default function CompanyLogoSection() {
       </div>
       <div className={buttonWrapperStyle}>
         <Link href="/inquiry" style={{ textDecoration: 'none' }}>
-          <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
-            お問い合わせ
-          </PrimaryButton>
+          <PrimaryButton size="large">お問い合わせ</PrimaryButton>
         </Link>
       </div>
     </section>

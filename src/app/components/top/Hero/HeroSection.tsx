@@ -1,5 +1,6 @@
 'use client';
 import { HeroMessageSVG } from '@/app/components/top/Hero/HeroMessageSVG';
+import { HeroMessageSVG2 } from '@/app/components/top/Hero/HeroMessageSVG2';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -169,6 +170,7 @@ export default function HeroSection({ animate = false }: HeroSectionProps) {
         </div>
         <div className={heroTextContainer}>
           <HeroMessageSVG animate={animate} />
+          <HeroMessageSVG2 animate={animate} />
         </div>
       </div>
     </section>

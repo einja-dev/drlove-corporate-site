@@ -35,4 +35,10 @@
   .lenis.lenis-smooth iframe {
     pointer-events: none;
   }
+
+  .primary-button:hover .primary-button__text {
+    background-image: none !important;
+    color: #fff !important;
+    transition: color 0.3s, background 0.3s;
+  }
 }

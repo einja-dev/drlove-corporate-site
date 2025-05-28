@@ -96,9 +96,7 @@ export default function CompanySection() {
         style={{ textAlign: 'center', textDecoration: 'none' }}
         ref={fadeButtonRef}
       >
-        <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
-          お問い合わせ
-        </PrimaryButton>
+        <PrimaryButton size="large">お問い合わせ</PrimaryButton>
       </Link>
     </section>
   );

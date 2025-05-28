@@ -26,7 +26,7 @@ const galleryWrap = css({
   padding: 'clamp(20px, 4vw, 40px)',
   '@media (max-width: 768px)': {
     gridTemplateColumns: 'repeat(2, 1fr)',
-  }
+  },
 });
 
 const cardBaseStyle = css({
@@ -39,7 +39,7 @@ const cardBaseStyle = css({
   marginTop: 'var(--card-offset)',
   '@media (max-width: 768px)': {
     marginTop: 'var(--card-offset-tablet)',
-  }
+  },
 });
 
 // ギャラリー画像・説明・色などをオブジェクト配列で管理
@@ -100,17 +100,30 @@ export default function GallerySection() {
     <section className={sectionStyle} id="gallery">
       <div className={galleryWrap}>
         {/* 装飾（もやもや） */}
-        {decorations.map((dec) => (
+        <div
+          style={{
+            position: 'absolute',
+            top: '60px',
+            left: '50%',
+            width: '114%',
+            aspectRatio: 1120 / 366,
+            opacity: 0.5,
+            zIndex: 0,
+            pointerEvents: 'none',
+            overflow: 'hidden',
+            transform: 'translateX(-50%)',
+          }}
+        >
           <Image
-            key={dec.src}
-            src={dec.src}
-            alt={dec.alt}
-            style={dec.style}
-            width={300}
-            height={150}
+            src={'/figma-assets/gallery-moyamoya1.png'}
+            alt={'もやもや1'}
+            fill
             priority
+            style={{
+              objectFit: 'cover',
+            }}
           />
-        ))}
+        </div>
         {/* 画像カード */}
         {galleryImages.map((img, index) => (
           <div

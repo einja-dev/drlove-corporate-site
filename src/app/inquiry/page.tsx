@@ -74,13 +74,7 @@ export default function InquiryPage() {
               </div>
 
               <div className={styles.buttonWrapper} style={{ textAlign: 'center' }}>
-                <PrimaryButton
-                  type="submit"
-                  variant="primary"
-                  gradText
-                  borderRadiusType="special"
-                  size="large"
-                >
+                <PrimaryButton type="submit" size="large">
                   送信する
                 </PrimaryButton>
               </div>
