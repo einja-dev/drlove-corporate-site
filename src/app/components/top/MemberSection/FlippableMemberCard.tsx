@@ -10,7 +10,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 export type FlippableMemberCardProps = {
   card: MemberCardType;
   variant: 'main' | 'sub';
-  refObj?: React.Ref<HTMLButtonElement>;
+  refObj?: React.Ref<HTMLElement>;
   className?: string;
 };
 
@@ -174,16 +174,16 @@ export const FlippableMemberCard: React.FC<FlippableMemberCardProps> = ({
   const imgWrapperClassBack = isMain ? mainImageStyles.imgWrapper(true) : styles.imgWrapper;
   const imgClass = isMain ? mainImageStyles.img : styles.img;
 
-  const [cardHoverRef, isCardHover] = useHover<HTMLButtonElement>();
+  const [cardHoverRef, isCardHover] = useHover<HTMLElement>();
   const fadeInRef = useFadeInOnScroll(0.01);
 
   const combinedRef = useCallback(
-    (el: HTMLButtonElement | null) => {
+    (el: HTMLElement | null) => {
       cardHoverRef(el);
       fadeInRef(el);
       if (refObj && typeof refObj === 'function') refObj(el);
       else if (refObj && typeof refObj === 'object')
-        (refObj as React.MutableRefObject<HTMLButtonElement | null>).current = el;
+        (refObj as React.MutableRefObject<HTMLElement | null>).current = el;
     },
     [cardHoverRef, fadeInRef, refObj]
   );
@@ -234,9 +234,7 @@ export const FlippableMemberCard: React.FC<FlippableMemberCardProps> = ({
         style={{ transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
       >
         {/* 表面 */}
-        <div
-          className={cx(cardCommon(isMain), cardFaceClass(false, isMain))}
-        >
+        <div className={cx(cardCommon(isMain), cardFaceClass(false, isMain))}>
           <Image src={card.bgImage} alt="bg" fill className={styles.bg} />
           <div className={styles.textWrap}>
             <div className={css({ display: 'flex', alignItems: 'center', gap: '4px', zIndex: 1 })}>
@@ -256,9 +254,7 @@ export const FlippableMemberCard: React.FC<FlippableMemberCardProps> = ({
           </div>
         </div>
         {/* 裏面 */}
-        <div
-          className={cx(cardCommon(isMain), cardFaceClass(true, isMain))}
-        >
+        <div className={cx(cardCommon(isMain), cardFaceClass(true, isMain))}>
           <Image src={card.bgImage} alt="bg" fill className={styles.bg} />
           <div className={styles.textWrap}>
             <div className={css({ display: 'flex', alignItems: 'center', gap: '4px', zIndex: 1 })}>
