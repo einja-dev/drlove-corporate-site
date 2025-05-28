@@ -26,10 +26,7 @@ const galleryWrap = css({
   padding: 'clamp(20px, 4vw, 40px)',
   '@media (max-width: 768px)': {
     gridTemplateColumns: 'repeat(2, 1fr)',
-  },
-  '@media (max-width: 480px)': {
-    gridTemplateColumns: '1fr',
-  },
+  }
 });
 
 const cardBaseStyle = css({
@@ -42,10 +39,7 @@ const cardBaseStyle = css({
   marginTop: 'var(--card-offset)',
   '@media (max-width: 768px)': {
     marginTop: 'var(--card-offset-tablet)',
-  },
-  '@media (max-width: 480px)': {
-    marginTop: 'var(--card-offset-mobile)',
-  },
+  }
 });
 
 // ギャラリー画像・説明・色などをオブジェクト配列で管理
