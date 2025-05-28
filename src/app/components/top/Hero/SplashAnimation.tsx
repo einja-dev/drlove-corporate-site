@@ -15,13 +15,116 @@ const IMAGE_PATHS = [
   '/top/splash/splash-6.png',
 ];
 
+// z-index定義
+const Z_BG_BLACK = 100;
+const Z_BG_HERO = 103;
+const Z_SLIDES = 102;
+const Z_WHITE_CIRCLE = 103;
+const Z_WHITE_BG = 104;
+const Z_LOGO = 105;
+
+// 共通アニメーションを関数化
+function appendLogoAndWhiteBgTimeline(
+  tl: gsap.core.Timeline,
+  whiteCircle: HTMLDivElement,
+  whiteBg: HTMLDivElement,
+  logo: HTMLDivElement,
+  setShow: (b: boolean) => void,
+  onFinish?: () => void,
+  setShowHeroBg?: (b: boolean) => void
+) {
+  tl.to(
+    whiteCircle,
+    {
+      scale: 40,
+      opacity: 1,
+      duration: 0.7,
+      ease: 'power3.in',
+      onStart: () => {
+        console.log('[Splash] 白ぼかし円拡大開始', whiteCircle);
+      },
+      onComplete: () => {
+        console.log('[Splash] 白ぼかし円拡大完了', whiteCircle);
+      },
+    },
+    '+=0.5'
+  );
+  tl.to(
+    whiteBg,
+    {
+      opacity: 1,
+      duration: 0.01,
+      onStart: () => {
+        console.log('[Splash] 白背景表示開始', whiteBg);
+      },
+      onComplete: () => {
+        console.log('[Splash] 白背景表示完了', whiteBg);
+      },
+    },
+    '+=0.01'
+  );
+  tl.to(
+    logo,
+    {
+      opacity: 1,
+      duration: 0.7,
+      onStart: () => {
+        console.log('[Splash] ロゴフェードイン開始', logo);
+      },
+      onComplete: () => {
+        console.log('[Splash] ロゴフェードイン完了', logo);
+      },
+    },
+    '+=0.2'
+  );
+  tl.to(
+    {},
+    {
+      duration: 1.0,
+      onStart: () => {
+        console.log('[Splash] ロゴ静止開始');
+      },
+      onComplete: () => {
+        console.log('[Splash] ロゴ静止終了');
+      },
+    }
+  );
+  tl.to([logo, whiteBg], {
+    opacity: 0,
+    duration: 1.5,
+    ease: 'power2.out',
+    onStart: () => {
+      console.log('[Splash] ロゴ・白背景フェードアウト開始', whiteBg);
+      if (!whiteBg) {
+        console.error('[Splash] whiteBg is null at fadeout start');
+      }
+      if (setShowHeroBg) setShowHeroBg(true);
+      if (whiteCircle) {
+        gsap.to(whiteCircle, { opacity: 0, duration: 0.8, ease: 'power2.out' });
+      }
+    },
+    onComplete: () => {
+      console.log('[Splash] ロゴ・白背景フェードアウト完了', whiteBg);
+      if (!whiteBg) {
+        console.error('[Splash] whiteBg is null at fadeout complete');
+      }
+      if (whiteBg && whiteBg instanceof HTMLElement) {
+        whiteBg.style.display = 'none';
+      }
+    },
+  });
+}
+
 export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
   const [show, setShow] = useState(true);
   const [isVertical, setIsVertical] = useState(false);
+  const [showHeroBg, setShowHeroBg] = useState(false);
+  const [heroBgOpacity, setHeroBgOpacity] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const whiteCircleRef = useRef<HTMLDivElement>(null);
   const whiteBgRef = useRef<HTMLDivElement>(null);
+  const heroBgOpacityRef = useRef({ opacity: 0 });
 
   // 画面比率で縦長判定
   useEffect(() => {
@@ -33,7 +136,31 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
     return () => window.removeEventListener('resize', checkVertical);
   }, []);
 
+  // showHeroBgがtrueになったらopacityを0にリセットし、GSAPで0→1へ
+  useEffect(() => {
+    if (showHeroBg) {
+      heroBgOpacityRef.current.opacity = 0;
+      setHeroBgOpacity(0);
+      setTimeout(() => {
+        gsap.to(heroBgOpacityRef.current, {
+          opacity: 1,
+          duration: 1.5,
+          onUpdate: () => setHeroBgOpacity(heroBgOpacityRef.current.opacity),
+          ease: 'power2.out',
+          onStart: () => {
+            console.log('HeroBg opacity animation start', heroBgOpacityRef.current.opacity);
+          },
+          onComplete: () => {
+            console.log('HeroBg opacity animation complete', heroBgOpacityRef.current.opacity);
+          },
+        });
+      }, 0);
+    }
+  }, [showHeroBg]);
+
   useLayoutEffect(() => {
+    // アニメーション開始時は必ずヒーローイメージを非表示に
+    setShowHeroBg(false);
     console.log('[Splash] useLayoutEffect start', { isVertical, show });
     if (!containerRef.current) {
       console.log('[Splash] containerRef.current is null');
@@ -94,8 +221,8 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
             i * 0.2
           );
         });
-        // 1セット目の3つ目が終わった後に0.75秒待機（0.25+0.5）
-        tl.addLabel('afterFirstSet', '+=0.5');
+        // 1セット目の3つ目が終わった後に0.2秒待機
+        tl.addLabel('afterFirstSet', '+=0.4');
         // 2セット目: 下左→下右→下中央
         [3, 5, 4].forEach((idx, i) => {
           const selector = slots[idx];
@@ -111,62 +238,26 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
             i === 0 ? 'afterFirstSet' : `afterFirstSet+=${i * 0.2}`
           );
         });
-        // 白いぼかし円・ロゴ・白背景は従来通り
-        console.log('whiteCircleRef', whiteCircleRef.current);
-        if (!whiteCircleRef.current) {
-          console.error('whiteCircleRefがnull');
+        // 白ぼかし円の直前でHeroイメージ背景を表示
+        if (!whiteCircleRef.current || !whiteBgRef.current || !logoRef.current) {
+          console.error('whiteCircleRef/whiteBgRef/logoRefがnull');
           return;
         }
-        tl.to(
+        appendLogoAndWhiteBgTimeline(
+          tl,
           whiteCircleRef.current,
-          {
-            scale: 40,
-            opacity: 1,
-            duration: 0.7,
-            ease: 'power3.in',
-          },
-          '+=0.5'
-        );
-        console.log('whiteBgRef', whiteBgRef.current);
-        if (!whiteBgRef.current) {
-          console.error('whiteBgRefがnull');
-          return;
-        }
-        tl.to(
           whiteBgRef.current,
-          {
-            opacity: 1,
-            duration: 0.01,
-          },
-          '+=0.01'
-        );
-        console.log('logoRef', logoRef.current);
-        if (!logoRef.current) {
-          console.error('logoRefがnull');
-          return;
-        }
-        tl.to(
           logoRef.current,
-          {
-            opacity: 1,
-            duration: 0.7,
-            onStart: () => {
-              console.log('logoRef.current', logoRef.current);
-            },
-          },
-          '+=0.2'
+          setShow,
+          onFinish,
+          setShowHeroBg
         );
-        // 2秒間静止
-        tl.to({}, { duration: 2.0 });
-        // ロゴと白背景を同時にフェードアウト
-        tl.to([logoRef.current, whiteBgRef.current], {
-          opacity: 0,
-          duration: 1.5,
-          ease: 'power2.out',
-          onComplete: () => {
+        tl.eventCallback('onComplete', () => {
+          console.log('[Splash] timeline onComplete (final)');
+          setTimeout(() => {
             setShow(false);
             if (onFinish) onFinish();
-          },
+          }, 1000);
         });
       } else {
         console.log('[Splash] isHorizontal timeline start');
@@ -187,8 +278,8 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
             i * 0.2
           );
         });
-        // 1セット目の3つ目が終わった後に0.25秒待機
-        tl.addLabel('afterFirstSet', '+=0.25');
+        // 1セット目の3つ目が終わった後に0.1秒待機
+        tl.addLabel('afterFirstSet', '+=0.1');
         // 2セット目: 左→右→中央（中央のみ下から）
         [0, 2, 1].forEach((slotIdx, i) => {
           let direction = {};
@@ -203,6 +294,27 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
             i === 0 ? 'afterFirstSet' : `afterFirstSet+=${i * 0.2}`
           );
         });
+        // 白ぼかし円の直前でHeroイメージ背景を表示
+        if (!whiteCircleRef.current || !whiteBgRef.current || !logoRef.current) {
+          console.error('whiteCircleRef/whiteBgRef/logoRefがnull');
+          return;
+        }
+        appendLogoAndWhiteBgTimeline(
+          tl,
+          whiteCircleRef.current,
+          whiteBgRef.current,
+          logoRef.current,
+          setShow,
+          onFinish,
+          setShowHeroBg
+        );
+        tl.eventCallback('onComplete', () => {
+          console.log('[Splash] timeline onComplete (final)');
+          setTimeout(() => {
+            setShow(false);
+            if (onFinish) onFinish();
+          }, 1000);
+        });
       }
       console.log('[Splash] timeline onComplete');
     }, containerRef);
@@ -210,7 +322,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
       console.log('[Splash] useLayoutEffect cleanup');
       ctx.revert();
     };
-  }, [isVertical, show, onFinish]);
+  }, [isVertical, onFinish, show]);
 
   if (!show) {
     console.log('[Splash] show is false, return null');
@@ -224,16 +336,52 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        background: '#000',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
       }}
     >
+      {/* 黒背景は常に最下層 */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: '#000',
+          zIndex: Z_BG_BLACK,
+        }}
+      />
+      {/* Heroイメージは白背景より下に配置 */}
+      <div
+        className="splash-hero-bg"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: Z_BG_HERO,
+          opacity: heroBgOpacity,
+          display: showHeroBg ? 'block' : 'none',
+          pointerEvents: 'none',
+          transition: 'opacity 0.1s linear',
+          backgroundImage: 'url("/hero/main-image.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
       {isVertical ? (
         // 縦長: 上下2段×3枚
-        <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100vw',
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            zIndex: Z_SLIDES,
+            pointerEvents: 'none',
+          }}
+        >
           <div
             className="splash-row top"
             style={{ flex: 1, display: 'flex', position: 'relative', flexDirection: 'row' }}
@@ -333,9 +481,13 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
         // 横長: 3分割×2セット
         <div
           style={{
-            display: 'flex',
+            position: 'absolute',
+            inset: 0,
             width: '100vw',
             height: '100vh',
+            display: 'flex',
+            zIndex: Z_SLIDES,
+            pointerEvents: 'none',
           }}
         >
           {/* 左スロット */}
@@ -493,6 +645,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           opacity: 0,
           pointerEvents: 'none',
           filter: 'blur(8px)',
+          zIndex: Z_WHITE_CIRCLE,
         }}
       />
       {/* 白背景＋ロゴ */}
@@ -503,7 +656,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           inset: 0,
           background: '#fff',
           opacity: 0,
-          zIndex: 2,
+          zIndex: Z_WHITE_BG,
           pointerEvents: 'none',
           willChange: 'opacity',
         }}
@@ -516,7 +669,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           top: '50%',
           transform: 'translate(-50%, -50%)',
           opacity: 0,
-          zIndex: 3,
+          zIndex: Z_LOGO,
         }}
       >
         <Image

@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import React, { type ReactNode, useEffect, useState } from 'react';
 import SplashAnimation from './SplashAnimation';
 
@@ -26,7 +25,7 @@ export default function SplashWrapper({ children }: SplashWrapperProps) {
   // 4 秒経ったら強制的に Splash を閉じるフェイルセーフ☆
   useEffect(() => {
     if (!showSplash) return;
-    const fallback = setTimeout(() => setShowSplash(false), 4000);
+    const fallback = setTimeout(() => setShowSplash(false), 10500);
     return () => clearTimeout(fallback);
   }, [showSplash]);
 
@@ -51,21 +50,7 @@ export default function SplashWrapper({ children }: SplashWrapperProps) {
 
   return (
     <>
-      {showSplash && (
-        <>
-          <SplashAnimation onFinish={() => setShowSplash(false)} />
-          {/* Hero 画像を事前プリロードして白チラ防止 */}
-          <Image
-            src={HERO_IMAGE_SRC}
-            alt=""
-            width={1}
-            height={1}
-            priority
-            style={{ display: 'none' }}
-            fetchPriority="high"
-          />
-        </>
-      )}
+      {showSplash && <SplashAnimation onFinish={() => setShowSplash(false)} />}
       {!showSplash && enhancedChildren}
     </>
   );
