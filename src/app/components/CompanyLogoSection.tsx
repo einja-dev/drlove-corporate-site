@@ -140,13 +140,18 @@ export default function CompanyLogoSection() {
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    // GSAPのパフォーマンス設定
+    gsap.defaults({
+      force3D: true,
+      lazy: false
+    });
+
     const timelines: (gsap.core.Timeline | gsap.core.Tween)[] = [];
 
     logoRows.forEach((row, rowIndex) => {
       const rowElement = rowRefs.current[rowIndex];
       if (!rowElement) return;
 
-      // 方向を決定（1行目: 右→左、2行目: 左→右、3行目: 右→左）
       const direction = rowIndex === 1 ? 1 : -1;
 
       // 行全体のコンテナを取得
@@ -157,11 +162,11 @@ export default function CompanyLogoSection() {
       const animation = gsap.fromTo(
         container,
         {
-          xPercent: direction === 1 ? -50 : 0, // 左→右の場合は-50%から開始
+          xPercent: direction === 1 ? -33.333 : 0, // 左→右の場合は-33.333%から開始
         },
         {
-          xPercent: direction === 1 ? 0 : -50, // 右→左の場合は-50%まで移動
-          duration: 15, // 15秒で1サイクル
+          xPercent: direction === 1 ? 0 : -33.333, // 右→左の場合は-33.333%まで移動
+          duration: 20, // 20秒で1サイクル
           ease: 'none',
           repeat: -1,
         }
@@ -170,7 +175,6 @@ export default function CompanyLogoSection() {
       timelines.push(animation);
     });
 
-    // クリーンアップ
     return () => {
       timelines.forEach((tl) => tl.kill());
     };
@@ -190,7 +194,7 @@ export default function CompanyLogoSection() {
           }}
         >
           <div className="logo-container" style={{ display: 'flex', gap: '24px', width: 'max-content' }}>
-            {[...row, ...row].map((logo, i) => (
+            {[...row, ...row, ...row].map((logo, i) => (
               <div key={`${logo.alt}-${i}`} className={`${logoCardStyle} logo-card`}>
                 <Image
                   src={logo.src}
