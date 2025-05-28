@@ -40,13 +40,15 @@ const headerShadowStyle = css({
 const logoNavWrapStyle = css({
   display: 'flex',
   alignItems: 'center',
+  width: '100%',
   justifyContent: 'space-between',
   gap: '16px',
-  width: '100%',
-  md: {
-    justifyContent: 'space-between',
-    gap: '40px',
-  },
+});
+
+const navWrapperStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '16px',
 });
 
 const navStyle = css({
@@ -57,8 +59,24 @@ const navStyle = css({
   color: '#444444',
   fontWeight: '400',
   lineHeight: '1.8em',
+  _after: {
+    content: '""',
+    display: 'block',
+    height: '20px',
+    borderLeft: '1px solid #d4d4d4',
+  },
   lg: {
     display: 'flex',
+  },
+});
+
+const navLinkStyle = css({
+  transition: 'background-image 0.3s',
+  whiteSpace: 'nowrap',
+  _hover: {
+    backgroundImage: 'linear-gradient(90deg, #FF749D 0%, #FFB374 100%)',
+    backgroundClip: 'text',
+    color: 'transparent',
   },
 });
 
@@ -134,12 +152,60 @@ const closeButtonStyle = css({
   },
 });
 
+const snsNavStyle = css({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  '& > * + *': {
+    marginLeft: '-4px',
+  }
+});
+
+const inquiryButtonWrapperStyle = css({
+  display: 'none',
+  lg: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '16px',
+    _before: {
+      content: '""',
+      display: 'block',
+      height: '20px',
+      borderLeft: '1px solid #d4d4d4',
+    },
+  },
+});
+
 type IconButtonProps = {
   onClick: () => void;
   ariaLabel?: string;
   icon: any;
   className?: string;
 };
+
+const snsLinks = [
+  {
+    name: 'X',
+    url: 'https://x.com/renai_kyoso?s=21&t=L76j-ftMbaNCn-37cRu1lA',
+    imageSrc: '/images/x-icon.png',
+  },
+  {
+    name: 'Instagram',
+    url: 'https://www.instagram.com/renai_kyoso?igsh=ZWYzZmd0b2Y0YWly&utm_source=qr',
+    imageSrc: '/images/instagram-icon.png',
+  },
+  {
+    name: 'Threads',
+    url: 'https://www.threads.com/@renai_kyoso?igshid=NTc4MTIwNjQ2YQ==',
+    imageSrc: '/images/threads-icon.png',
+  },
+  {
+    name: 'Tiktok',
+    url: 'https://chat.line.biz/U6d8c73ce1b5f82482d67e6ca3f6e6068/chat/2C6d28c9f94c638ac023b06b2f8e4f6735?messageId=561402906554401061',
+    imageSrc: '/images/tiktok-icon.png',
+  },
+  { name: 'LINE', url: 'https://page.line.me/206fcago', imageSrc: '/images/line-icon.png' },
+] as const;
 
 function IconButton({ onClick, ariaLabel, icon, className }: IconButtonProps) {
   return (
@@ -200,19 +266,48 @@ export default function HeaderSection() {
             style={{ height: '40px', width: 'auto' }}
           />
         </Link>
-        <nav className={navStyle}>
-          <Link href="#service">サービス</Link>
-          <Link href="#member">メンバー紹介</Link>
-          <Link href="#news">ニュース</Link>
-          <Link href="#recruit">採用情報</Link>
-          <Link href="#company">会社概要</Link>
-          <div className={css({ display: 'none', lg: { display: 'block' } })}>
+        <div className={navWrapperStyle}>
+          <nav className={navStyle}>
+            <Link href="#service" className={navLinkStyle}>
+              サービス
+            </Link>
+            <Link href="#member" className={navLinkStyle}>
+              メンバー紹介
+            </Link>
+            <Link href="#news" className={navLinkStyle}>
+              ニュース
+            </Link>
+            <Link href="#recruit" className={navLinkStyle}>
+              採用情報
+            </Link>
+            <Link href="#company" className={navLinkStyle}>
+              会社概要
+            </Link>
+          </nav>
+          <nav className={snsNavStyle}>
+            {snsLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={css({ transition: 'opacity 0.3s', _hover: { opacity: 0.5 } })}
+              >
+                <Image src={link.imageSrc} alt={link.name} width={39} height={39} />
+              </a>
+            ))}
+          </nav>
+          <div className={inquiryButtonWrapperStyle}>
             <Link href="/inquiry" style={{ textDecoration: 'none' }}>
               <PrimaryButton>お問い合わせ</PrimaryButton>
             </Link>
           </div>
-        </nav>
-        <IconButton onClick={() => setIsMenuOpen(true)} icon={faBars} ariaLabel="メニューを開く" />
+          <IconButton
+            onClick={() => setIsMenuOpen(true)}
+            icon={faBars}
+            ariaLabel="メニューを開く"
+          />
+        </div>
       </div>
 
       <div
