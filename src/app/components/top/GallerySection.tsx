@@ -99,21 +99,18 @@ export default function GallerySection() {
   return (
     <section className={sectionStyle} id="gallery">
       <div className={galleryWrap}>
-        <Image
-          src={'/figma-assets/gallery-moyamoya1.png'}
-          alt={'もやもや1'}
-          style={{
-            position: 'absolute',
-            top: '60px',
-            left: '-20px',
-            width: '100%',
-            height: '80%',
-            opacity: 0.3,
-          }}
-          width={1114}
-          height={800}
-          priority
-        />
+        {/* 装飾（もやもや） */}
+        {decorations.map((dec) => (
+          <Image
+            key={dec.src}
+            src={dec.src}
+            alt={dec.alt}
+            style={dec.style}
+            width={300}
+            height={150}
+            priority
+          />
+        ))}
         {/* 画像カード */}
         {galleryImages.map((img, index) => (
           <div
