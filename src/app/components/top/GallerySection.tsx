@@ -27,9 +27,6 @@ const galleryWrap = css({
   '@media (max-width: 768px)': {
     gridTemplateColumns: 'repeat(2, 1fr)',
   },
-  '@media (max-width: 480px)': {
-    gridTemplateColumns: '1fr',
-  },
 });
 
 const cardBaseStyle = css({
@@ -42,9 +39,6 @@ const cardBaseStyle = css({
   marginTop: 'var(--card-offset)',
   '@media (max-width: 768px)': {
     marginTop: 'var(--card-offset-tablet)',
-  },
-  '@media (max-width: 480px)': {
-    marginTop: 'var(--card-offset-mobile)',
   },
 });
 
@@ -88,37 +82,6 @@ const galleryImages = [
   },
 ];
 
-const decorations = [
-  {
-    src: '/figma-assets/gallery-moyamoya1.png',
-    style: {
-      position: 'absolute' as const,
-      top: '-20px',
-      left: '-20px',
-      width: 'clamp(120px, 30vw, 300px)',
-      height: 'clamp(60px, 12vw, 150px)',
-      zIndex: 0,
-      opacity: 0.3,
-      pointerEvents: 'none' as const,
-    },
-    alt: 'もやもや1',
-  },
-  {
-    src: '/figma-assets/gallery-moyamoya2.png',
-    style: {
-      position: 'absolute' as const,
-      bottom: '-20px',
-      right: '-20px',
-      width: 'clamp(120px, 30vw, 300px)',
-      height: 'clamp(60px, 12vw, 150px)',
-      zIndex: 0,
-      opacity: 0.3,
-      pointerEvents: 'none' as const,
-    },
-    alt: 'もやもや2',
-  },
-];
-
 export default function GallerySection() {
   const getCardOffset = (index: number) => {
     // CSS変数として設定する値を計算
@@ -137,17 +100,30 @@ export default function GallerySection() {
     <section className={sectionStyle} id="gallery">
       <div className={galleryWrap}>
         {/* 装飾（もやもや） */}
-        {decorations.map((dec) => (
+        <div
+          style={{
+            position: 'absolute',
+            top: '60px',
+            left: '50%',
+            width: '114%',
+            aspectRatio: 1120 / 366,
+            opacity: 0.5,
+            zIndex: 0,
+            pointerEvents: 'none',
+            overflow: 'hidden',
+            transform: 'translateX(-50%)',
+          }}
+        >
           <Image
-            key={dec.src}
-            src={dec.src}
-            alt={dec.alt}
-            style={dec.style}
-            width={300}
-            height={150}
+            src={'/figma-assets/gallery-moyamoya1.png'}
+            alt={'もやもや1'}
+            fill
             priority
+            style={{
+              objectFit: 'cover',
+            }}
           />
-        ))}
+        </div>
         {/* 画像カード */}
         {galleryImages.map((img, index) => (
           <div

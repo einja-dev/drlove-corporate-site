@@ -206,12 +206,9 @@ export default function HeaderSection() {
           <Link href="#news">ニュース</Link>
           <Link href="#recruit">採用情報</Link>
           <Link href="#company">会社概要</Link>
-          <Link href="#gallery">ギャラリー</Link>
           <div className={css({ display: 'none', lg: { display: 'block' } })}>
             <Link href="/inquiry" style={{ textDecoration: 'none' }}>
-              <PrimaryButton size="small" gradText variant="secondary">
-                お問い合わせ
-              </PrimaryButton>
+              <PrimaryButton>お問い合わせ</PrimaryButton>
             </Link>
           </div>
         </nav>
@@ -282,9 +279,7 @@ export default function HeaderSection() {
           style={{ marginTop: '32px', width: '100%', display: 'flex', justifyContent: 'center' }}
         >
           <Link href="/inquiry" style={{ textDecoration: 'none' }}>
-            <PrimaryButton size="small" gradText variant="secondary">
-              お問い合わせ
-            </PrimaryButton>
+            <PrimaryButton size="default">お問い合わせ</PrimaryButton>
           </Link>
         </div>
       </nav>

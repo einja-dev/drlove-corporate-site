@@ -12,7 +12,7 @@ import RecruitSection from '@/app/components/top/RecruitSection';
 export default function Home() {
   return (
     <>
-      <HeroSection />
+      <HeroSection animate={true} />
       <MessageSection />
       <ContentLinkSection />
       <OurServiceSection />

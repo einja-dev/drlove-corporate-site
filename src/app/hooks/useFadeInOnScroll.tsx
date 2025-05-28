@@ -64,7 +64,9 @@ export function useFadeInOnScroll(threshold = 0.35, fromY = 40, rootMargin = '0p
             y: 0,
             duration: 0.6,
             ease: 'power2.out',
-            onComplete: () => restoreTransition(el),
+            onComplete: () => {
+              restoreTransition(el);
+            },
           });
 
           observer.unobserve(el);

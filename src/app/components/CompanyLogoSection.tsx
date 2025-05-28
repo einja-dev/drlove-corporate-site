@@ -1,9 +1,10 @@
 'use client';
 import { PrimaryButton } from '@/app/components/ui/PrimaryButton';
 import { css } from '@/styled-system/css';
+import { gsap } from 'gsap';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const sectionStyle = css({
   width: '100%',
@@ -13,7 +14,7 @@ const sectionStyle = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  background: 'background',
+  background: ' linear-gradient(102.07deg, #FFFFFF -0.01%, #FFFCEE 99.99%);',
   zIndex: 1,
   md: {
     padding: '120px 16px 120px 16px',
@@ -65,15 +66,22 @@ const logoCardStyle = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: '12px',
+  padding: '0 12px',
   width: '168px',
   height: '56px',
   overflow: 'hidden',
 });
 
+const logoImageStyle = css({
+  width: '120px !important',
+  height: '40px !important',
+  objectFit: 'contain',
+  objectPosition: 'center',
+});
+
 export const logoFilenames: string[] = [
   'WAVE_RHINOPLASTY_CLINIC.png',
-  'エッジ.png',
+  // 'エッジ.png',
   '0EBEB123-592C-4189-B471-04DE43F170B4.jpg',
   '494858411_1198789771396397_6950388020160594109_n-2.jpg',
   // '[CROP]KakaoTalk_20210915_160227559_0.png',
@@ -111,7 +119,7 @@ const buttonWrapperStyle = css({
 });
 
 const descriptionStyle = css({
-  fontWeight: 400,
+  fontWeight: 500,
   fontSize: '13px',
   color: '#444444',
   lineHeight: '1.8',
@@ -135,73 +143,85 @@ export default function CompanyLogoSection() {
     logos.slice(i * logosPerRow, (i + 1) * logosPerRow)
   );
 
-  // 各行のアニメーション用state
-  const [offsets, setOffsets] = useState(Array(rowCount).fill(0));
-  const rowLengths = logoRows.map((row) => row.length);
-  const cardWidth = 204 + 24; // カード幅+gap
+  // 各行のref
+  const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const baseSpeed = 1.2; // px/frame
-    let rafId: number;
-    const animate = () => {
-      setOffsets((prev) =>
-        prev.map((offset, i) => {
-          const totalWidth = rowLengths[i] * cardWidth;
-          let next = offset;
-          if (i === 0) {
-            // 1行目: 右→左
-            next -= baseSpeed;
-            if (Math.abs(next) >= totalWidth) next = 0;
-          } else if (i === 1) {
-            // 2行目: 左→右
-            next += baseSpeed;
-            if (next > 0) next = -totalWidth;
-          } else if (i === 2) {
-            // 3行目: 右→左（通常速度）
-            next -= baseSpeed;
-            if (Math.abs(next) >= totalWidth) next = 0;
-          }
-          return next;
-        })
+    // GSAPのパフォーマンス設定
+    gsap.defaults({
+      force3D: true,
+      lazy: false,
+    });
+
+    const timelines: (gsap.core.Timeline | gsap.core.Tween)[] = [];
+
+    logoRows.forEach((row, rowIndex) => {
+      const rowElement = rowRefs.current[rowIndex];
+      if (!rowElement) return;
+
+      const direction = rowIndex === 1 ? 1 : -1;
+
+      // 行全体のコンテナを取得
+      const container = rowElement.querySelector('.logo-container') as HTMLElement;
+      if (!container) return;
+
+      // 無限スクロールアニメーション（移動距離を小さくしてラグを減らす）
+      const animation = gsap.fromTo(
+        container,
+        {
+          xPercent: direction === 1 ? -16.666 : 0, // 6回繰り返しなので16.666%
+        },
+        {
+          xPercent: direction === 1 ? 0 : -16.666, // 移動距離を小さく
+          duration: 50, // スピードを半分に
+          ease: 'none',
+          repeat: -1,
+        }
       );
-      rafId = requestAnimationFrame(animate);
+
+      timelines.push(animation);
+    });
+
+    return () => {
+      timelines.forEach((tl) => tl.kill());
     };
-    rafId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafId);
-  }, [rowLengths]);
+  }, [logoRows]);
 
   return (
     <section className={sectionStyle}>
       <Image src="/top/company/company-bg-moyamoya.png" alt="背景" fill className={bgStyle} />
+
       <h2 className={titleStyle}>想いを共にする企業様と一緒に歩んでおります</h2>
       {/* 横スクロール3行（無限ループ） */}
-      {logoRows.map((row, idx) => {
-        const style = {
-          display: 'flex',
-          flexDirection: 'row' as const,
-          gap: '24px',
-          width: 'max-content',
-          transform: `translateX(${offsets[idx]}px)`,
-          transition: 'none',
-        };
-        return (
-          <div className={rowScrollStyle} key={row.map((logo) => logo.alt).join('-')}>
-            <div style={style}>
-              {[...row, ...row].map((logo, i) => (
-                <div key={`${logo.alt}-${i}`} className={logoCardStyle}>
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    width={120}
-                    height={40}
-                    style={{ objectFit: 'contain' }}
-                  />
-                </div>
-              ))}
-            </div>
+      {logoRows.map((row, idx) => (
+        <div
+          className={rowScrollStyle}
+          key={row.map((logo) => logo.alt).join('-')}
+          ref={(el) => {
+            rowRefs.current[idx] = el;
+          }}
+        >
+          <div
+            className="logo-container"
+            style={{ display: 'flex', gap: '24px', width: 'max-content' }}
+          >
+            {/* 6回繰り返してラグを大幅に減らす */}
+            {[...row, ...row, ...row, ...row, ...row, ...row].map((logo, i) => (
+              <div key={`${logo.alt}-${i}`} className={`${logoCardStyle} logo-card`}>
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={120}
+                  height={32}
+                  className={logoImageStyle}
+                  priority={false}
+                  unoptimized={false}
+                />
+              </div>
+            ))}
           </div>
-        );
-      })}
+        </div>
+      ))}
       {/* ロゴ下の説明文 */}
       <div className={descriptionStyle}>
         共に歩んでくださるパートナーを随時募集しております
@@ -210,9 +230,7 @@ export default function CompanyLogoSection() {
       </div>
       <div className={buttonWrapperStyle}>
         <Link href="/inquiry" style={{ textDecoration: 'none' }}>
-          <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
-            お問い合わせ
-          </PrimaryButton>
+          <PrimaryButton size="large">お問い合わせ</PrimaryButton>
         </Link>
       </div>
     </section>

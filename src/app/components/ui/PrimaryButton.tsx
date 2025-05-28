@@ -1,12 +1,10 @@
 import { css } from '@/styled-system/css';
 
-type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'secondary';
-  gradText?: boolean;
-  borderRadiusType?: 'default' | 'special';
-  size?: 'default' | 'small' | 'large';
-  gradientBorder?: boolean;
-};
+type Props = {
+  children: React.ReactNode;
+  size?: 'default' | 'large';
+  className?: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const primaryButtonBaseStyle = css({
   position: 'relative',
@@ -21,6 +19,7 @@ const primaryButtonBaseStyle = css({
   zIndex: 1,
   cursor: 'pointer',
   overflow: 'hidden',
+  transition: 'background 0.3s, color 0.3s',
   _before: {
     content: '""',
     position: 'absolute',
@@ -35,6 +34,11 @@ const primaryButtonBaseStyle = css({
     WebkitMaskComposite: 'xor' as unknown as string,
     pointerEvents: 'none',
     zIndex: 0,
+    transition: 'opacity 0.3s',
+  },
+  _hover: {
+    background: 'linear-gradient(90deg, #FF749D 0%, #FFB374 100%)',
+    color: '#fff',
   },
 });
 
@@ -44,7 +48,7 @@ const primaryButtonLargeStyle = css({
   lineHeight: '1',
   md: {
     fontSize: '20px',
-    padding: '18px 32px',
+    padding: '20px 32px',
   },
 });
 
@@ -57,34 +61,32 @@ export const primaryButtonTextStyle = css({
   fontSize: '16px',
   position: 'relative',
   top: '1px',
-
   lg: {
     fontSize: '20px',
   },
   '.large &': {
-    fontSize: '24px',
+    fontSize: '20px',
     lg: {
-      fontSize: '24px',
+      fontSize: '20px',
     },
     '@media (max-width: 767px)': {
       fontSize: '16px',
     },
   },
+  _hover: {
+    backgroundImage: 'none',
+    color: '#fff',
+  },
 });
 
-export function PrimaryButton({
-  children,
-  gradText,
-  borderRadiusType,
-  size = 'default',
-  ...props
-}: Props) {
+export function PrimaryButton({ children, size = 'default', className = '', ...props }: Props) {
   const classNames = [primaryButtonBaseStyle];
   if (size === 'large') classNames.push(primaryButtonLargeStyle);
   if (size === 'large') classNames.push('large');
+  if (className) classNames.push(className);
   return (
-    <button className={classNames.join(' ')} {...props}>
-      <span className={primaryButtonTextStyle}>{children}</span>
+    <button className={[...classNames, 'primary-button'].join(' ')} {...props}>
+      <span className={[primaryButtonTextStyle, 'primary-button__text'].join(' ')}>{children}</span>
     </button>
   );
 }

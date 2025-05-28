@@ -4,7 +4,7 @@ import type React from 'react';
 
 type Props = {
   card: MemberCardType;
-  refObj?: React.Ref<HTMLDivElement>;
+  refObj?: React.Ref<HTMLElement>;
   className?: string;
 };
 

@@ -6,6 +6,8 @@
 
   body, html {
     font-family: var(--font-mplus), var(--font-varela-round), var(--font-noto-serif-jp), 'Varela Round', 'Noto Serif JP', sans-serif;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
 
@@ -34,5 +36,11 @@
 
   .lenis.lenis-smooth iframe {
     pointer-events: none;
+  }
+
+  .primary-button:hover .primary-button__text {
+    background-image: none !important;
+    color: #fff !important;
+    transition: color 0.3s, background 0.3s;
   }
 }

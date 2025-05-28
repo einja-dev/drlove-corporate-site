@@ -40,7 +40,6 @@ const cardStyle = css({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  boxShadow: '0px 4px 4px 0px rgba(0,0,0,0.25)',
   md: {
     padding: '40px 32px',
   },
@@ -68,7 +67,7 @@ const overlayStyle = css({
   inset: 0,
   width: '100%',
   height: '100%',
-  background: 'rgba(255,215,181,0.2)',
+  background: 'rgba(255,215,181,0.2)', // #FFD7B5, 20%透明度
   zIndex: 1,
   pointerEvents: 'none',
 });
@@ -196,7 +195,7 @@ export default function RecruitSection() {
           >
             {/* default background */}
             <Image
-              src="/top/recruit/recruit_bg_only_old.png"
+              src="/top/recruit/recruit_bg.jpg"
               alt=""
               fill
               className={`${bgImgStyle} ${fadeImgStyle}`}
@@ -205,13 +204,14 @@ export default function RecruitSection() {
             />
             {/* hover background */}
             <Image
-              src="/top/recruit/recruit_bg_hover_old.png"
+              src="/top/recruit/recruit_bg_hover.jpg"
               alt=""
               fill
               className={`${bgImgStyle} ${fadeImgStyle}`}
               style={{ opacity: isHover ? 1 : 0 }}
               priority
             />
+            {/* #FFD7B5 20%透過オーバーレイ */}
             <div className={overlayStyle} />
             {/* md以上でのみ絶対配置で重ねる */}
             <div className={recruitTextWrapDesktopStyle}>
@@ -236,8 +236,13 @@ export default function RecruitSection() {
             </div>
             <div className={recruitButtonWrapDesktopStyle}>
               <Link href="/inquiry" style={{ textDecoration: 'none' }}>
-                <PrimaryButton variant="secondary" gradText borderRadiusType="special" size="large">
-                  募集職種をみる
+                <PrimaryButton
+                  size="large"
+                  className={css({
+                    width: '204px',
+                  })}
+                >
+                  応募する
                 </PrimaryButton>
               </Link>
             </div>

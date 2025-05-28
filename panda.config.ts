@@ -19,6 +19,12 @@ export default defineConfig({
         greenHeading: { value: '#A2E0AE' },
         background: { value: '#fff' },
       },
+      shadows: {
+        card: {
+          default: { value: '0 0 12px 0 rgba(0,0,0,0.06)' },
+          hover: { value: '0 4px 16px 0 rgba(97,139,255,0.28)' },
+        },
+      },
     },
     breakpoints: {
       xs: '480px',
