@@ -26,7 +26,7 @@ export default function SplashAndMain() {
           pointerEvents: splashDone ? 'auto' : 'none',
         }}
       >
-        <HeroSection animate={true} />
+        <HeroSection />
         <MessageSection />
         <ContentLinkSection />
         <OurServiceSection />

@@ -12,11 +12,11 @@ const sectionStyle = css({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: '24px',
+  gap: '8px',
   padding: '0 0 80px',
   zIndex: 1,
   md: {
-    gap: '32px',
+    gap: '16px',
   },
 });
 
