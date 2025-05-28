@@ -3,6 +3,7 @@ import { css } from '@/styled-system/css';
 type Props = {
   children: React.ReactNode;
   size?: 'default' | 'large';
+  className?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const primaryButtonBaseStyle = css({
@@ -78,10 +79,11 @@ export const primaryButtonTextStyle = css({
   },
 });
 
-export function PrimaryButton({ children, size = 'default', ...props }: Props) {
+export function PrimaryButton({ children, size = 'default', className = '', ...props }: Props) {
   const classNames = [primaryButtonBaseStyle];
   if (size === 'large') classNames.push(primaryButtonLargeStyle);
   if (size === 'large') classNames.push('large');
+  if (className) classNames.push(className);
   return (
     <button className={[...classNames, 'primary-button'].join(' ')} {...props}>
       <span className={[primaryButtonTextStyle, 'primary-button__text'].join(' ')}>{children}</span>
