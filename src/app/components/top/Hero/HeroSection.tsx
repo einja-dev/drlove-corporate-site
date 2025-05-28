@@ -3,6 +3,7 @@ import { HeroMessageSVG } from '@/app/components/top/Hero/HeroMessageSVG';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
 import { useEffect, useLayoutEffect, useState } from 'react';
+import { useSplashCompleted } from './SplashContext';
 
 const heroSection = css({
   w: '100%',
@@ -114,13 +115,10 @@ const heroTextContainer = css({
   },
 });
 
-type HeroSectionProps = {
-  animate?: boolean;
-};
-
-export default function HeroSection({ animate = false }: HeroSectionProps) {
+export default function HeroSection() {
   const [objectPosition, setObjectPosition] = useState('');
   const [isHidden, setIsHidden] = useState(false);
+  const { splashCompleted } = useSplashCompleted();
 
   useLayoutEffect(() => {
     const updateObjectPosition = () => {
@@ -164,13 +162,11 @@ export default function HeroSection({ animate = false }: HeroSectionProps) {
             alt="Dr. Love AI メインビジュアル"
             fill
             className={heroImage}
-            style={{ objectPosition, visibility: objectPosition ? 'visible' : 'hidden' }}
+            style={{ objectPosition }}
             priority
           />
         </div>
-        <div className={heroTextContainer}>
-          <HeroMessageSVG animate={animate} />
-        </div>
+        <div className={heroTextContainer}>{splashCompleted && <HeroMessageSVG animate />}</div>
       </div>
     </section>
   );

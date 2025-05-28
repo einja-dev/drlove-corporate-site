@@ -158,7 +158,7 @@ const snsNavStyle = css({
   justifyContent: 'center',
   '& > * + *': {
     marginLeft: '-4px',
-  }
+  },
 });
 
 const inquiryButtonWrapperStyle = css({

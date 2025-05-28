@@ -44,8 +44,6 @@ export default function SplashWrapper2({ children }: SplashWrapper2Props) {
       <div
         style={{
           width: '100%',
-          visibility: showSplash ? 'hidden' : 'visible',
-          pointerEvents: showSplash ? 'none' : 'auto',
         }}
       >
         {enhancedChildren}

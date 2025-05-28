@@ -17,7 +17,6 @@ const IMAGE_PATHS = [
 
 // z-index定義
 const Z_BG_BLACK = 100;
-const Z_BG_HERO = 103;
 const Z_SLIDES = 102;
 const Z_WHITE_CIRCLE = 103;
 const Z_WHITE_BG = 104;
@@ -30,8 +29,7 @@ function appendLogoAndWhiteBgTimeline(
   whiteBg: HTMLDivElement,
   logo: HTMLDivElement,
   setShow: (b: boolean) => void,
-  onFinish?: () => void,
-  setShowHeroBg?: (b: boolean) => void
+  onFinish?: () => void
 ) {
   tl.to(
     whiteCircle,
@@ -50,6 +48,12 @@ function appendLogoAndWhiteBgTimeline(
           (el as HTMLElement).style.opacity = '0';
           (el as HTMLElement).style.display = 'none';
         });
+        // 黒背景も同様に非表示にする
+        const blackBg = document.querySelector('.splash-black-bg') as HTMLElement | null;
+        if (blackBg) {
+          blackBg.style.opacity = '0';
+          blackBg.style.display = 'none';
+        }
       },
     },
     '+=0.5'
@@ -103,9 +107,8 @@ function appendLogoAndWhiteBgTimeline(
       if (!whiteBg) {
         console.error('[Splash] whiteBg is null at fadeout start');
       }
-      if (setShowHeroBg) setShowHeroBg(true);
-      if (whiteCircle) {
-        gsap.to(whiteCircle, { opacity: 0, duration: 0.8, ease: 'power2.out' });
+      if (whiteBg && whiteBg instanceof HTMLElement) {
+        whiteBg.style.display = 'none';
       }
     },
     onComplete: () => {
@@ -116,6 +119,8 @@ function appendLogoAndWhiteBgTimeline(
       if (whiteBg && whiteBg instanceof HTMLElement) {
         whiteBg.style.display = 'none';
       }
+      setShow(false);
+      if (onFinish) onFinish();
     },
   });
 }
@@ -123,13 +128,10 @@ function appendLogoAndWhiteBgTimeline(
 export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
   const [show, setShow] = useState(true);
   const [isVertical, setIsVertical] = useState(false);
-  const [showHeroBg, setShowHeroBg] = useState(false);
-  const [heroBgOpacity, setHeroBgOpacity] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const whiteCircleRef = useRef<HTMLDivElement>(null);
   const whiteBgRef = useRef<HTMLDivElement>(null);
-  const heroBgOpacityRef = useRef({ opacity: 0 });
 
   // 画面比率で縦長判定
   useEffect(() => {
@@ -141,31 +143,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
     return () => window.removeEventListener('resize', checkVertical);
   }, []);
 
-  // showHeroBgがtrueになったらopacityを0にリセットし、GSAPで0→1へ
-  useEffect(() => {
-    if (showHeroBg) {
-      heroBgOpacityRef.current.opacity = 0;
-      setHeroBgOpacity(0);
-      setTimeout(() => {
-        gsap.to(heroBgOpacityRef.current, {
-          opacity: 1,
-          duration: 1.5,
-          onUpdate: () => setHeroBgOpacity(heroBgOpacityRef.current.opacity),
-          ease: 'power2.out',
-          onStart: () => {
-            console.log('HeroBg opacity animation start', heroBgOpacityRef.current.opacity);
-          },
-          onComplete: () => {
-            console.log('HeroBg opacity animation complete', heroBgOpacityRef.current.opacity);
-          },
-        });
-      }, 0);
-    }
-  }, [showHeroBg]);
-
   useLayoutEffect(() => {
-    // アニメーション開始時は必ずヒーローイメージを非表示に
-    setShowHeroBg(false);
     console.log('[Splash] useLayoutEffect start', { isVertical, show });
     if (!containerRef.current) {
       console.log('[Splash] containerRef.current is null');
@@ -244,25 +222,18 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           );
         });
         // 白ぼかし円の直前でHeroイメージ背景を表示
-        if (!whiteCircleRef.current || !whiteBgRef.current || !logoRef.current) {
-          console.error('whiteCircleRef/whiteBgRef/logoRefがnull');
-          return;
-        }
         appendLogoAndWhiteBgTimeline(
           tl,
-          whiteCircleRef.current,
-          whiteBgRef.current,
-          logoRef.current,
+          whiteCircleRef.current!,
+          whiteBgRef.current!,
+          logoRef.current!,
           setShow,
-          onFinish,
-          setShowHeroBg
+          onFinish
         );
         tl.eventCallback('onComplete', () => {
           console.log('[Splash] timeline onComplete (final)');
-          setTimeout(() => {
-            setShow(false);
-            if (onFinish) onFinish();
-          }, 1000);
+          setShow(false);
+          if (onFinish) onFinish();
         });
       } else {
         console.log('[Splash] isHorizontal timeline start');
@@ -300,25 +271,18 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           );
         });
         // 白ぼかし円の直前でHeroイメージ背景を表示
-        if (!whiteCircleRef.current || !whiteBgRef.current || !logoRef.current) {
-          console.error('whiteCircleRef/whiteBgRef/logoRefがnull');
-          return;
-        }
         appendLogoAndWhiteBgTimeline(
           tl,
-          whiteCircleRef.current,
-          whiteBgRef.current,
-          logoRef.current,
+          whiteCircleRef.current!,
+          whiteBgRef.current!,
+          logoRef.current!,
           setShow,
-          onFinish,
-          setShowHeroBg
+          onFinish
         );
         tl.eventCallback('onComplete', () => {
           console.log('[Splash] timeline onComplete (final)');
-          setTimeout(() => {
-            setShow(false);
-            if (onFinish) onFinish();
-          }, 1000);
+          setShow(false);
+          if (onFinish) onFinish();
         });
       }
       console.log('[Splash] timeline onComplete');
@@ -349,28 +313,12 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
     >
       {/* 黒背景は常に最下層 */}
       <div
+        className="splash-black-bg"
         style={{
           position: 'absolute',
           inset: 0,
           background: '#000',
           zIndex: Z_BG_BLACK,
-        }}
-      />
-      {/* Heroイメージは白背景より下に配置 */}
-      <div
-        className="splash-hero-bg"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: Z_BG_HERO,
-          opacity: heroBgOpacity,
-          display: showHeroBg ? 'block' : 'none',
-          pointerEvents: 'none',
-          transition: 'opacity 0.1s linear',
-          backgroundImage: 'url("/hero/main-image.jpg")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
         }}
       />
       {isVertical ? (

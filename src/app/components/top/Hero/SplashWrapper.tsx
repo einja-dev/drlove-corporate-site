@@ -1,57 +1,43 @@
 'use client';
-import React, { type ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import SplashAnimation from './SplashAnimation';
+import { SplashContext } from './SplashContext';
 
 interface SplashWrapperProps {
   children: ReactNode;
 }
 
-// パスは実際の Hero 画像に合わせて調整してね☆
-const HERO_IMAGE_SRC = '/hero/main-image.jpg';
-
 export default function SplashWrapper({ children }: SplashWrapperProps) {
   const [showSplash, setShowSplash] = useState(true);
+  const [splashCompleted, setSplashCompleted] = useState(false);
 
-  useEffect(() => {
-    // 初回ロード時かつスクロール位置0のみ表示
-    if (typeof window !== 'undefined') {
-      if (window.scrollY > 0) {
-        setShowSplash(false);
-      }
-    }
-  }, []);
-
-  // GSAP 側の onFinish が何らかの理由で呼ばれなくても、
-  // 4 秒経ったら強制的に Splash を閉じるフェイルセーフ☆
+  // フェイルセーフ: 10秒で強制的にスプラッシュを閉じる
   useEffect(() => {
     if (!showSplash) return;
-    const fallback = setTimeout(() => setShowSplash(false), 10500);
+    const fallback = setTimeout(() => setShowSplash(false), 10000);
     return () => clearTimeout(fallback);
   }, [showSplash]);
 
-  // HeroSectionにanimateを渡す（スプラッシュ終了後のみtrue）
-  const enhancedChildren = Array.isArray(children)
-    ? children.map((child, idx) =>
-        React.isValidElement(child) && child.type && (child.type as any).name === 'HeroSection'
-          ? React.cloneElement(child as any, {
-              ...(child.props ?? {}),
-              animate: !showSplash,
-              key: child.key ?? idx,
-            })
-          : React.isValidElement(child)
-            ? React.cloneElement(child, { key: child.key ?? idx })
-            : child
-      )
-    : React.isValidElement(children) &&
-        children.type &&
-        (children.type as any).name === 'HeroSection'
-      ? React.cloneElement(children as any, { ...(children.props ?? {}), animate: !showSplash })
-      : children;
+  // スプラッシュ終了時にsplashCompletedをtrueに
+  const handleSplashFinish = () => {
+    setShowSplash(false);
+    setSplashCompleted(true);
+  };
 
   return (
-    <>
-      {showSplash && <SplashAnimation onFinish={() => setShowSplash(false)} />}
-      {!showSplash && enhancedChildren}
-    </>
+    <SplashContext.Provider value={{ splashCompleted, setSplashCompleted }}>
+      {/* スプラッシュは常に最前面 */}
+      {showSplash && <SplashAnimation onFinish={handleSplashFinish} />}
+      {/* childrenは常にDOMに載せておく（非表示制御しない） */}
+      <div
+        style={{
+          width: '100%',
+          visibility: showSplash ? 'hidden' : 'visible',
+          pointerEvents: showSplash ? 'none' : 'auto',
+        }}
+      >
+        {children}
+      </div>
+    </SplashContext.Provider>
   );
 }
