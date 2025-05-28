@@ -164,6 +164,7 @@ export default function HeroSection() {
             className={heroImage}
             style={{ objectPosition }}
             priority
+            loading="eager"
           />
         </div>
         <div className={heroTextContainer}>{splashCompleted && <HeroMessageSVG animate />}</div>

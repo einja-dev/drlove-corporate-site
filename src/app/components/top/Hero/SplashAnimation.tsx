@@ -68,6 +68,10 @@ function appendLogoAndWhiteBgTimeline(
       },
       onComplete: () => {
         console.log('[Splash] 白背景表示完了', whiteBg);
+        if (whiteCircle && whiteCircle instanceof HTMLElement) {
+          whiteCircle.style.opacity = '0';
+          whiteCircle.style.display = 'none';
+        }
       },
     },
     '+=0.01'
@@ -106,9 +110,6 @@ function appendLogoAndWhiteBgTimeline(
       console.log('[Splash] ロゴ・白背景フェードアウト開始', whiteBg);
       if (!whiteBg) {
         console.error('[Splash] whiteBg is null at fadeout start');
-      }
-      if (whiteBg && whiteBg instanceof HTMLElement) {
-        whiteBg.style.display = 'none';
       }
     },
     onComplete: () => {

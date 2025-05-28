@@ -32,8 +32,6 @@ export default function SplashWrapper({ children }: SplashWrapperProps) {
       <div
         style={{
           width: '100%',
-          visibility: showSplash ? 'hidden' : 'visible',
-          pointerEvents: showSplash ? 'none' : 'auto',
         }}
       >
         {children}

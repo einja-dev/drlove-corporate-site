@@ -12,8 +12,10 @@ import RecruitSection from '@/app/components/top/RecruitSection';
 
 export default function APage() {
   return (
-    <SplashWrapper>
-      <HeroSection />
+    <>
+      <SplashWrapper>
+        <HeroSection />
+      </SplashWrapper>
       <MessageSection />
       <ContentLinkSection />
       <OurServiceSection />
@@ -23,6 +25,6 @@ export default function APage() {
       <RecruitSection />
       <CompanySection />
       <GallerySection />
-    </SplashWrapper>
+    </>
   );
 }
