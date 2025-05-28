@@ -137,9 +137,7 @@ export default function MemberSection() {
     color: '#4EE06A',
     backImage: '/top/member/seiya_2.png',
     backImageWrapperClassName: css({
-      '& > img': {
-        transform: 'scale(1.3) translate(-10%,11%)',
-      },
+      right: '5%',
     }),
     backDesc: (
       <>

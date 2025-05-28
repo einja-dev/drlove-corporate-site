@@ -21,8 +21,8 @@ export default defineConfig({
       },
       shadows: {
         card: {
-          default: { value: '0 0 24px 0 rgba(0,0,0,0.06)' },
-          hover: { value: '0 8px 32px 0 rgba(97,139,255,0.18)' },
+          default: { value: '0 0 12px 0 rgba(0,0,0,0.06)' },
+          hover: { value: '0 4px 16px 0 rgba(97,139,255,0.28)' },
         },
       },
     },

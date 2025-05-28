@@ -3,7 +3,6 @@ import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
 import { useWindowSize } from '@/app/hooks/useWindowSize';
 import { css } from '@/styled-system/css';
 import Image from 'next/image';
-import { useEffect } from 'react';
 
 const messageCatchEn = 'Bloom from pain.';
 const messageCatchJp = '痛みから咲く。';
@@ -67,11 +66,6 @@ export default function MessageSection() {
         .map((line) => addNoBreak(line.trim()));
   const setHeadingRef = useFadeInOnScroll(0.9); // 見出し用
   const setLineRef = useFadeInOnScroll(0.01); // 本文用
-
-  // lines配列の中身を確認
-  useEffect(() => {
-    console.log('lines:', lines);
-  }, [lines]);
 
   return (
     <section
