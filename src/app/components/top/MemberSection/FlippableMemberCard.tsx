@@ -1,8 +1,10 @@
 import type { MemberCardType } from '@/app/components/top/MemberSection/MemberCardType';
+import { useHover } from '@/app/hooks/useHover';
 import { css, cx } from '@/styled-system/css';
+import gsap from 'gsap';
 import Image from 'next/image';
 import type React from 'react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export type FlippableMemberCardProps = {
   card: MemberCardType;
@@ -121,9 +123,12 @@ const cardCommon = (isMain: boolean) =>
   css({
     borderRadius: '24px',
     overflow: 'hidden',
-    transition: 'transform 0.7s cubic-bezier(0.4,0.2,0.2,1)',
+    transition: 'box-shadow 0.3s',
     background: 'none',
-    boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
+    boxShadow: 'card.default',
+    _hover: {
+      boxShadow: 'card.hover',
+    },
     padding: {
       base: '40px 24px 0 24px',
       sm: isMain ? '48px 24px 40px 24px' : '48px 24px 0 24px',
@@ -149,12 +154,35 @@ export const FlippableMemberCard: React.FC<FlippableMemberCardProps> = ({
 }) => {
   const [flipped, setFlipped] = useState(false);
   const innerRef = useRef<HTMLDivElement>(null);
+  const frontImageRef = useRef<HTMLImageElement>(null);
+  const backImageRef = useRef<HTMLImageElement>(null);
 
   const isMain = variant === 'main';
   const color = card.mainColor || card.color || '#FF8A5C';
   const imgWrapperClassFace = isMain ? mainImageStyles.imgWrapper(false) : styles.imgWrapper;
   const imgWrapperClassBack = isMain ? mainImageStyles.imgWrapper(true) : styles.imgWrapper;
   const imgClass = isMain ? mainImageStyles.img : styles.img;
+
+  const [frontHoverRef, isFrontHover] = useHover<HTMLDivElement>();
+  const [backHoverRef, isBackHover] = useHover<HTMLDivElement>();
+
+  useEffect(() => {
+    if (!frontImageRef.current) return;
+    gsap.to(frontImageRef.current, {
+      scale: isFrontHover ? 1.05 : 1,
+      duration: 0.25,
+      ease: 'power2.out',
+    });
+  }, [isFrontHover]);
+
+  useEffect(() => {
+    if (!backImageRef.current) return;
+    gsap.to(backImageRef.current, {
+      scale: isBackHover ? 1.05 : 1,
+      duration: 0.25,
+      ease: 'power2.out',
+    });
+  }, [isBackHover]);
 
   const handleFlip = () => {
     setFlipped((prev) => !prev);
@@ -192,8 +220,9 @@ export const FlippableMemberCard: React.FC<FlippableMemberCardProps> = ({
             </div>
             <div className={styles.desc}>{card.desc}</div>
           </div>
-          <div className={cx(imgWrapperClassFace, card.imageWrapperClassName)}>
+          <div ref={frontHoverRef} className={cx(imgWrapperClassFace, card.imageWrapperClassName)}>
             <Image
+              ref={frontImageRef}
               src={card.image}
               alt={card.imageAlt}
               fill
@@ -215,8 +244,12 @@ export const FlippableMemberCard: React.FC<FlippableMemberCardProps> = ({
             </div>
             <div className={styles.desc}>{card.backDesc}</div>
           </div>
-          <div className={cx(imgWrapperClassBack, card.backImageWrapperClassName)}>
+          <div
+            ref={backHoverRef}
+            className={cx(imgWrapperClassBack, card.backImageWrapperClassName)}
+          >
             <Image
+              ref={backImageRef}
               src={card.backImage}
               alt={`${card.imageAlt}（裏面）`}
               fill

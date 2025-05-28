@@ -1,8 +1,11 @@
 'use client';
 import { SectionTitle } from '@/app/components/ui/SectionTitle';
 import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
+import { useHover } from '@/app/hooks/useHover';
 import { css } from '@/styled-system/css';
+import gsap from 'gsap';
 import Image from 'next/image';
+import { useEffect, useRef } from 'react';
 
 const sectionStyle = css({
   width: '100%',
@@ -44,7 +47,7 @@ const newsCardStyle = css({
   width: 'clamp(180px, 32vw, 262px)',
   background: '#fff',
   borderRadius: '12px',
-  boxShadow: '0 0 24px 0 rgba(0,0,0,0.06)',
+  boxShadow: 'card.default',
   display: 'flex',
   flexDirection: 'column',
   overflow: 'hidden',
@@ -55,7 +58,7 @@ const newsCardStyle = css({
   },
   cursor: 'pointer',
   '&:hover': {
-    boxShadow: '0 8px 32px 0 rgba(97,139,255,0.18)',
+    boxShadow: 'card.hover',
     transform: 'translateY(-4px) scale(1.03)',
     '& img': {
       transform: 'scale(1.08)',
@@ -178,39 +181,52 @@ const newsData = [
   },
 ];
 
+// 子コンポーネント化
+function NewsCard({ item, threshold }: { item: (typeof newsData)[number]; threshold: number }) {
+  const fadeRef = useFadeInOnScroll(threshold);
+  const [hoverRef, isHover] = useHover<HTMLDivElement>();
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (!imgRef.current) return;
+    gsap.to(imgRef.current, {
+      scale: isHover ? 1.08 : 1,
+      duration: 0.25,
+      ease: 'power2.out',
+    });
+  }, [isHover]);
+
+  return (
+    <a
+      href={item.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ textDecoration: 'none', color: 'inherit' }}
+    >
+      <div className={newsCardStyle} ref={fadeRef}>
+        <div ref={hoverRef} className={newsImageWrap}>
+          <Image ref={imgRef} src={item.img} alt="news" fill className={newsImageStyle} />
+        </div>
+        <div className={cardContentStyle}>
+          <div className={dateStyle}>{item.date}</div>
+          <div className={contentStyle} style={{ WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
+            {item.text}
+          </div>
+          <span className={labelStyle}>{item.label}</span>
+        </div>
+      </div>
+    </a>
+  );
+}
+
 export default function NewsSection() {
   return (
     <section className={sectionStyle} id="news">
       <SectionTitle en="NEWS" jp="ニュース" />
       <div className={newsListStyle}>
-        {newsData.map((item, idx) => {
-          const fadeRef = useFadeInOnScroll(0.18 + idx * 0.05);
-          return (
-            <a
-              key={item.date + item.text}
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ textDecoration: 'none', color: 'inherit' }}
-            >
-              <div className={newsCardStyle} ref={fadeRef}>
-                <div className={newsImageWrap}>
-                  <Image src={item.img} alt="news" fill className={newsImageStyle} />
-                </div>
-                <div className={cardContentStyle}>
-                  <div className={dateStyle}>{item.date}</div>
-                  <div
-                    className={contentStyle}
-                    style={{ WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}
-                  >
-                    {item.text}
-                  </div>
-                  <span className={labelStyle}>{item.label}</span>
-                </div>
-              </div>
-            </a>
-          );
-        })}
+        {newsData.map((item, idx) => (
+          <NewsCard key={item.date + item.text} item={item} threshold={0.18 + idx * 0.05} />
+        ))}
       </div>
     </section>
   );

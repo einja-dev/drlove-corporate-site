@@ -66,7 +66,7 @@ const logoCardStyle = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: '12px',
+  padding: '4px 12px',
   width: '168px',
   height: '56px',
   overflow: 'hidden',
