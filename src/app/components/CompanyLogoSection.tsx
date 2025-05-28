@@ -72,6 +72,12 @@ const logoCardStyle = css({
   overflow: 'hidden',
 });
 
+const logoImageStyle = css({
+  width: '120px !important',
+  height: '32px !important',
+  objectFit: 'contain',
+});
+
 export const logoFilenames: string[] = [
   'WAVE_RHINOPLASTY_CLINIC.png',
   'エッジ.png',
@@ -201,8 +207,10 @@ export default function CompanyLogoSection() {
                   src={logo.src}
                   alt={logo.alt}
                   width={120}
-                  height={40}
-                  style={{ objectFit: 'contain' }}
+                  height={32}
+                  className={logoImageStyle}
+                  priority={false}
+                  unoptimized={false}
                 />
               </div>
             ))}
