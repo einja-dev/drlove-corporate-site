@@ -82,37 +82,6 @@ const galleryImages = [
   },
 ];
 
-const decorations = [
-  {
-    src: '/figma-assets/gallery-moyamoya1.png',
-    style: {
-      position: 'absolute' as const,
-      top: '-20px',
-      left: '-20px',
-      width: 'clamp(120px, 30vw, 300px)',
-      height: 'clamp(60px, 12vw, 150px)',
-      zIndex: 0,
-      opacity: 0.3,
-      pointerEvents: 'none' as const,
-    },
-    alt: 'もやもや1',
-  },
-  {
-    src: '/figma-assets/gallery-moyamoya2.png',
-    style: {
-      position: 'absolute' as const,
-      bottom: '-20px',
-      right: '-20px',
-      width: 'clamp(120px, 30vw, 300px)',
-      height: 'clamp(60px, 12vw, 150px)',
-      zIndex: 0,
-      opacity: 0.3,
-      pointerEvents: 'none' as const,
-    },
-    alt: 'もやもや2',
-  },
-];
-
 export default function GallerySection() {
   const getCardOffset = (index: number) => {
     // CSS変数として設定する値を計算
