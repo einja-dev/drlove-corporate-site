@@ -113,7 +113,11 @@ const heroTextContainer = css({
   },
 });
 
-export default function HeroSection() {
+type HeroSectionProps = {
+  animate?: boolean;
+};
+
+export default function HeroSection({ animate = false }: HeroSectionProps) {
   const [objectPosition, setObjectPosition] = useState('bottom');
   const [isHidden, setIsHidden] = useState(false);
 
@@ -164,7 +168,7 @@ export default function HeroSection() {
           />
         </div>
         <div className={heroTextContainer}>
-          <HeroMessageSVG />
+          <HeroMessageSVG animate={animate} />
         </div>
       </div>
     </section>

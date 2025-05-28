@@ -29,13 +29,13 @@ export default function SplashWrapper({ children }: SplashWrapperProps) {
     return () => clearTimeout(fallback);
   }, [showSplash]);
 
-  // HeroSectionにsplashActiveを渡す
+  // HeroSectionにanimateを渡す（スプラッシュ終了後のみtrue）
   const enhancedChildren = Array.isArray(children)
     ? children.map((child, idx) =>
         React.isValidElement(child) && child.type && (child.type as any).name === 'HeroSection'
           ? React.cloneElement(child as any, {
               ...(child.props ?? {}),
-              splashActive: showSplash,
+              animate: !showSplash,
               key: child.key ?? idx,
             })
           : React.isValidElement(child)
@@ -45,7 +45,7 @@ export default function SplashWrapper({ children }: SplashWrapperProps) {
     : React.isValidElement(children) &&
         children.type &&
         (children.type as any).name === 'HeroSection'
-      ? React.cloneElement(children as any, { ...(children.props ?? {}), splashActive: showSplash })
+      ? React.cloneElement(children as any, { ...(children.props ?? {}), animate: !showSplash })
       : children;
 
   return (
