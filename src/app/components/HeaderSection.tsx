@@ -201,7 +201,7 @@ const snsLinks = [
   },
   {
     name: 'Tiktok',
-    url: 'https://chat.line.biz/U6d8c73ce1b5f82482d67e6ca3f6e6068/chat/2C6d28c9f94c638ac023b06b2f8e4f6735?messageId=561402906554401061',
+    url: 'https://www.tiktok.com/@renai.kyoso?_t=ZS-8wQ9IW3sS4W&_r=1',
     imageSrc: '/images/tiktok-icon.png',
   },
   { name: 'LINE', url: 'https://page.line.me/206fcago', imageSrc: '/images/line-icon.png' },
