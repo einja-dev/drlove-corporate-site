@@ -283,8 +283,8 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
             i * 0.2
           );
         });
-        // 1セット目の3つ目が終わった後に0.1秒待機
-        tl.addLabel('afterFirstSet', '+=0.1');
+        // 1セット目の3つ目が終わった後に0.6秒待機
+        tl.addLabel('afterFirstSet', '+=0.6');
         // 2セット目: 左→右→中央（中央のみ下から）
         [0, 2, 1].forEach((slotIdx, i) => {
           let direction = {};

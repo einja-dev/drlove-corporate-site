@@ -236,7 +236,14 @@ export default function RecruitSection() {
             </div>
             <div className={recruitButtonWrapDesktopStyle}>
               <Link href="/inquiry" style={{ textDecoration: 'none' }}>
-                <PrimaryButton size="large">応募する</PrimaryButton>
+                <PrimaryButton
+                  size="large"
+                  className={css({
+                    width: '204px',
+                  })}
+                >
+                  応募する
+                </PrimaryButton>
               </Link>
             </div>
           </div>
