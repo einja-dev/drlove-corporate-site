@@ -61,6 +61,7 @@ export const primaryButtonTextStyle = css({
   fontSize: '16px',
   position: 'relative',
   top: '1px',
+  whiteSpace: 'nowrap',
   lg: {
     fontSize: '20px',
   },
