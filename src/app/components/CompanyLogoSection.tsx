@@ -76,6 +76,7 @@ const logoImageStyle = css({
   width: '120px !important',
   height: '32px !important',
   objectFit: 'contain',
+  objectPosition: 'center',
 });
 
 export const logoFilenames: string[] = [
