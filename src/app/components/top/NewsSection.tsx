@@ -23,23 +23,11 @@ const newsListStyle = css({
   gridAutoFlow: 'column',
   gridAutoColumns: 'clamp(180px, 32vw, 262px)',
   gap: '16px',
-  overflowX: 'auto',
-  overflowY: 'hidden',
   alignItems: 'stretch',
   padding: '8px 16px',
-  scrollbarWidth: 'auto',
-  scrollbarGutter: 'stable',
-
+  overflowX: 'auto',
   md: {
     gap: '24px',
-  },
-
-  '&::-webkit-scrollbar': {
-    height: '8px',
-  },
-  '&::-webkit-scrollbar-thumb': {
-    background: '#eee',
-    borderRadius: '4px',
   },
 });
 
