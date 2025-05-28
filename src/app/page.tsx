@@ -3,6 +3,7 @@ import CompanySection from '@/app/components/top/CompanySection';
 import ContentLinkSection from '@/app/components/top/ContentLinkSection';
 import GallerySection from '@/app/components/top/GallerySection';
 import HeroSection from '@/app/components/top/Hero/HeroSection';
+import SplashWrapper from '@/app/components/top/Hero/SplashWrapper';
 import MemberSection from '@/app/components/top/MemberSection/MemberSection';
 import MessageSection from '@/app/components/top/MessageSection';
 import NewsSection from '@/app/components/top/NewsSection';
@@ -11,7 +12,7 @@ import RecruitSection from '@/app/components/top/RecruitSection';
 
 export default function Home() {
   return (
-    <>
+    <SplashWrapper>
       <HeroSection />
       <MessageSection />
       <ContentLinkSection />
@@ -22,6 +23,6 @@ export default function Home() {
       <RecruitSection />
       <CompanySection />
       <GallerySection />
-    </>
+    </SplashWrapper>
   );
 }
