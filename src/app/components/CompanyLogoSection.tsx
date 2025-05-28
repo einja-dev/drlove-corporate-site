@@ -158,15 +158,15 @@ export default function CompanyLogoSection() {
       const container = rowElement.querySelector('.logo-container') as HTMLElement;
       if (!container) return;
 
-      // 無限スクロールアニメーション
+      // 無限スクロールアニメーション（移動距離を小さくしてラグを減らす）
       const animation = gsap.fromTo(
         container,
         {
-          xPercent: direction === 1 ? -33.333 : 0, // 左→右の場合は-33.333%から開始
+          xPercent: direction === 1 ? -16.666 : 0, // 6回繰り返しなので16.666%
         },
         {
-          xPercent: direction === 1 ? 0 : -33.333, // 右→左の場合は-33.333%まで移動
-          duration: 20, // 20秒で1サイクル
+          xPercent: direction === 1 ? 0 : -16.666, // 移動距離を小さく
+          duration: 25, // 少し長めにしてスムーズに
           ease: 'none',
           repeat: -1,
         }
@@ -194,7 +194,8 @@ export default function CompanyLogoSection() {
           }}
         >
           <div className="logo-container" style={{ display: 'flex', gap: '24px', width: 'max-content' }}>
-            {[...row, ...row, ...row].map((logo, i) => (
+            {/* 6回繰り返してラグを大幅に減らす */}
+            {[...row, ...row, ...row, ...row, ...row, ...row].map((logo, i) => (
               <div key={`${logo.alt}-${i}`} className={`${logoCardStyle} logo-card`}>
                 <Image
                   src={logo.src}
