@@ -26,10 +26,7 @@ const galleryWrap = css({
   padding: 'clamp(20px, 4vw, 40px)',
   '@media (max-width: 768px)': {
     gridTemplateColumns: 'repeat(2, 1fr)',
-  },
-  '@media (max-width: 480px)': {
-    gridTemplateColumns: '1fr',
-  },
+  }
 });
 
 const cardBaseStyle = css({
@@ -42,10 +39,7 @@ const cardBaseStyle = css({
   marginTop: 'var(--card-offset)',
   '@media (max-width: 768px)': {
     marginTop: 'var(--card-offset-tablet)',
-  },
-  '@media (max-width: 480px)': {
-    marginTop: 'var(--card-offset-mobile)',
-  },
+  }
 });
 
 // ギャラリー画像・説明・色などをオブジェクト配列で管理
@@ -88,37 +82,6 @@ const galleryImages = [
   },
 ];
 
-const decorations = [
-  {
-    src: '/figma-assets/gallery-moyamoya1.png',
-    style: {
-      position: 'absolute' as const,
-      top: '-20px',
-      left: '-20px',
-      width: 'clamp(120px, 30vw, 300px)',
-      height: 'clamp(60px, 12vw, 150px)',
-      zIndex: 0,
-      opacity: 0.3,
-      pointerEvents: 'none' as const,
-    },
-    alt: 'もやもや1',
-  },
-  {
-    src: '/figma-assets/gallery-moyamoya2.png',
-    style: {
-      position: 'absolute' as const,
-      bottom: '-20px',
-      right: '-20px',
-      width: 'clamp(120px, 30vw, 300px)',
-      height: 'clamp(60px, 12vw, 150px)',
-      zIndex: 0,
-      opacity: 0.3,
-      pointerEvents: 'none' as const,
-    },
-    alt: 'もやもや2',
-  },
-];
-
 export default function GallerySection() {
   const getCardOffset = (index: number) => {
     // CSS変数として設定する値を計算
@@ -136,18 +99,21 @@ export default function GallerySection() {
   return (
     <section className={sectionStyle} id="gallery">
       <div className={galleryWrap}>
-        {/* 装飾（もやもや） */}
-        {decorations.map((dec) => (
-          <Image
-            key={dec.src}
-            src={dec.src}
-            alt={dec.alt}
-            style={dec.style}
-            width={300}
-            height={150}
-            priority
-          />
-        ))}
+        <Image
+          src={'/figma-assets/gallery-moyamoya1.png'}
+          alt={'もやもや1'}
+          style={{
+            position: 'absolute',
+            top: '60px',
+            left: '-20px',
+            width: '100%',
+            height: '80%',
+            opacity: 0.3,
+          }}
+          width={1114}
+          height={800}
+          priority
+        />
         {/* 画像カード */}
         {galleryImages.map((img, index) => (
           <div
