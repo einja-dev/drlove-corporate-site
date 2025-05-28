@@ -150,7 +150,7 @@ const newsData = [
   },
   {
     date: '2025/06/01',
-    text: '5/12 CEO水池愛香 ボディメイク大会に初出場で大健闘「もっと上を目指したい」',
+    text: 'CEO水池愛香 ボディメイク大会に初出場で大健闘「もっと上を目指したい」',
     img: '/top/news/news-1.png',
     label: 'メディア掲載',
     link: 'https://news.yahoo.co.jp/articles/18508fbde1a4f655558d4ed759a0c3b58e0f0899',
