@@ -72,7 +72,7 @@ function appendLogoAndWhiteBgTimeline(
     tl.fromTo(line1, { opacity: 0 }, { opacity: 1, duration: 1.4, ease: 'power2.out' });
   }
   // 少し間を置く
-  tl.to({}, { duration: 0.8 });
+  tl.to({}, { duration: 0.4 });
   if (line2) {
     gsap.set(line2, { opacity: 0 });
     tl.fromTo(line2, { opacity: 0 }, { opacity: 1, duration: 2, ease: 'power2.out' });
@@ -658,7 +658,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
         ref={catchTextRef}
         style={{
           position: 'absolute',
-          left: '48%',
+          left: '45%',
           top: '50%',
           transform: 'translate(-50%, -50%)',
           fontSize: 'clamp(24px, 4vw, 48px)',
