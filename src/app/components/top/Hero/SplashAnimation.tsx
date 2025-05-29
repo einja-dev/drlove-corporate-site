@@ -19,13 +19,15 @@ const IMAGE_PATHS = [
 const Z_BG_BLACK = 100;
 const Z_SLIDES = 102;
 const Z_WHITE_CIRCLE = 103;
-const Z_WHITE_BG = 104;
-const Z_LOGO = 105;
+const Z_CATCH = 104; // ★ 追加: キャッチコピー
+const Z_WHITE_BG = 105; // ↑1
+const Z_LOGO = 106; // ↑1
 
 // 共通アニメーションを関数化
 function appendLogoAndWhiteBgTimeline(
   tl: gsap.core.Timeline,
   whiteCircle: HTMLDivElement,
+  catchText: HTMLDivElement,
   whiteBg: HTMLDivElement,
   logo: HTMLDivElement,
   setShow: (b: boolean) => void,
@@ -58,6 +60,67 @@ function appendLogoAndWhiteBgTimeline(
     },
     '+=0.5'
   );
+  // キャッチコピー フェードイン（1文字ずつ）
+  const line1 = catchText.querySelector('.catch-line1') as HTMLElement | null;
+  const line2 = catchText.querySelector('.catch-line2') as HTMLElement | null;
+
+  // 各行を文字ごと <span> に分割
+  function splitLine(lineEl: HTMLElement | null): HTMLElement[] {
+    if (!lineEl) return [];
+    if (lineEl.dataset.split === 'done') return Array.from(lineEl.children) as HTMLElement[];
+    const text = lineEl.textContent ?? '';
+    lineEl.innerHTML = '';
+    [...text].forEach((ch) => {
+      const span = document.createElement('span');
+      span.textContent = ch;
+      span.style.display = 'inline-block';
+      span.style.opacity = '0';
+      lineEl.appendChild(span);
+    });
+    lineEl.dataset.split = 'done';
+    return Array.from(lineEl.children) as HTMLElement[];
+  }
+
+  const chars1 = splitLine(line1);
+  const chars2 = splitLine(line2);
+
+  // Containerはタイムライン外で即可視化
+  gsap.set(catchText, { opacity: 1 });
+
+  // 1行目の文字を順番に
+  if (chars1.length) {
+    tl.fromTo(
+      chars1,
+      { opacity: 0, y: 8 },
+      { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', stagger: 0.05 }
+    );
+  }
+
+  // 2行目の文字を 1秒遅れて順番に
+  if (chars2.length) {
+    tl.fromTo(
+      chars2,
+      { opacity: 0, y: 8 },
+      { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', stagger: 0.05 },
+      '>+=0.5' // 1行目完了から1秒後に開始
+    );
+  }
+
+  // 表示キープ
+  tl.to({}, { duration: 1.0 });
+
+  // キャッチコピー フェードアウト
+  tl.to(catchText, {
+    opacity: 0,
+    duration: 0.5,
+    ease: 'power2.in',
+    onStart: () => console.log('[Splash] キャッチコピー フェードアウト', catchText),
+    onComplete: () => {
+      if (catchText) {
+        catchText.style.display = 'none';
+      }
+    },
+  });
   tl.to(
     whiteBg,
     {
@@ -124,6 +187,11 @@ function appendLogoAndWhiteBgTimeline(
       if (onFinish) onFinish();
     },
   });
+  // タイムライン全体のonCompleteでも保険として呼ぶ
+  tl.eventCallback('onComplete', () => {
+    setShow(false);
+    if (onFinish) onFinish();
+  });
 }
 
 export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
@@ -133,6 +201,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
   const logoRef = useRef<HTMLDivElement>(null);
   const whiteCircleRef = useRef<HTMLDivElement>(null);
   const whiteBgRef = useRef<HTMLDivElement>(null);
+  const catchTextRef = useRef<HTMLDivElement>(null);
 
   // 画面比率で縦長判定
   useEffect(() => {
@@ -150,17 +219,24 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
       console.log('[Splash] containerRef.current is null');
       return;
     }
-    if (!logoRef.current || !whiteBgRef.current || !whiteCircleRef.current) {
+    if (
+      !logoRef.current ||
+      !whiteBgRef.current ||
+      !whiteCircleRef.current ||
+      !catchTextRef.current
+    ) {
       console.log('[Splash] logoRef/whiteBgRef/whiteCircleRef is null', {
         logo: logoRef.current,
         whiteBg: whiteBgRef.current,
         whiteCircle: whiteCircleRef.current,
+        catchText: catchTextRef.current,
       });
       setTimeout(() => {
         console.log('[Splash] setTimeout retry refs', {
           logo: logoRef.current,
           whiteBg: whiteBgRef.current,
           whiteCircle: whiteCircleRef.current,
+          catchText: catchTextRef.current,
         });
       }, 50);
       return;
@@ -169,6 +245,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
       logo: logoRef.current,
       whiteBg: whiteBgRef.current,
       whiteCircle: whiteCircleRef.current,
+      catchText: catchTextRef.current,
     });
     const ctx = gsap.context(() => {
       if (isVertical) {
@@ -226,6 +303,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
         appendLogoAndWhiteBgTimeline(
           tl,
           whiteCircleRef.current!,
+          catchTextRef.current!,
           whiteBgRef.current!,
           logoRef.current!,
           setShow,
@@ -275,6 +353,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
         appendLogoAndWhiteBgTimeline(
           tl,
           whiteCircleRef.current!,
+          catchTextRef.current!,
           whiteBgRef.current!,
           logoRef.current!,
           setShow,
@@ -602,6 +681,47 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           zIndex: Z_WHITE_CIRCLE,
         }}
       />
+      {/* キャッチコピー */}
+      <div
+        ref={catchTextRef}
+        style={{
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          fontSize: 'clamp(24px, 4vw, 48px)',
+          opacity: 0,
+          zIndex: Z_CATCH,
+          pointerEvents: 'none',
+          whiteSpace: 'pre-line',
+          textAlign: 'center',
+          lineHeight: '3',
+          width: '100%',
+          fontFamily: 'Yu Mincho, serif',
+          color: '#444444',
+        }}
+      >
+        {/* 1行目 */}
+        <span className="catch-line1" data-split="done" style={{ display: 'block' }}>
+          {['人', '生', 'に', 'お', 'け', 'る', 'ど', 'ん', 'な', '悩', 'み', 'に', 'も', '、'].map(
+            (ch, i) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: 文字重複のためindex併用
+              <span key={ch + i} style={{ display: 'inline-block', opacity: 0 }}>
+                {ch}
+              </span>
+            )
+          )}
+        </span>
+        {/* 2行目 */}
+        <span className="catch-line2" data-split="done" style={{ display: 'block' }}>
+          {['私', 'た', 'ち', 'が', '寄', 'り', '添', 'い', 'ま', 'す', '。'].map((ch, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: 文字重複のためindex併用
+            <span key={ch + i} style={{ display: 'inline-block', opacity: 0 }}>
+              {ch}
+            </span>
+          ))}
+        </span>
+      </div>
       {/* 白背景＋ロゴ */}
       <div
         ref={whiteBgRef}

@@ -14,7 +14,7 @@ export default function SplashWrapper({ children }: SplashWrapperProps) {
   // フェイルセーフ: 10秒で強制的にスプラッシュを閉じる
   useEffect(() => {
     if (!showSplash) return;
-    const fallback = setTimeout(() => setShowSplash(false), 10000);
+    const fallback = setTimeout(() => setShowSplash(false), 100000);
     return () => clearTimeout(fallback);
   }, [showSplash]);
 
