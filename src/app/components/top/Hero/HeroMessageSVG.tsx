@@ -11,9 +11,11 @@ export const HeroMessageSVG: FC<{ animate?: boolean }> = ({ animate }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
+    console.log('[HeroMessageSVG] useEffect fired', { animate, svgRef: svgRef.current });
     if (!svgRef.current || !animate) return;
 
     const path = svgRef.current.querySelector<SVGPathElement>('.mask-path2');
+    console.log('[HeroMessageSVG] path', path);
     if (!path) return;
 
     // GSAP context で自動クリーンアップ☆

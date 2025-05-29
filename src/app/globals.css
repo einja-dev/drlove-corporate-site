@@ -1,13 +1,23 @@
 @layer reset, base, tokens, recipes, utilities;
 
-
+@font-face {
+  font-family: 'Yu Mincho';
+  src: url('/fonts/yumin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 @layer base {
 
   body, html {
-    font-family: var(--font-mplus), var(--font-varela-round), var(--font-noto-serif-jp), 'Varela Round', 'Noto Serif JP', sans-serif;
+    font-family: 'Yu Mincho', var(--font-mplus), var(--font-varela-round), var(--font-noto-serif-jp), 'Varela Round', 'Noto Serif JP', sans-serif;
     overflow-y: scroll;
     overflow-x: hidden;
+  }
+
+  * {
+    color: '#444444',
   }
 
 
