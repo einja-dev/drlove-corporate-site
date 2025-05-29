@@ -238,8 +238,12 @@ export const FlippableMemberCard: React.FC<FlippableMemberCardProps> = ({
           <Image src={card.bgImage} alt="bg" fill className={styles.bg} />
           <div className={styles.textWrap}>
             <div className={css({ display: 'flex', alignItems: 'center', gap: '4px', zIndex: 1 })}>
-              <span className={styles.name(color)}>{card.name}</span>
-              <span className={styles.nameEn(color)}>- {card.nameEn} -</span>
+              <span className={styles.name(color)} style={{ color }}>
+                {card.name}
+              </span>
+              <span className={styles.nameEn(color)} style={{ color }}>
+                - {card.nameEn} -
+              </span>
             </div>
             <div className={styles.desc}>{card.desc}</div>
           </div>
@@ -258,8 +262,12 @@ export const FlippableMemberCard: React.FC<FlippableMemberCardProps> = ({
           <Image src={card.bgImage} alt="bg" fill className={styles.bg} />
           <div className={styles.textWrap}>
             <div className={css({ display: 'flex', alignItems: 'center', gap: '4px', zIndex: 1 })}>
-              <span className={styles.name(color)}>{card.name}</span>
-              <span className={styles.nameEn(color)}>- {card.nameEn} -</span>
+              <span className={styles.name(color)} style={{ color }}>
+                {card.name}
+              </span>
+              <span className={styles.nameEn(color)} style={{ color }}>
+                - {card.nameEn} -
+              </span>
             </div>
             <div className={styles.desc}>{card.backDesc}</div>
           </div>
