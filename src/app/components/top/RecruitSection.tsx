@@ -32,6 +32,7 @@ const sectionStyle = css({
 const cardStyle = css({
   position: 'relative',
   width: '100%',
+  maxWidth: '800px',
   aspectRatio: '224/144',
   borderRadius: '16px',
   padding: '24px 32px',
@@ -85,10 +86,9 @@ const titleStyle = css({
     fontSize: '24px',
   },
   md: {
-    fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)',
+    fontSize: '28px',
     marginBottom: '32px',
   },
-  lg: { marginTop: '16px' },
 });
 
 const descStyle = css({
@@ -98,15 +98,13 @@ const descStyle = css({
   textAlign: 'center',
   zIndex: 2,
   marginTop: '-24px',
-  fontSize: 'clamp(11px, 3vw, 1.2rem)',
+  fontSize: 'clamp(11px, 2vw, 1.2rem)',
   xs: {
     marginTop: '-10px',
   },
   md: {
-    fontSize: 'clamp(0.9em, 1.5vw, 2rem)',
-  },
-  lg: {
     marginTop: '-24px',
+    fontSize: '16px',
   },
 });
 
@@ -176,7 +174,10 @@ export default function RecruitSection() {
   }, [isMobile]);
   return (
     <section className={sectionStyle} id="recruit">
-      <Container noPadding>
+      <Container
+        noPadding
+        className={css({ display: 'flex', flexDirection: 'column', alignItems: 'center' })}
+      >
         <div ref={fadeTitleRef}>
           <SectionTitle en="Recruit" jp="採用情報" />
         </div>
@@ -186,7 +187,7 @@ export default function RecruitSection() {
           <div className={titleStyle}>本気で向き合う仲間を募集します</div>
         </div>
         {/* IntersectionObserver用ラッパーdivを追加 */}
-        <div ref={cardRef} style={{ width: '100%' }}>
+        <div ref={cardRef} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
           <div
             className={cardStyle}
             ref={fadeCardRef}
@@ -239,7 +240,10 @@ export default function RecruitSection() {
                 <PrimaryButton
                   size="large"
                   className={css({
-                    width: '204px',
+                    width: '140px',
+                    lg: {
+                      width: '204px',
+                    },
                   })}
                 >
                   応募する

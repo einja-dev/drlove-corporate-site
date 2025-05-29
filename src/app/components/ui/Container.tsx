@@ -5,6 +5,7 @@ import type { ElementType, FC, PropsWithChildren } from 'react';
 interface Props {
   as?: ElementType;
   maxWidth?: string;
+  largeMaxWidth?: string;
   className?: string;
   noPadding?: boolean;
 }
@@ -12,7 +13,7 @@ interface Props {
 export const Container: FC<PropsWithChildren<Props>> = ({
   children,
   as: CustomTag = 'div',
-  maxWidth = '1440px',
+  maxWidth = '1200px',
   noPadding = false,
   className,
 }) => (
@@ -20,7 +21,6 @@ export const Container: FC<PropsWithChildren<Props>> = ({
     className={cx(
       css({
         width: '100%',
-        maxWidth,
         marginRight: 'auto',
         marginLeft: 'auto',
         ...(noPadding
@@ -36,6 +36,9 @@ export const Container: FC<PropsWithChildren<Props>> = ({
       }),
       className
     )}
+    style={{
+      maxWidth: maxWidth,
+    }}
   >
     {children}
   </CustomTag>

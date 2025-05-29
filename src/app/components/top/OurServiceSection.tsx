@@ -1,5 +1,4 @@
 'use client';
-import { Container } from '@/app/components/ui/Container';
 import { SectionTitle } from '@/app/components/ui/SectionTitle';
 import { WbrTextWrapper } from '@/app/components/util/WbrTextWrapper';
 import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
@@ -26,14 +25,22 @@ const contentWrapper = css({
   position: 'relative',
   zIndex: 1,
   width: '100%',
+  maxWidth: '900px',
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'column',
   gap: '48px', // narrower gap on small screens
   paddingTop: '48px',
+
   md: {
     gap: '48px', // narrower on md and up
     paddingTop: '64px',
+  },
+  xl: {
+    maxWidth: '1000px',
+  },
+  '2xl': {
+    maxWidth: '1200px',
   },
 });
 
@@ -218,7 +225,7 @@ export default function OurServiceSection() {
 
   return (
     <section className={sectionStyle} id="service">
-      <Container className={contentWrapper} noPadding>
+      <div className={contentWrapper}>
         <div ref={setTitleRef}>
           <SectionTitle en="OUR SERVICE" jp="サービス" />
         </div>
@@ -226,7 +233,7 @@ export default function OurServiceSection() {
         {serviceContents.map((content, idx) => (
           <ServiceBlock key={content.id} idx={idx} {...content} />
         ))}
-      </Container>
+      </div>
     </section>
   );
 }

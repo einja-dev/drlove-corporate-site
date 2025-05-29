@@ -60,6 +60,8 @@ function appendLogoAndWhiteBgTimeline(
     },
     '+=0.5'
   );
+  // ★ここで1秒待つ
+  tl.to({}, { duration: 0.7 });
   // キャッチコピー フェードイン（1行ずつ）
   const line1 = catchText.querySelector('.catch-line1') as HTMLElement | null;
   const line2 = catchText.querySelector('.catch-line2') as HTMLElement | null;
@@ -67,13 +69,13 @@ function appendLogoAndWhiteBgTimeline(
   gsap.set(catchText, { opacity: 1 });
   if (line1) {
     gsap.set(line1, { opacity: 0 });
-    tl.fromTo(line1, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: 'power2.out' });
+    tl.fromTo(line1, { opacity: 0 }, { opacity: 1, duration: 1.4, ease: 'power2.out' });
   }
   // 少し間を置く
-  tl.to({}, { duration: 0.5 });
+  tl.to({}, { duration: 0.8 });
   if (line2) {
     gsap.set(line2, { opacity: 0 });
-    tl.fromTo(line2, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: 'power2.out' });
+    tl.fromTo(line2, { opacity: 0 }, { opacity: 1, duration: 2, ease: 'power2.out' });
   }
 
   // 表示キープ
@@ -82,7 +84,7 @@ function appendLogoAndWhiteBgTimeline(
   // キャッチコピー フェードアウト
   tl.to(catchText, {
     opacity: 0,
-    duration: 0.5,
+    duration: 1,
     ease: 'power2.in',
     onStart: () => console.log('[Splash] キャッチコピー フェードアウト', catchText),
     onComplete: () => {
@@ -113,7 +115,7 @@ function appendLogoAndWhiteBgTimeline(
     logo,
     {
       opacity: 1,
-      duration: 0.7,
+      duration: 0.8,
       onStart: () => {
         console.log('[Splash] ロゴフェードイン開始', logo);
       },
@@ -126,7 +128,7 @@ function appendLogoAndWhiteBgTimeline(
   tl.to(
     {},
     {
-      duration: 1.0,
+      duration: 2.0,
       onStart: () => {
         console.log('[Splash] ロゴ静止開始');
       },
@@ -137,8 +139,8 @@ function appendLogoAndWhiteBgTimeline(
   );
   tl.to([logo, whiteBg], {
     opacity: 0,
-    duration: 1.5,
-    ease: 'power2.out',
+    duration: 2.4,
+    ease: 'power2.in',
     onStart: () => {
       console.log('[Splash] ロゴ・白背景フェードアウト開始', whiteBg);
       if (!whiteBg) {
@@ -656,7 +658,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
         ref={catchTextRef}
         style={{
           position: 'absolute',
-          left: '50%',
+          left: '48%',
           top: '50%',
           transform: 'translate(-50%, -50%)',
           fontSize: 'clamp(24px, 4vw, 48px)',
@@ -664,11 +666,13 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           zIndex: Z_CATCH,
           pointerEvents: 'none',
           whiteSpace: 'pre-line',
-          lineHeight: '3',
+          lineHeight: '2',
           fontFamily: 'Yu Mincho, serif',
           width: '700px',
 
-          color: '#444444',
+          color: '#444444' /* Group 42 */,
+
+          filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
         }}
       >
         {/* 1行目 */}
@@ -677,7 +681,6 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           style={{
             display: 'block',
             opacity: 0,
-            textShadow: '2px 2px 6px rgba(0,0,0,0.18), 0 1px 0 #fff',
           }}
         >
           人生におけるどんな悩みにも、
@@ -688,7 +691,6 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           style={{
             display: 'block',
             opacity: 0,
-            textShadow: '2px 2px 6px rgba(0,0,0,0.18), 0 1px 0 #fff',
           }}
         >
           私たちが寄り添います。

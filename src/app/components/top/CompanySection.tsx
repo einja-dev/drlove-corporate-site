@@ -1,4 +1,5 @@
 'use client';
+import { Container } from '@/app/components/ui/Container';
 import { PrimaryButton } from '@/app/components/ui/PrimaryButton';
 import { SectionTitle } from '@/app/components/ui/SectionTitle';
 import { useFadeInOnScroll } from '@/app/hooks/useFadeInOnScroll';
@@ -51,17 +52,6 @@ const tdStyle = css({
   borderBottom: '1px solid #FFB2B2',
 });
 
-const contactLinkStyle = css({
-  display: 'block',
-  margin: '48px auto 0',
-  textAlign: 'center',
-  fontWeight: 500,
-  fontSize: '18px',
-  color: '#618BFF',
-  textDecoration: 'none',
-  letterSpacing: '0.05em',
-});
-
 const companyInfo = [
   { label: '会社名', value: 'Dr. Love株式会社' },
   { label: '設立', value: '2025年8月2日' },
@@ -73,7 +63,7 @@ export default function CompanySection() {
   const fadeTableRef = useFadeInOnScroll(0.18);
   const fadeButtonRef = useFadeInOnScroll(0.22);
   return (
-    <section className={sectionStyle} id="company">
+    <Container as="section" className={sectionStyle} id="company" maxWidth="864px">
       <div ref={fadeTitleRef}>
         <SectionTitle en="COMPANY" jp="会社概要" />
       </div>
@@ -98,6 +88,6 @@ export default function CompanySection() {
       >
         <PrimaryButton size="large">お問い合わせ</PrimaryButton>
       </Link>
-    </section>
+    </Container>
   );
 }
