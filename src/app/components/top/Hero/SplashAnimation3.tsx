@@ -60,20 +60,50 @@ function appendLogoAndWhiteBgTimeline(
     },
     '+=0.5'
   );
-  // キャッチコピー フェードイン（1行ずつ）
+  // キャッチコピー フェードイン（1文字ずつ）
   const line1 = catchText.querySelector('.catch-line1') as HTMLElement | null;
   const line2 = catchText.querySelector('.catch-line2') as HTMLElement | null;
 
-  gsap.set(catchText, { opacity: 1 });
-  if (line1) {
-    gsap.set(line1, { opacity: 0 });
-    tl.fromTo(line1, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: 'power2.out' });
+  // 各行を文字ごと <span> に分割
+  function splitLine(lineEl: HTMLElement | null): HTMLElement[] {
+    if (!lineEl) return [];
+    if (lineEl.dataset.split === 'done') return Array.from(lineEl.children) as HTMLElement[];
+    const text = lineEl.textContent ?? '';
+    lineEl.innerHTML = '';
+    [...text].forEach((ch) => {
+      const span = document.createElement('span');
+      span.textContent = ch;
+      span.style.display = 'inline-block';
+      span.style.opacity = '0';
+      lineEl.appendChild(span);
+    });
+    lineEl.dataset.split = 'done';
+    return Array.from(lineEl.children) as HTMLElement[];
   }
-  // 少し間を置く
-  tl.to({}, { duration: 0.5 });
-  if (line2) {
-    gsap.set(line2, { opacity: 0 });
-    tl.fromTo(line2, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: 'power2.out' });
+
+  const chars1 = splitLine(line1);
+  const chars2 = splitLine(line2);
+
+  // Containerはタイムライン外で即可視化
+  gsap.set(catchText, { opacity: 1 });
+
+  // 1行目の文字を順番に
+  if (chars1.length) {
+    tl.fromTo(
+      chars1,
+      { opacity: 0, y: 8 },
+      { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', stagger: 0.05 }
+    );
+  }
+
+  // 2行目の文字を 1秒遅れて順番に
+  if (chars2.length) {
+    tl.fromTo(
+      chars2,
+      { opacity: 0, y: 8 },
+      { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', stagger: 0.05 },
+      '>+=0.5' // 1行目完了から1秒後に開始
+    );
   }
 
   // 表示キープ
@@ -164,7 +194,7 @@ function appendLogoAndWhiteBgTimeline(
   });
 }
 
-export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
+export default function SplashAnimation3({ onFinish }: SplashAnimationProps) {
   const [show, setShow] = useState(true);
   const [isVertical, setIsVertical] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -665,33 +695,45 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           pointerEvents: 'none',
           whiteSpace: 'pre-line',
           lineHeight: '3',
+          width: '100%',
+          textAlign: 'center',
           fontFamily: 'Yu Mincho, serif',
-          width: '700px',
-
           color: '#444444',
         }}
       >
         {/* 1行目 */}
-        <span
-          className="catch-line1"
-          style={{
-            display: 'block',
-            opacity: 0,
-            textShadow: '2px 2px 6px rgba(0,0,0,0.18), 0 1px 0 #fff',
-          }}
-        >
-          人生におけるどんな悩みにも、
+        <span className="catch-line1" data-split="done" style={{ display: 'block' }}>
+          {['人', '生', 'に', 'お', 'け', 'る', 'ど', 'ん', 'な', '悩', 'み', 'に', 'も', '、'].map(
+            (ch, i) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: 文字重複のためindex併用
+              <span
+                key={ch + i}
+                style={{
+                  display: 'inline-block',
+                  opacity: 0,
+                  textShadow: '2px 2px 6px rgba(0,0,0,0.18), 0 1px 0 #fff',
+                }}
+              >
+                {ch}
+              </span>
+            )
+          )}
         </span>
         {/* 2行目 */}
-        <span
-          className="catch-line2"
-          style={{
-            display: 'block',
-            opacity: 0,
-            textShadow: '2px 2px 6px rgba(0,0,0,0.18), 0 1px 0 #fff',
-          }}
-        >
-          私たちが寄り添います。
+        <span className="catch-line2" data-split="done" style={{ display: 'block' }}>
+          {['私', 'た', 'ち', 'が', '寄', 'り', '添', 'い', 'ま', 'す', '。'].map((ch, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: 文字重複のためindex併用
+            <span
+              key={ch + i}
+              style={{
+                display: 'inline-block',
+                opacity: 0,
+                textShadow: '2px 2px 6px rgba(0,0,0,0.18), 0 1px 0 #fff',
+              }}
+            >
+              {ch}
+            </span>
+          ))}
         </span>
       </div>
       {/* 白背景＋ロゴ */}
