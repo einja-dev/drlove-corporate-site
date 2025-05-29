@@ -19,9 +19,9 @@ const IMAGE_PATHS = [
 const Z_BG_BLACK = 100;
 const Z_SLIDES = 102;
 const Z_WHITE_CIRCLE = 103;
-const Z_CATCH = 104; // ★ 追加: キャッチコピー
-const Z_WHITE_BG = 105; // ↑1
-const Z_LOGO = 106; // ↑1
+const Z_WHITE_BG = 104; // 白背景をキャッチコピーより下に
+const Z_CATCH = 105; // キャッチコピーを白背景より上に
+const Z_LOGO = 106; // ロゴ
 
 // 共通アニメーションを関数化
 function appendLogoAndWhiteBgTimeline(
@@ -60,7 +60,26 @@ function appendLogoAndWhiteBgTimeline(
     },
     '+=0.5'
   );
-  // ★ここで1秒待つ
+  // ★白い円拡大直後に白背景を表示
+  tl.to(
+    whiteBg,
+    {
+      opacity: 1,
+      duration: 0.01,
+      onStart: () => {
+        console.log('[Splash] 白背景表示開始', whiteBg);
+      },
+      onComplete: () => {
+        console.log('[Splash] 白背景表示完了', whiteBg);
+        if (whiteCircle && whiteCircle instanceof HTMLElement) {
+          whiteCircle.style.opacity = '0';
+          whiteCircle.style.display = 'none';
+        }
+      },
+    },
+    '+=0.01'
+  );
+  // 少し待つ
   tl.to({}, { duration: 0.7 });
   // キャッチコピー フェードイン（1行ずつ）
   const line1 = catchText.querySelector('.catch-line1') as HTMLElement | null;
@@ -93,24 +112,6 @@ function appendLogoAndWhiteBgTimeline(
       }
     },
   });
-  tl.to(
-    whiteBg,
-    {
-      opacity: 1,
-      duration: 0.01,
-      onStart: () => {
-        console.log('[Splash] 白背景表示開始', whiteBg);
-      },
-      onComplete: () => {
-        console.log('[Splash] 白背景表示完了', whiteBg);
-        if (whiteCircle && whiteCircle instanceof HTMLElement) {
-          whiteCircle.style.opacity = '0';
-          whiteCircle.style.display = 'none';
-        }
-      },
-    },
-    '+=0.01'
-  );
   tl.to(
     logo,
     {
@@ -653,6 +654,19 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           zIndex: Z_WHITE_CIRCLE,
         }}
       />
+      {/* 白背景＋ロゴ */}
+      <div
+        ref={whiteBgRef}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: '#fff',
+          opacity: 0,
+          zIndex: Z_WHITE_BG,
+          pointerEvents: 'none',
+          willChange: 'opacity',
+        }}
+      />
       {/* キャッチコピー */}
       <div
         ref={catchTextRef}
@@ -696,19 +710,6 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           私たちが寄り添います。
         </span>
       </div>
-      {/* 白背景＋ロゴ */}
-      <div
-        ref={whiteBgRef}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: '#fff',
-          opacity: 0,
-          zIndex: Z_WHITE_BG,
-          pointerEvents: 'none',
-          willChange: 'opacity',
-        }}
-      />
       <div
         ref={logoRef}
         style={{
