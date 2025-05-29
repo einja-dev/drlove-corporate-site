@@ -11,7 +11,7 @@
 @layer base {
 
   body, html {
-    font-family: 'Yu Mincho', var(--font-mplus), var(--font-varela-round), var(--font-noto-serif-jp), 'Varela Round', 'Noto Serif JP', sans-serif;
+    font-family: var(--font-mplus), var(--font-varela-round), var(--font-noto-serif-jp), 'Varela Round', 'Noto Serif JP', 'Yu Mincho',sans-serif;
     overflow-y: scroll;
     overflow-x: hidden;
   }
