@@ -130,13 +130,13 @@ function ContentCard({ item, idx }: { item: (typeof items)[number]; idx: number 
             fontWeight: 500,
             fontSize: 'clamp(0.9rem, 3vw, 2.2rem)',
             lineHeight: '1.8',
-            color: item.labelColor || '#4EE06A',
             zIndex: 4,
             whiteSpace: 'nowrap',
             sm: {
               fontSize: 'clamp(0.9rem, 3vw, 2.2rem)',
             },
           })}
+          style={{ color: item.labelColor || '#4EE06A' }}
         >
           {item.label}
         </span>
