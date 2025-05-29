@@ -4,7 +4,7 @@ import SplashAnimation from './SplashAnimation';
 import { SplashContext } from './SplashContext';
 
 interface SplashWrapperProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export default function SplashWrapper({ children }: SplashWrapperProps) {
@@ -14,7 +14,7 @@ export default function SplashWrapper({ children }: SplashWrapperProps) {
   // フェイルセーフ: 10秒で強制的にスプラッシュを閉じる
   useEffect(() => {
     if (!showSplash) return;
-    const fallback = setTimeout(() => setShowSplash(false), 100000);
+    const fallback = setTimeout(() => handleSplashFinish(), 100000);
     return () => clearTimeout(fallback);
   }, [showSplash]);
 
@@ -28,14 +28,8 @@ export default function SplashWrapper({ children }: SplashWrapperProps) {
     <SplashContext.Provider value={{ splashCompleted, setSplashCompleted }}>
       {/* スプラッシュは常に最前面 */}
       {showSplash && <SplashAnimation onFinish={handleSplashFinish} />}
-      {/* childrenは常にDOMに載せておく（非表示制御しない） */}
-      <div
-        style={{
-          width: '100%',
-        }}
-      >
-        {children}
-      </div>
+
+      {children}
     </SplashContext.Provider>
   );
 }

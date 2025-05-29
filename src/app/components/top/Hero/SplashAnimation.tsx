@@ -676,7 +676,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
           alignItems: 'center',
           justifyContent: 'center',
           left: '50%',
-          top: '50%',
+          top: '47%',
           width: '100%',
           transform: 'translate(-50%, -50%)',
           fontSize: 'clamp(20px, 3vw, 48px)',
@@ -720,7 +720,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
         style={{
           position: 'absolute',
           left: '50%',
-          top: '50%',
+          top: '47%',
           transform: 'translate(-50%, -50%)',
           opacity: 0,
           zIndex: Z_LOGO,

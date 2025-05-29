@@ -166,6 +166,7 @@ export default function HeroSection() {
             priority
             loading="eager"
           />
+          <div>{splashCompleted ? 'true' : 'false'}</div>
         </div>
         <div className={heroTextContainer}>{splashCompleted && <HeroMessageSVG animate />}</div>
       </div>
