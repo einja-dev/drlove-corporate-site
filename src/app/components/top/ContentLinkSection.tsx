@@ -166,6 +166,7 @@ export default function ContentLinkSection() {
     <section
       className={css({
         width: '100%',
+        maxWidth: '900px',
         margin: '0 auto',
         padding: '64px 0 64px', // mobile
         background: 'background',
@@ -183,6 +184,10 @@ export default function ContentLinkSection() {
         },
         xl: {
           padding: '80px 48px',
+          maxWidth: '1000px',
+        },
+        '2xl': {
+          maxWidth: '1200px',
         },
       })}
     >
