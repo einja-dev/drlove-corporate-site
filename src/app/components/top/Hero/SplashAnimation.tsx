@@ -672,43 +672,48 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
         ref={catchTextRef}
         style={{
           position: 'absolute',
-          left: '54%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          left: '50%',
           top: '50%',
+          width: '100%',
           transform: 'translate(-50%, -50%)',
-          fontSize: 'clamp(24px, 4vw, 48px)',
+          fontSize: 'clamp(20px, 3vw, 48px)',
           opacity: 0,
           zIndex: Z_CATCH,
           pointerEvents: 'none',
           whiteSpace: 'pre-line',
           lineHeight: '2',
           fontFamily: 'Yu Mincho, serif',
-          width: '700px',
 
           color: '#444444' /* Group 42 */,
 
           filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
         }}
       >
-        {/* 1行目 */}
-        <span
-          className="catch-line1"
-          style={{
-            display: 'block',
-            opacity: 0,
-          }}
-        >
-          人生におけるどんな悩みにも、
-        </span>
-        {/* 2行目 */}
-        <span
-          className="catch-line2"
-          style={{
-            display: 'block',
-            opacity: 0,
-          }}
-        >
-          私たちが寄り添います。
-        </span>
+        <div style={{ maxWidth: '700px' }}>
+          {/* 1行目 */}
+          <span
+            className="catch-line1"
+            style={{
+              display: 'block',
+              opacity: 0,
+            }}
+          >
+            人生におけるどんな悩みにも、
+          </span>
+          {/* 2行目 */}
+          <span
+            className="catch-line2"
+            style={{
+              display: 'block',
+              opacity: 0,
+            }}
+          >
+            私たちが寄り添います。
+          </span>
+        </div>
       </div>
       <div
         ref={logoRef}
