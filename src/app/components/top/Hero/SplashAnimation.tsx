@@ -658,7 +658,7 @@ export default function SplashAnimation({ onFinish }: SplashAnimationProps) {
         ref={catchTextRef}
         style={{
           position: 'absolute',
-          left: '45%',
+          left: '54%',
           top: '50%',
           transform: 'translate(-50%, -50%)',
           fontSize: 'clamp(24px, 4vw, 48px)',
