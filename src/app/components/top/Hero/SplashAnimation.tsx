@@ -79,7 +79,7 @@ function appendLogoAndWhiteBgTimeline(
   }
 
   // 表示キープ
-  tl.to({}, { duration: 1.0 });
+  tl.to({}, { duration: 0.6 });
 
   // キャッチコピー フェードアウト
   tl.to(catchText, {
@@ -128,7 +128,7 @@ function appendLogoAndWhiteBgTimeline(
   tl.to(
     {},
     {
-      duration: 2.0,
+      duration: 1.8,
       onStart: () => {
         console.log('[Splash] ロゴ静止開始');
       },
@@ -140,7 +140,7 @@ function appendLogoAndWhiteBgTimeline(
   tl.to([logo, whiteBg], {
     opacity: 0,
     duration: 2.4,
-    ease: 'power2.in',
+    ease: 'power2.inOut',
     onStart: () => {
       console.log('[Splash] ロゴ・白背景フェードアウト開始', whiteBg);
       if (!whiteBg) {

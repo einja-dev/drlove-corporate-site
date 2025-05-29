@@ -8,6 +8,7 @@ interface Props {
   largeMaxWidth?: string;
   className?: string;
   noPadding?: boolean;
+  id?: string;
 }
 
 export const Container: FC<PropsWithChildren<Props>> = ({
@@ -16,6 +17,7 @@ export const Container: FC<PropsWithChildren<Props>> = ({
   maxWidth = '1200px',
   noPadding = false,
   className,
+  id,
 }) => (
   <CustomTag
     className={cx(
@@ -39,6 +41,7 @@ export const Container: FC<PropsWithChildren<Props>> = ({
     style={{
       maxWidth: maxWidth,
     }}
+    id={id}
   >
     {children}
   </CustomTag>
