@@ -268,19 +268,19 @@ export default function HeaderSection() {
         </Link>
         <div className={navWrapperStyle}>
           <nav className={navStyle}>
-            <Link href="#service" className={navLinkStyle}>
+            <Link href="/#service" className={navLinkStyle}>
               サービス
             </Link>
-            <Link href="#member" className={navLinkStyle}>
+            <Link href="/#member" className={navLinkStyle}>
               メンバー紹介
             </Link>
-            <Link href="#news" className={navLinkStyle}>
+            <Link href="/#news" className={navLinkStyle}>
               ニュース
             </Link>
-            <Link href="#recruit" className={navLinkStyle}>
+            <Link href="/#recruit" className={navLinkStyle}>
               採用情報
             </Link>
-            <Link href="#company" className={navLinkStyle}>
+            <Link href="/#company" className={navLinkStyle}>
               会社概要
             </Link>
           </nav>
@@ -329,42 +329,42 @@ export default function HeaderSection() {
           className={closeButtonStyle}
         />
         <Link
-          href="#service"
+          href="/#service"
           onClick={closeMenu}
           style={{ margin: '24px 0 0 0', fontSize: '18px', color: '#444', textDecoration: 'none' }}
         >
           サービス
         </Link>
         <Link
-          href="#member"
+          href="/#member"
           onClick={closeMenu}
           style={{ margin: '24px 0 0 0', fontSize: '18px', color: '#444', textDecoration: 'none' }}
         >
           メンバー紹介
         </Link>
         <Link
-          href="#news"
+          href="/#news"
           onClick={closeMenu}
           style={{ margin: '24px 0 0 0', fontSize: '18px', color: '#444', textDecoration: 'none' }}
         >
           ニュース
         </Link>
         <Link
-          href="#recruit"
+          href="/#recruit"
           onClick={closeMenu}
           style={{ margin: '24px 0 0 0', fontSize: '18px', color: '#444', textDecoration: 'none' }}
         >
           採用情報
         </Link>
         <Link
-          href="#company"
+          href="/#company"
           onClick={closeMenu}
           style={{ margin: '24px 0 0 0', fontSize: '18px', color: '#444', textDecoration: 'none' }}
         >
           会社概要
         </Link>
         <Link
-          href="#gallery"
+          href="/#gallery"
           onClick={closeMenu}
           style={{ margin: '24px 0 0 0', fontSize: '18px', color: '#444', textDecoration: 'none' }}
         >
