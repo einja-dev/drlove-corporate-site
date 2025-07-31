@@ -24,6 +24,8 @@
     "@slack/webhook": "^7.0.5",
     "@studio-freight/lenis": "^1.0.42",
     "@types/lodash-es": "^4.17.12",
+    "google-auth-library": "^10.2.0",
+    "google-spreadsheet": "^4.1.5",
     "gsap": "^3.13.0",
     "lodash-es": "^4.17.21",
     "next": "15.3.2",

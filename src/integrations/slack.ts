@@ -65,7 +65,6 @@ export async function sendSlackNotification(data: ContactFormData): Promise<void
 
   try {
     await webhook.send(message);
-    console.log('Slack通知を送信しました');
   } catch (error) {
     console.error('Slack通知の送信に失敗しました:', error);
     throw error;
