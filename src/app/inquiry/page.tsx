@@ -1,7 +1,57 @@
+'use client';
 import { PrimaryButton } from '@/app/components/ui/PrimaryButton';
+import { useState } from 'react';
 import styles from './inquiry.module.css';
 
 export default function InquiryPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    company: '',
+    email: '',
+    message: '',
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSubmitMessage('お問い合わせを送信しました。ありがとうございます！');
+        setFormData({ name: '', company: '', email: '', message: '' });
+      } else {
+        setSubmitMessage(`エラー: ${result.error}`);
+      }
+    } catch (error) {
+      console.error('送信エラー:', error);
+      setSubmitMessage('送信に失敗しました。しばらく時間をおいて再度お試しください。');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
@@ -21,17 +71,20 @@ export default function InquiryPage() {
           </div>
 
           <div className={styles.cardContent}>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.field}>
                 <label htmlFor="name" className={styles.label}>
                   お名前 <span className={styles.required}>*</span>
                 </label>
                 <input
                   id="name"
+                  name="name"
                   type="text"
                   placeholder="山田 太郎"
                   required
                   className={styles.input}
+                  value={formData.name}
+                  onChange={handleInputChange}
                 />
               </div>
 
@@ -41,9 +94,12 @@ export default function InquiryPage() {
                 </label>
                 <input
                   id="company"
+                  name="company"
                   type="text"
                   placeholder="株式会社サンプル"
                   className={styles.input}
+                  value={formData.company}
+                  onChange={handleInputChange}
                 />
               </div>
 
@@ -53,10 +109,13 @@ export default function InquiryPage() {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="example@email.com"
                   required
                   className={styles.input}
+                  value={formData.email}
+                  onChange={handleInputChange}
                 />
               </div>
 
@@ -66,16 +125,31 @@ export default function InquiryPage() {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   placeholder="お問い合わせ内容をご記入ください..."
                   required
                   rows={5}
                   className={styles.textarea}
+                  value={formData.message}
+                  onChange={handleInputChange}
                 />
               </div>
 
+              {submitMessage && (
+                <div className={styles.message} style={{
+                  padding: '12px',
+                  borderRadius: '4px',
+                  backgroundColor: submitMessage.includes('エラー') ? '#fef2f2' : '#f0fdf4',
+                  color: submitMessage.includes('エラー') ? '#dc2626' : '#166534',
+                  marginBottom: '16px'
+                }}>
+                  {submitMessage}
+                </div>
+              )}
+
               <div className={styles.buttonWrapper} style={{ textAlign: 'center' }}>
-                <PrimaryButton type="submit" size="large">
-                  送信する
+                <PrimaryButton type="submit" size="large" disabled={isSubmitting}>
+                  {isSubmitting ? '送信中...' : '送信する'}
                 </PrimaryButton>
               </div>
             </form>
