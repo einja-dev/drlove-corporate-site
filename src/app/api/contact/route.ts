@@ -1,10 +1,36 @@
 import { addToGoogleSheet } from '@/integrations/googleSheets';
 import { sendSlackNotification } from '@/integrations/slack';
 import { contactSchema } from '@/schemas/contact';
+import { checkRateLimit, getClientIP } from '@/utils/rateLimit';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
+    // IPベースレート制限チェック
+    const clientIP = getClientIP(request);
+
+    const rateLimitResult = checkRateLimit(clientIP, {
+      maxAttempts: 3,           // 3回まで
+      windowMs: 60 * 60 * 1000, // 1時間
+      blockDurationMs: 60 * 60 * 1000, // 1時間ブロック
+    });
+
+    if (!rateLimitResult.allowed) {
+
+      return NextResponse.json(
+        {
+          error: `送信制限に達しました。${Math.ceil((rateLimitResult.retryAfter || 0) / 60)}分後に再度お試しください。`,
+          retryAfter: rateLimitResult.retryAfter,
+        },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': rateLimitResult.retryAfter?.toString() || '3600',
+          }
+        }
+      );
+    }
+
     // リクエストボディの取得
     const body = await request.json();
 

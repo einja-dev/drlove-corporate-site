@@ -39,8 +39,11 @@ export default function InquiryPage() {
       const result = await response.json();
 
       if (response.ok) {
-        setSubmitMessage('お問い合わせを送信しました。ありがとうございます！');
+        setSubmitMessage('お問い合わせありがとうございます。ご入力いただいた内容を送信しました。');
         setFormData({ name: '', company: '', email: '', message: '' });
+      } else if (response.status === 429) {
+        // レート制限エラーの場合
+        setSubmitMessage(`送信制限に達しています。${result.error || '時間をおいて再度お試しください。'}`);
       } else {
         setSubmitMessage(`エラー: ${result.error}`);
       }
@@ -139,8 +142,8 @@ export default function InquiryPage() {
                 <div className={styles.message} style={{
                   padding: '12px',
                   borderRadius: '4px',
-                  backgroundColor: submitMessage.includes('エラー') ? '#fef2f2' : '#f0fdf4',
-                  color: submitMessage.includes('エラー') ? '#dc2626' : '#166534',
+                  backgroundColor: submitMessage.includes('エラー') || submitMessage.includes('制限') || submitMessage.includes('失敗') ? '#fef2f2' : '#f0fdf4',
+                  color: submitMessage.includes('エラー') || submitMessage.includes('制限') || submitMessage.includes('失敗') ? '#dc2626' : '#166534',
                   marginBottom: '16px'
                 }}>
                   {submitMessage}
