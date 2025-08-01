@@ -134,6 +134,13 @@ const labelStyle = css({
 
 const newsData = [
   {
+    date: '2025/07/24',
+    text: 'Nontitle Season5 第11話\n「マジで色々ありすぎた。まったく予想できんかった」',
+    img: '/top/news/news-20250724-nontitle-s5-ep11.jpg',
+    label: 'メディア出演',
+    link: 'https://youtu.be/r8lUS9OutLY?si=rxLCrJASd_NhLfUs',
+  },
+  {
     date: '2025/07/17',
     text: 'Nontitle Season5 第10話\n「俺達は変われる。変わらなきゃいけない」',
     img: '/top/news/news-20250717-nontitle-s5-ep10.jpg',
