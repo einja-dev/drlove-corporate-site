@@ -3,8 +3,6 @@ import { z } from 'zod';
 // HTMLタグやスクリプトを検出する正規表現
 const noHtmlRegex = /^[^<>]*$/;
 const noScriptRegex = /^(?!.*(<script|javascript:|on\w+\s*=)).*$/i;
-// メールアドレスに@を含む基本チェック
-const emailAtRegex = /^[^@\s]+@[^@\s]+$/;
 
 export const contactSchema = z.object({
   name: z
@@ -17,11 +15,7 @@ export const contactSchema = z.object({
 
   email: z
     .string()
-    .min(1, 'メールアドレスは必須です')
-    .regex(emailAtRegex, '正しいメールアドレスを入力してください')
-    .max(255, 'メールアドレスは255文字以内で入力してください')
-    .regex(noHtmlRegex, 'HTMLタグは使用できません')
-    .regex(noScriptRegex, 'スクリプトは使用できません'),
+    .email('メールアドレスの形式が不正です'),
 
   company: z
     .string()
