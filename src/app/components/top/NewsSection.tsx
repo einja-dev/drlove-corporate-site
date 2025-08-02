@@ -134,6 +134,13 @@ const labelStyle = css({
 
 const newsData = [
   {
+    date: '2025/08/2',
+    text: 'Nontitle Season5 第12話\n高卒VS大卒、勝つのはどちらか！？【ライブ配信で決着】',
+    img: '/top/news/news-20250802-nontitle-s5-ep12.jpg',
+    label: 'メディア出演',
+    link: 'https://www.youtube.com/live/R4iK0-mBBHA?si=KCCW-dmwzhdrq01F',
+  },
+  {
     date: '2025/07/24',
     text: 'Nontitle Season5 第11話\n「マジで色々ありすぎた。まったく予想できんかった」',
     img: '/top/news/news-20250724-nontitle-s5-ep11.jpg',
@@ -194,7 +201,7 @@ const newsData = [
     text: 'CEO水池愛香 ボディメイク大会に初出場で大健闘「もっと上を目指したい」',
     img: '/top/news/news-20250601-aika-bodymake.png',
     label: 'メディア掲載',
-    link: 'https://news.yahoo.co.jp/articles/18508fbde1a4f655558d4ed759a0c3b58e0f0899',
+    link: 'https://www.tokyo-sports.co.jp/articles/-/344203?page=1',
   },
   {
     date: '2025/05/29',
